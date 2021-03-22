@@ -1,4 +1,8 @@
 package com.Maruszak.MantisKeeper.model;
 
-public class Mantis {
+import javax.persistence.Entity;
+
+@Entity
+public class Mantis extends Invertebrate{
+
 }
