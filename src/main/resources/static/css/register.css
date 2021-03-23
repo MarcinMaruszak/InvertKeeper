@@ -1,0 +1,16 @@
+body {
+  align-content: center;
+  margin-top: 50px;
+  scale: 1.2;
+}
+div{
+  margin-top: 5px;
+  text-align: center;
+}
+button{
+  margin-top: 5px;
+  max-width: 100px;
+  align-self: center;
+}
+
+

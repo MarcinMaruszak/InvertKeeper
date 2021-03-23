@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -46,7 +47,7 @@ public class User{
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.trim();
     }
 
     public String getPassword() {
@@ -54,7 +55,7 @@ public class User{
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password.trim();
     }
 
     public GrantedAuthority [] getRole() {
@@ -71,5 +72,15 @@ public class User{
 
     public void setInvertebratesList(List<Invertebrate> invertebratesList) {
         this.invertebratesList = invertebratesList;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + Arrays.toString(role) +
+                '}';
     }
 }

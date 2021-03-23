@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+    <link th:href="@{/css/register.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/register.js}"></script>
 </head>
 <body>
-<div>aaaa</div>
+    <div>
+        <label>E-mail:</label>
+        <div>
+            <input id="email" type="email" required/>
+        </div>
+    </div>
+    <div>
+        <label>Password:</label>
+        <div>
+            <input id="password" required minlength="8"/>
+        </div>
+    </div>
+    <div>
+        <button id="register" type="submit" onclick="register()">Submit</button>
+    </div>
 </body>
 </html>
