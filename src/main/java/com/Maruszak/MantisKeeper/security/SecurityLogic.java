@@ -25,7 +25,8 @@ public class SecurityLogic extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/register").permitAll();
+        http.authorizeRequests().antMatchers("/register","/", "/home").permitAll()
+                .anyRequest().authenticated().and().formLogin();
     }
 
     @Bean
