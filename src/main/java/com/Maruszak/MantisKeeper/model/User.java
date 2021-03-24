@@ -1,15 +1,18 @@
 package com.Maruszak.MantisKeeper.model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
-public class User{
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -24,11 +27,14 @@ public class User{
     private String password;
 
     @Column
-    private GrantedAuthority [] role;
+    private String authority;
+
+    @Column
+    private boolean active;
 
     @Column
     @OneToMany(mappedBy = "user")
-    @ElementCollection(targetClass= Invertebrate.class)
+    @ElementCollection(targetClass = Invertebrate.class)
     private List<Invertebrate> invertebratesList;
 
     public User() {
@@ -58,14 +64,6 @@ public class User{
         this.password = password.trim();
     }
 
-    public GrantedAuthority [] getRole() {
-        return role;
-    }
-
-    public void setRole(GrantedAuthority [] role) {
-        this.role = role;
-    }
-
     public List<Invertebrate> getInvertebratesList() {
         return invertebratesList;
     }
@@ -74,13 +72,51 @@ public class User{
         this.invertebratesList = invertebratesList;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + Arrays.toString(role) +
-                '}';
+    public void setActive(boolean active) {
+        this.active = active;
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority(authority));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return active;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return active;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return active;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return active;
+    }
+
+
 }

@@ -12,7 +12,7 @@ function register(){
 
 
     if (xhr.status == 200) {
-          alert("Success!");
+          alert("registration successful, email with confirmation link has been sent.");
     }else{
         var err = JSON.parse(xhr.responseText);
         alert(err.message)

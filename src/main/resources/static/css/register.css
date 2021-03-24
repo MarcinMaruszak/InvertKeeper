@@ -1,16 +1,25 @@
 body {
   align-content: center;
-  margin-top: 50px;
-  scale: 1.2;
+  margin-top: 80px;
+  scale: 1.4;
 }
 div{
-  margin-top: 5px;
   text-align: center;
+  margin-top:  10px;
+}
+p1{
+
+  font-size: 20px;
+}
+p2{
+  color: red;
+  font-size: 9px;
 }
 button{
-  margin-top: 5px;
-  max-width: 100px;
+  scale: 1.2;
+
+  max-width: 120px;
   align-self: center;
+  background-color: blue;
+  color: white;
 }
-
-

@@ -23,8 +23,15 @@ public abstract class Invertebrate {
     private LocalDate birth;
 
     @Column
+    private LocalDate acquired;
+
+    @Column
     @NotNull
     private Sex sex;
+
+    @Column
+    @NotNull
+    private Instar instar;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
@@ -79,5 +86,21 @@ public abstract class Invertebrate {
 
     public void setSex(Sex sex) {
         this.sex = sex;
+    }
+
+    public LocalDate getAcquired() {
+        return acquired;
+    }
+
+    public void setAcquired(LocalDate acquired) {
+        this.acquired = acquired;
+    }
+
+    public Instar getInstar() {
+        return instar;
+    }
+
+    public void setInstar(Instar instar) {
+        this.instar = instar;
     }
 }

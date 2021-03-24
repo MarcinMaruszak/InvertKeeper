@@ -10,4 +10,9 @@ public class WebController {
     public String home(){
         return "home";
     }
+
+    @GetMapping(path = "/myPets")
+    public String myPets(){
+        return "myPets";
+    }
 }
