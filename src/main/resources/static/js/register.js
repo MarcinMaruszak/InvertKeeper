@@ -5,8 +5,12 @@ function register(){
     };
     let json = JSON.stringify(object);
 
+    var token = document.querySelector('meta[name="_csrf"]').content;
+    var header = document.querySelector('meta[name="_csrf_header"]').content;
+
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/api/register' , false )
+    xhr.setRequestHeader(header, token)
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
     xhr.send(json);
 

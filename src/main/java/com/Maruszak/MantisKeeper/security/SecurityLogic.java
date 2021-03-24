@@ -30,7 +30,7 @@ public class SecurityLogic extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/register" , "/login").permitAll()
                 .antMatchers("/myPets").hasAuthority("USER")
-                .and().formLogin().and().csrf().ignoringAntMatchers("/api/*");
+                .and().formLogin();
     }
 
     @Bean
