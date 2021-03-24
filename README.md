@@ -1,4 +1,5 @@
-Backend for Mantis keeper website with really bacis fronted.
+Backend(main focus) for Mantis keeper website with really basic fronted. 
+
 
 Used technologies:
-Java, Springboot, Mysql + hibernate, git;
+Java, Gradle, Springboot, Mysql + hibernate, git;
