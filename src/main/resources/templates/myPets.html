@@ -6,7 +6,8 @@
     <title>My Pets</title>
 </head>
 <body>
-    <div>myPets</div>
-
+    <div>
+        <span id="user_name" th:text="${'Welcome ' + user.getEmail()}"></span>
+    </div>
 </body>
 </html>

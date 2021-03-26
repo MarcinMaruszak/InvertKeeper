@@ -15,12 +15,11 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
 
-    //---HTML--
-
     @Autowired
     @Lazy
     UserDetailsServiceImpl userServices;
 
+    //---HTML--
 
     @GetMapping(path = "/register")
     public String register() {

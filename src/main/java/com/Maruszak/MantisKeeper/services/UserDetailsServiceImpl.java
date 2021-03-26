@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-public class UserDetailsServiceImpl implements UserServices, UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -24,7 +24,6 @@ public class UserDetailsServiceImpl implements UserServices, UserDetailsService 
     private PasswordEncoder passwordEncoder;
 
 
-    @Override
     public User register(User userTemp) {
         Optional<User> userOptional = userRepository.findByEmail(userTemp.getEmail());
         if(userOptional.isPresent()){

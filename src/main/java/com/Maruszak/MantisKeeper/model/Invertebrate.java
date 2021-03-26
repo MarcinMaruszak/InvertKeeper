@@ -1,9 +1,9 @@
 package com.Maruszak.MantisKeeper.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public abstract class Invertebrate {
@@ -16,10 +16,6 @@ public abstract class Invertebrate {
     private String name;
 
     @Column
-    @NotEmpty
-    private String specie;
-
-    @Column
     private LocalDate birth;
 
     @Column
@@ -29,9 +25,9 @@ public abstract class Invertebrate {
     @NotNull
     private Sex sex;
 
-    @Column
-    @NotNull
-    private Instar instar;
+    @OneToMany(mappedBy = "invertebrate")
+    @ElementCollection(targetClass = Instar.class)
+    private List<Instar> instar;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
@@ -54,14 +50,6 @@ public abstract class Invertebrate {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSpecie() {
-        return specie;
-    }
-
-    public void setSpecie(String specie) {
-        this.specie = specie;
     }
 
     public LocalDate getBirth() {
@@ -96,11 +84,11 @@ public abstract class Invertebrate {
         this.acquired = acquired;
     }
 
-    public Instar getInstar() {
+    public List<Instar> getInstar() {
         return instar;
     }
 
-    public void setInstar(Instar instar) {
+    public void setInstar(List<Instar> instar) {
         this.instar = instar;
     }
 }

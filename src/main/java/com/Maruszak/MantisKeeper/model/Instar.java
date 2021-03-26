@@ -1,12 +1,22 @@
 package com.Maruszak.MantisKeeper.model;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.time.LocalDate;
 
-@Embeddable
+@Entity
 public class Instar {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+
+    @Column
     private L l;
+
+    @Column
     private LocalDate date;
+
+    @ManyToOne
+    @JoinColumn(name = "invertebrate_id", nullable = false)
+    private Invertebrate invertebrate;
 
     public Instar() {
     }
@@ -25,5 +35,13 @@ public class Instar {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public Invertebrate getInvertebrate() {
+        return invertebrate;
+    }
+
+    public void setInvertebrate(Invertebrate invertebrate) {
+        this.invertebrate = invertebrate;
     }
 }

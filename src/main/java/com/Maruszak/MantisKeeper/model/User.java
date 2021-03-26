@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,6 +20,10 @@ public class User implements UserDetails {
     private int id;
 
     @Column
+    @NotNull
+    private String name;
+
+    @Column
     @Email
     private String email;
 
@@ -30,9 +35,9 @@ public class User implements UserDetails {
     private String authority;
 
     @Column
+    @NotNull
     private boolean active;
 
-    @Column
     @OneToMany(mappedBy = "user")
     @ElementCollection(targetClass = Invertebrate.class)
     private List<Invertebrate> invertebratesList;
@@ -46,6 +51,14 @@ public class User implements UserDetails {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -95,7 +108,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return name;
     }
 
     @Override
@@ -117,6 +130,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return active;
     }
-
 
 }
