@@ -27,7 +27,7 @@ public abstract class Invertebrate {
 
     @OneToMany(mappedBy = "invertebrate")
     @ElementCollection(targetClass = Instar.class)
-    private List<Instar> instar;
+    private List<Instar> instars;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
@@ -84,11 +84,11 @@ public abstract class Invertebrate {
         this.acquired = acquired;
     }
 
-    public List<Instar> getInstar() {
-        return instar;
+    public List<Instar> getInstars() {
+        return instars;
     }
 
-    public void setInstar(List<Instar> instar) {
-        this.instar = instar;
+    public void setInstars(List<Instar> instars) {
+        this.instars = instars;
     }
 }

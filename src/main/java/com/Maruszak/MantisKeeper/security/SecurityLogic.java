@@ -28,8 +28,8 @@ public class SecurityLogic extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/register" , "/login").permitAll()
-                .antMatchers("/myPets").hasAuthority("USER")
+        http.authorizeRequests().antMatchers("/register", "/login").permitAll()
+                .antMatchers("/myPets").hasAnyAuthority("USER", "ADMIN")
                 .and().formLogin();
     }
 

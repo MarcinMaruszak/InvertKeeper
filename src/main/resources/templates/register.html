@@ -13,18 +13,27 @@
         <p1>Sign Up</p1>
     </div>
     <div>
+        <input id="username" type="text" required placeholder="username"/>
+        <div1>
+            <p id="p_username"></p>
+        </div1>
+    </div>
+    <div>
         <input id="email" type="email" required placeholder="email"/>
+        <div1>
+            <p id="p_email"></p>
+        </div1>
+
     </div>
     <div>
-        <div>
-            <input id="password" type="password" required minlength="8" placeholder="password"/>
-        </div>
-        <div>
-            <p2>min 8 characters</p2>
-        </div>
+        <input id="password" type="password" placeholder="password"/>
+        <div1>
+            <p id="p_password"></p>
+        </div1>
+
     </div>
     <div>
-        <button id="register" type="submit" onclick="register()">Submit</button>
+        <button id="register" type="submit" onclick="validation()">Submit</button>
     </div>
 </body>
 </html>

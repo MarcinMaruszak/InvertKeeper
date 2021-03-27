@@ -21,7 +21,8 @@ public class User implements UserDetails {
 
     @Column
     @NotNull
-    private String name;
+    @Size(min = 6)
+    private String username;
 
     @Column
     @Email
@@ -53,13 +54,6 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getEmail() {
         return email;
@@ -108,7 +102,11 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -131,4 +129,16 @@ public class User implements UserDetails {
         return active;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", authority='" + authority + '\'' +
+                ", active=" + active +
+                ", invertebratesList=" + invertebratesList +
+                '}';
+    }
 }

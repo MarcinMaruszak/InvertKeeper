@@ -7,7 +7,36 @@
 </head>
 <body>
     <div>
-        <span id="user_name" th:text="${'Welcome ' + user.getEmail()}"></span>
+        <span id="user_name" th:text="${'Welcome ' + user.getUsername()}"></span>
+    </div>
+    <div th:if="${user.getInvertebratesList().empty}">
+        <p>You don't have any pets added</p>
+    </div>
+    <div th:unless ="${user.getInvertebratesList().empty}">
+        <table>
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>Specie</th>
+                <th>Name</th>
+                <th>Birth</th>
+                <th>Sex</th>
+                <th>Instar</th>
+                <th>Acquired</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each = "invert : ${user.getInvertebratesList()}">
+                <td><span th:text="${invert.class.simpleName}"></span></td>
+                <td><span th:text="${invert.getSpecie()}"></span></td>
+                <td><span th:text="${invert.getName()}"></span></td>
+                <td><span th:text="${invert.getBirth()}"></span></td>
+                <td><span th:text="${invert.getSex()}"></span></td>
+                <td><span th:text="${invert.getInstar()[invert.getInstar().length-1]}"></span></td>
+                <td><span th:text="${invert.getAcquired()}"></span></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
