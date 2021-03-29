@@ -22,4 +22,16 @@ public class Mantis extends Invertebrate{
     public void setSpecie(MantisSpecie specie) {
         this.specie = specie;
     }
+
+    @Override
+    public String toString() {
+        return   "Invertebrate{" +
+                "ID=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", birth=" + getBirth() +
+                ", acquired=" + getAcquired() +
+                ", sex=" + getSex() +
+                ", specie=" + specie +
+                '}';
+    }
 }

@@ -1,5 +1,7 @@
 package com.Maruszak.MantisKeeper.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,9 +38,9 @@ public class User implements UserDetails {
     private String authority;
 
     @Column
-    @NotNull
     private boolean active;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     @ElementCollection(targetClass = Invertebrate.class)
     private List<Invertebrate> invertebratesList;
@@ -95,6 +97,7 @@ public class User implements UserDetails {
         this.authority = authority;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(authority));
@@ -109,21 +112,25 @@ public class User implements UserDetails {
         this.username = username;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return active;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return active;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return active;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return active;
@@ -133,12 +140,11 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + username + '\'' +
+                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", authority='" + authority + '\'' +
                 ", active=" + active +
-                ", invertebratesList=" + invertebratesList +
                 '}';
     }
 }

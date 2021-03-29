@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add Invert</title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link th:href="@{/css/addInvert.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/addInvert.js}"></script>
+</head>
+<body>
+    <div>
+        <p1>Add Invert</p1>
+    </div>
+    <div>
+        <label for="type">Type:</label>
+        <select id="type">
+            <option value="Mantis">Mantis</option>
+        </select>
+    </div>
+    <div>
+        <label for="name">Name:</label><input id="name"/>
+        <div1>
+            <p id="p_name"></p>
+        </div1>
+    </div>
+    <div>
+        <label for="specie">Specie:</label>
+        <select id="specie">
+            <option th:each="specie : ${T(com.Maruszak.MantisKeeper.model.MantisSpecie).values()}"
+                    th:value="${specie}"
+                    th:text="${specie.getName()}">
+            </option>
+        </select>
+    </div>
+    <div>
+        <label for="sex">Sex:</label>
+        <select id="sex">
+            <option th:each="sex : ${T(com.Maruszak.MantisKeeper.model.Sex).values()}"
+                    th:value="${sex}"
+                    th:text="${sex}">
+            </option>
+        </select>
+    </div>
+    <div>
+        <label for="birth">Date of birth:</label><input id="birth" type="date"/>
+    </div>
+    <div>
+        <label for="acquired">Date of purchase:</label><input id="acquired" type="date"/>
+        <div1>
+            <p id="p_purchaseDate"></p>
+        </div1>
+    </div>
+    <div>
+        <label for="l">Instar:</label>
+        <select id="l">
+            <option th:each="l : ${T(com.Maruszak.MantisKeeper.model.L).values()}"
+                    th:value="${l}"
+                    th:text="${l}">
+            </option>
+        </select>
+        <label for="l_date">Date:</label><input id="l_date" type="date"/>
+        <div1>
+            <p id="p_instarDate"></p>
+        </div1>
+    </div>
+    <div>
+        <input type="button" id="addButton" value="Add" th:onclick="javascript:validation(/*[[${user}]]*/)"/>
+    </div>
+    <div>
+        <p2 id="info"></p2>
+    </div>
+</body>
+</html>

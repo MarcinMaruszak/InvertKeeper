@@ -1,16 +1,27 @@
 package com.Maruszak.MantisKeeper.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Mantis.class, name = "Mantis")
+})
 public abstract class Invertebrate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int ID;
+    private int id;
 
     @Column
     private String name;
@@ -25,10 +36,12 @@ public abstract class Invertebrate {
     @NotNull
     private Sex sex;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "invertebrate")
     @ElementCollection(targetClass = Instar.class)
     private List<Instar> instars;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;
@@ -36,12 +49,12 @@ public abstract class Invertebrate {
     public Invertebrate() {
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -91,4 +104,16 @@ public abstract class Invertebrate {
     public void setInstars(List<Instar> instars) {
         this.instars = instars;
     }
+
+    @Override
+    public String toString() {
+        return "Invertebrate{" +
+                "ID=" + id +
+                ", name='" + name + '\'' +
+                ", birth=" + birth +
+                ", acquired=" + acquired +
+                ", sex=" + sex +
+                '}';
+    }
 }
+

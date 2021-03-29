@@ -49,14 +49,14 @@ function register(){
     var header = document.querySelector('meta[name="_csrf_header"]').content;
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/api/register' , false )
+    xhr.open("POST", '/api/register' , false)
     xhr.setRequestHeader(header, token)
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
     xhr.send(json);
 
-
     if (xhr.status == 200) {
-          alert("registration successful, email with confirmation link has been sent.");
+         alert("registration successful")
+         window.location.replace(window.location.origin + "/login")
     }else{
         var err = JSON.parse(xhr.responseText);
         alert(err.message)

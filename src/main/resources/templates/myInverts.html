@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/css/myPets.css}" rel="stylesheet"/>
-    <title>My Pets</title>
+    <link th:href="@{/css/myInverts.css}" rel="stylesheet"/>
+    <title>My Inverts</title>
 </head>
 <body>
     <div>
-        <span id="user_name" th:text="${'Welcome ' + user.getUsername()}"></span>
+        <span1 id="user_name" th:text="${'Welcome ' + user.getUsername()}"></span1>
     </div>
     <div th:if="${user.getInvertebratesList().empty}">
         <p>You don't have any pets added</p>
@@ -28,15 +28,24 @@
             <tbody>
             <tr th:each = "invert : ${user.getInvertebratesList()}">
                 <td><span th:text="${invert.class.simpleName}"></span></td>
-                <td><span th:text="${invert.getSpecie()}"></span></td>
+                <td><span th:text="${invert.getSpecie().getName()}"></span></td>
                 <td><span th:text="${invert.getName()}"></span></td>
                 <td><span th:text="${invert.getBirth()}"></span></td>
                 <td><span th:text="${invert.getSex()}"></span></td>
-                <td><span th:text="${invert.getInstar()[invert.getInstar().length-1]}"></span></td>
+                <td><span th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()}"></span></td>
                 <td><span th:text="${invert.getAcquired()}"></span></td>
             </tr>
             </tbody>
         </table>
+    </div>
+    <div>
+        <button id="addPet" class="float-left submit-button" >Add Invert</button>
+        <script type="text/javascript">
+            document.getElementById("addPet").onclick = function () {
+
+            location.href = window.location.origin + "/myInverts/addInvert";
+            };
+        </script>
     </div>
 </body>
 </html>

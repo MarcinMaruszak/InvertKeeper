@@ -12,9 +12,19 @@ import java.util.List;
 public class InvertebratesServiceImpl{
 
     @Autowired
-    InvertebrateRepository invRepository;
+    private InvertebrateRepository invRepository;
+
+    @Autowired
+    private InstarServiceImpl instarService;
+
+    @Autowired
+    private UserDetailsServiceImpl userService;
 
     public List<Invertebrate> getUserInvertebrates(User user){
         return invRepository.findAllByUser(user);
+    }
+
+    public void addPet(Invertebrate invertebrate) {
+        invRepository.save(invertebrate);
     }
 }

@@ -26,6 +26,10 @@ public enum MantisSpecie {
 
     public final String name;
 
+    public String getName() {
+        return name;
+    }
+
     private MantisSpecie(String name){
         this.name = name;
     }
