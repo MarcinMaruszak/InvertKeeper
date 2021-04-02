@@ -3,37 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/css/myInverts.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/myInverts.js}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <title>My Inverts</title>
 </head>
 <body>
     <div>
-        <span1 id="user_name" th:text="${'Welcome ' + user.getUsername()}"></span1>
+        <span1 id="user_name" th:text="${user.getUsername() + 's Inverts'}"></span1>
     </div>
     <div th:if="${user.getInvertebratesList().empty}">
         <p>You don't have any pets added</p>
     </div>
-    <div th:unless ="${user.getInvertebratesList().empty}">
-        <table>
+    <div th:unless="${user.getInvertebratesList().empty}">
+        <table class="invertTable">
             <thead>
             <tr>
                 <th>Type</th>
-                <th>Specie</th>
                 <th>Name</th>
+                <th>Specie</th>
                 <th>Birth</th>
                 <th>Sex</th>
                 <th>Instar</th>
-                <th>Acquired</th>
+                <th>Edit</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each = "invert : ${user.getInvertebratesList()}">
                 <td><span th:text="${invert.class.simpleName}"></span></td>
-                <td><span th:text="${invert.getSpecie().getName()}"></span></td>
                 <td><span th:text="${invert.getName()}"></span></td>
-                <td><span th:text="${invert.getBirth()}"></span></td>
+                <td><span th:text="${invert.getSpecie().getName()}"></span></td>
+                <td><span th:text="${invert.getBirth()} ?: 'N/A'"></span></td>
                 <td><span th:text="${invert.getSex()}"></span></td>
                 <td><span th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()}"></span></td>
-                <td><span th:text="${invert.getAcquired()}"></span></td>
+                <td><button id="edit" th:onclick="javascript:edit(/*[[${invert.getId()}]]*/)" class="btn btn-default">
+                    <span class="glyphicon glyphicon-edit"></span></button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -42,7 +46,6 @@
         <button id="addPet" class="float-left submit-button" >Add Invert</button>
         <script type="text/javascript">
             document.getElementById("addPet").onclick = function () {
-
             location.href = window.location.origin + "/myInverts/addInvert";
             };
         </script>

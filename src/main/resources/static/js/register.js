@@ -31,7 +31,6 @@ function validation(){
         document.getElementById("p_password").innerHTML = "";
     }
 
-
     if(valid){
         register();
     }

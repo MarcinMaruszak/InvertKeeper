@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link th:href="@{/css/addAndEditInvert.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script type="text/javascript" th:src="@{/js/editInvert.js}"></script>
+    <title th:text="${'Edit ' + invert.getName()}"></title>
+</head>
+<body>
+<div class="wrap">
+    <div>
+        <p1 th:text="${'Edit ' + invert.getName()}"></p1>
+    </div>
+    <div class="content">
+        <div>
+            <label for="type">Type:</label>
+            <select id="type">
+                <option value="Mantis">Mantis</option>
+            </select>
+        </div>
+        <div>
+            <label for="name">Name:</label><input id="name" th:value="${invert.getName()}"/>
+            <div1>
+                <p id="p_name"></p>
+            </div1>
+        </div>
+        <div>
+            <label for="specie">Specie:</label>
+            <select id="specie">
+                <option th:each="specie : ${T(com.Maruszak.MantisKeeper.model.MantisSpecie).values()}"
+                        th:value="${specie}"
+                        th:text="${specie.getName()}"
+                        th:selected="${specie}==${invert.getSpecie()}">
+                </option>
+            </select>
+        </div>
+        <div>
+            <label for="sex">Sex:</label>
+            <select id="sex">
+                <option th:each="sex : ${T(com.Maruszak.MantisKeeper.model.Sex).values()}"
+                        th:value="${sex}"
+                        th:text="${sex}"
+                        th:selected="${sex}==${invert.getSex()}">
+                </option>
+            </select>
+        </div>
+        <div>
+            <label for="birth">Date of birth:</label><input id="birth" type="date" th:value="${invert.getBirth()}"/>
+        </div>
+        <div>
+            <label for="acquired">Date of purchase:</label><input id="acquired" type="date"
+                th:value="${invert.getAcquired()}"/>
+            <div1>
+                <p id="p_purchaseDate"></p>
+            </div1>
+        </div>
+        <div th:each="instar : ${invert.getInstars()}">
+            <div>
+                <label for="l">Instar:</label>
+                <select id="l">
+                    <option th:each="l : ${T(com.Maruszak.MantisKeeper.model.L).values()}"
+                            th:value="${l}"
+                            th:text="${l}"
+                            th:selected="${instar.getL()}==${l}">
+                    </option>
+                </select>
+                <label for="l_date">Date:</label>
+                <input id="l_date" type="date" th:value="${instar.getMoltDate()}"/>
+                <button id="edit_button" th:onclick="javascript:add()" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span></button>
+                <div1>
+                    <p id="p_instarDate"></p>
+                </div1>
+            </div>
+            <input type="hidden" id="instar_id" th:value="${instar.getId()}">
+        </div>
+        <div>
+            <p2 id="info"></p2>
+        </div>
+    </div>
+    <div>
+        <input type="button" id="saveButton" value="Save" th:onclick="javascript:validation(/*[[${user}]]*/)"/>
+        <input type="button" id="cancelButton" value="Cancel"/>
+    </div>
+    <input type="hidden" id="invert_id" th:value="${invert.getId()}">
+</div>
+</body>
+</html>

@@ -21,7 +21,7 @@ public abstract class Invertebrate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    private long id;
 
     @Column
     private String name;
@@ -49,11 +49,11 @@ public abstract class Invertebrate {
     public Invertebrate() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -105,15 +105,5 @@ public abstract class Invertebrate {
         this.instars = instars;
     }
 
-    @Override
-    public String toString() {
-        return "Invertebrate{" +
-                "ID=" + id +
-                ", name='" + name + '\'' +
-                ", birth=" + birth +
-                ", acquired=" + acquired +
-                ", sex=" + sex +
-                '}';
-    }
 }
 

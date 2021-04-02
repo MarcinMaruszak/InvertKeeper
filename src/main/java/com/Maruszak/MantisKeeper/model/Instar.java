@@ -10,14 +10,14 @@ import java.time.LocalDate;
 public class Instar {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    int id;
+    private long id;
 
     @Column
     @NotNull
     private L l;
 
     @Column
-    private LocalDate date;
+    private LocalDate moltDate;
 
     @JsonBackReference
     @ManyToOne
@@ -27,11 +27,11 @@ public class Instar {
     public Instar() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -43,12 +43,12 @@ public class Instar {
         this.l = l;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getMoltDate() {
+        return moltDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setMoltDate(LocalDate moltDate) {
+        this.moltDate = moltDate;
     }
 
     public Invertebrate getInvertebrate() {
@@ -64,7 +64,7 @@ public class Instar {
         return "Instar{" +
                 "id=" + id +
                 ", l=" + l +
-                ", date=" + date +
+                ", date=" + moltDate +
                 '}';
     }
 }

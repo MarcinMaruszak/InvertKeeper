@@ -4,9 +4,12 @@ import com.Maruszak.MantisKeeper.model.Instar;
 import com.Maruszak.MantisKeeper.model.Invertebrate;
 import com.Maruszak.MantisKeeper.repository.InstarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InstarServiceImpl {
@@ -15,10 +18,23 @@ public class InstarServiceImpl {
     InstarRepository instarRepository;
 
     public List<Instar> getInstarsByInvertAsc(Invertebrate invertebrate){
-        return instarRepository.findAllByInvertebrateOrderByDateAsc(invertebrate);
+        return instarRepository.findAllByInvertebrateOrderByMoltDateAsc(invertebrate);
     }
 
     public void addInstar(Instar instar){
         instarRepository.save(instar);
     }
+
+    public Instar findInstarByID(long id){
+        Optional<Instar> instarOptional = instarRepository.findById(id);
+        if(instarOptional.isPresent()){
+            return instarOptional.get();
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Instar doesn't exist!");
+    }
+
+    public Instar saveInstar(Instar instar){
+        return instarRepository.save(instar);
+    }
 }
+

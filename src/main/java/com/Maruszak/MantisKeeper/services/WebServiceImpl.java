@@ -23,13 +23,13 @@ public class WebServiceImpl {
         return "home";
     }
 
-    public String getMyPets(Model model) {
+    public String getMyInverts(Model model) {
         User user = userService.getUser();
         model.addAttribute("user", user);
         return "myInverts";
     }
 
-    public String addPet(Model model) {
+    public String addInvert(Model model) {
         User user = userService.getUser();
         model.addAttribute("user", user);
         return "addInvert";

@@ -1,5 +1,5 @@
 function validation(user){
-    var name = document.getElementById("name").value;
+    var name = document.getElementById("name").value.trim();
 
     var valid = true;
 
@@ -36,7 +36,7 @@ function addPet(user){
 
     let invert = {
         "type" : document.getElementById("type").value,
-        "name" : document.getElementById("name").value,
+        "name" : document.getElementById("name").value.trim(),
         "specie": document.getElementById("specie").value,
         "sex": document.getElementById("sex").value,
         "birth": document.getElementById("birth").value,
@@ -45,32 +45,23 @@ function addPet(user){
 
     let instar = {
         "l" : document.getElementById("l").value,
-        "date" : document.getElementById("l_date").value
+        "moltDate" : document.getElementById("l_date").value
     }
 
     invert["user"] = user;
-
-    console.log(invert);
-
-    let json = JSON.stringify(invert);
-
-    console.log(json);
 
     var token = document.querySelector('meta[name="_csrf"]').content;
     var header = document.querySelector('meta[name="_csrf_header"]').content;
 
     instar["invertebrate"] = invert;
 
-    console.log(instar);
-
-    let json1 = JSON.stringify(instar);
-    console.log(json1);
+    let json = JSON.stringify(instar);
 
     let xhr = new XMLHttpRequest();
         xhr.open("POST", '/api/addInvert' , false);
         xhr.setRequestHeader(header, token);
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        xhr.send(json1);
+        xhr.send(json);
 
     if(xhr.status = 200){
         var name =  document.getElementById("name").value;

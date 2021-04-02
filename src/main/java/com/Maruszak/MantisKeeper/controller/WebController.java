@@ -35,18 +35,26 @@ public class WebController {
 
     @GetMapping(path = "/myInverts")
     public String myPets(Model model){
-        return webService.getMyPets(model);
+        return webService.getMyInverts(model);
     }
 
     @GetMapping(path = "/myInverts/addInvert")
-    public String addNew(Model model){return webService.addPet(model);}
+    public String addNew(Model model){return webService.addInvert(model);}
 
     @Transactional
     @PostMapping(path = "/api/addInvert")
     public @ResponseBody
-    void addInstar(@Valid @RequestBody Instar instar){
+    void addInvert(@Valid @RequestBody Instar instar){
         instarService.addInstar(instar);
         Invertebrate invertebrate =  instar.getInvertebrate();
-        invertService.addPet(invertebrate);
+        invertService.addInvert(invertebrate);
+    }
+
+    @Transactional
+    @PostMapping(path = "/api/updateInvert")
+    public @ResponseBody
+    void updateInvert(@Valid @RequestBody Instar instar){
+        instarService.saveInstar(instar);
+        invertService.saveInvert(instar.getInvertebrate());
     }
 }
