@@ -66,13 +66,15 @@
                     <p id="p_instarDate"></p>
                 </div1>
             </div>
-
-            <div>
-                <p2 id="info"></p2>
-            </div>
         </div>
         <div>
             <input type="button" id="addButton" value="Add" th:onclick="javascript:validation(/*[[${user}]]*/)"/>
+            <input type="button" id="cancelButton" onclick="" value="Cancel"/>
+            <script type="text/javascript">
+            document.getElementById("cancelButton").onclick = function () {
+            location.href = window.location.origin + "/myInverts/";
+            };
+        </script>
         </div>
     </div>
 </body>

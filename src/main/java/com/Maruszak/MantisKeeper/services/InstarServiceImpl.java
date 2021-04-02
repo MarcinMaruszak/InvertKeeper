@@ -36,5 +36,9 @@ public class InstarServiceImpl {
     public Instar saveInstar(Instar instar){
         return instarRepository.save(instar);
     }
+
+    public void deleteAllByInvert(Invertebrate invertebrate){
+        instarRepository.deleteAllByInvertebrate(invertebrate);
+    }
 }
 

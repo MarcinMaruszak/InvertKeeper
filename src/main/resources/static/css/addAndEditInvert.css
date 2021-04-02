@@ -36,10 +36,19 @@ input{
   border-color: red;
   margin: 10px;
 }
-#edit_button{
-  scale: 0.8;
+#add_button{
   margin-bottom: 5px;
+  border: none;
+  color: green;
+  background-color: lightgrey;
+}
+#del_button{
+  margin-bottom: 5px;
+  border: none;
+  color: red;
+  background-color: lightgrey;
 }
 label{
   margin-right:  5px;
+  margin-left: 10px;
 }

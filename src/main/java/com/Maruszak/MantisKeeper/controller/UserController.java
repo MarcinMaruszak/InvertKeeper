@@ -19,15 +19,12 @@ public class UserController {
     @Lazy
     UserDetailsServiceImpl userServices;
 
-    //---HTML--
 
     @GetMapping(path = "/register")
     public String register() {
         return "register";
     }
 
-
-    //-----API---
 
     @PostMapping(path = "/api/register")
     public @ResponseBody

@@ -12,7 +12,7 @@
 <body>
 <div class="wrap">
     <div>
-        <p1 th:text="${'Edit ' + invert.getName()}"></p1>
+        <p1 th:text="${'Edit '+ invert.getName()}"></p1>
     </div>
     <div class="content">
         <div>
@@ -57,8 +57,8 @@
                 <p id="p_purchaseDate"></p>
             </div1>
         </div>
-        <div th:each="instar : ${invert.getInstars()}">
-            <div>
+        <div id="instars">
+            <div th:id = "'instar' + ${instarStats.index}" class="instar_input" th:each="instar, instarStats : ${invert.getInstars()}">
                 <label for="l">Instar:</label>
                 <select id="l">
                     <option th:each="l : ${T(com.Maruszak.MantisKeeper.model.L).values()}"
@@ -69,21 +69,29 @@
                 </select>
                 <label for="l_date">Date:</label>
                 <input id="l_date" type="date" th:value="${instar.getMoltDate()}"/>
-                <button id="edit_button" th:onclick="javascript:add()" class="btn btn-default">
+                <span th:if="${instarStats.last}">
+                    <button type="button" id="add_button" onclick="add()" class="btn btn-default">
                     <span class="glyphicon glyphicon-plus"></span></button>
-                <div1>
-                    <p id="p_instarDate"></p>
-                </div1>
+                </span>
+                <span th:unless="${instarStats.last}">
+                    <button type="button" id="del_button" th:onclick="javascript:del(/*[[${instarStats.index}]]*/)" class="btn btn-default">
+                    <span class="glyphicon glyphicon-minus"></span></button>
+                </span>
+                <input type="hidden" id="instar_id" th:value="${instar.getId()}">
             </div>
-            <input type="hidden" id="instar_id" th:value="${instar.getId()}">
-        </div>
-        <div>
-            <p2 id="info"></p2>
         </div>
     </div>
+    <div1 id="div_instarDate">
+        <p id="p_instarDate"></p>
+    </div1>
     <div>
         <input type="button" id="saveButton" value="Save" th:onclick="javascript:validation(/*[[${user}]]*/)"/>
-        <input type="button" id="cancelButton" value="Cancel"/>
+        <input type="button" id="cancelButton" onclick="" value="Cancel"/>
+        <script type="text/javascript">
+            document.getElementById("cancelButton").onclick = function () {
+            location.href = window.location.origin + "/myInverts/";
+            };
+        </script>
     </div>
     <input type="hidden" id="invert_id" th:value="${invert.getId()}">
 </div>

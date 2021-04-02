@@ -10,5 +10,7 @@ import java.util.List;
 @Repository
 public interface InstarRepository extends JpaRepository<Instar, Long> {
 
-    public List<Instar> findAllByInvertebrateOrderByMoltDateAsc(Invertebrate invertebrate);
+    List<Instar> findAllByInvertebrateOrderByMoltDateAsc(Invertebrate invertebrate);
+
+    void deleteAllByInvertebrate(Invertebrate invertebrate);
 }
