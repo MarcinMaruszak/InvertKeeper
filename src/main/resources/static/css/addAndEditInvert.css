@@ -18,7 +18,12 @@ p{
 input{
   border-radius: 4px;
 }
-#addButton, #saveButton{
+
+.parr{
+  text-align: center;
+}
+
+#saveButton, #addButton{
   scale: 1.2;
    max-width: 120px;
   background-color: green;
@@ -36,17 +41,18 @@ input{
   border-color: red;
   margin: 10px;
 }
+
 #add_button{
-  margin-bottom: 5px;
-  border: none;
+  scale: 1.15;
+  margin-left: 5px;
   color: green;
-  background-color: lightgrey;
+  background-color: white
 }
 #del_button{
-  margin-bottom: 5px;
-  border: none;
+  scale: 1.15;
+  margin-left: 5px;
   color: red;
-  background-color: lightgrey;
+  background-color: white
 }
 label{
   margin-right:  5px;

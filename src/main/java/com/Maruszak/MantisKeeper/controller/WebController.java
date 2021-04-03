@@ -12,18 +12,10 @@ public class WebController {
     @Autowired
     private WebServiceImpl webService;
 
-
     @GetMapping(path = "/")
     public String home(Model model){
-        return webService.getHome(model);
+        return webService.getHomeHTML(model);
     }
 
-    @GetMapping(path = "/myInverts")
-    public String myInverts(Model model){
-        return webService.getMyInverts(model);
-    }
-
-    @GetMapping(path = "/myInverts/addInvert")
-    public String addNew(Model model){return webService.addInvert(model);}
 
 }

@@ -12,26 +12,14 @@ public class WebServiceImpl {
     private UserDetailsServiceImpl userService;
 
     @Autowired
-    private InvertebratesServiceImpl invService;
+    private InvertebratesServiceImpl invertService;
 
     @Autowired
     private InstarServiceImpl instarService;
 
-    public String getHome(Model model) {
+    public String getHomeHTML(Model model) {
         User user = userService.getUser();
         model.addAttribute("user" , user);
         return "home";
-    }
-
-    public String getMyInverts(Model model) {
-        User user = userService.getUser();
-        model.addAttribute("user", user);
-        return "myInverts";
-    }
-
-    public String addInvert(Model model) {
-        User user = userService.getUser();
-        model.addAttribute("user", user);
-        return "addInvert";
     }
 }

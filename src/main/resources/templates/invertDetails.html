@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${invert.getName() + ' Details'}"></title>
+    <link th:href="@{/css/invertDetails.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/myInverts.js}"></script>
+    <script src="https://kit.fontawesome.com/5788f7a270.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="top_nav">
+        <a class="link_left" href="/">Home</a>
+        <a class="link_left" href="/myInverts">My Inverts</a>
+        <a class="link_right" href="/logout">Logout</a>
+        <a class="link_right" href="/profile">Profile</a>
+    </div>
+    <div class="wrap">
+        <div class="content">
+            <div class="main">
+                <div>
+                    <label for="name">Name: </label>
+                    <span id="name" th:text="${invert.getName()}"></span>
+                </div>
+                <div>
+                    <label for="acquired">Bought: </label>
+                    <span id="acquired" th:text="${invert.getAcquired()}"></span>
+                </div>
+                <div id="buttons">
+                    <button id="edit_button" th:onclick="javascript:edit(/*[[${invert.getId()}]]*/)">
+                        <i class="fas fa-edit"></i></button>
+                    <button id="delete_button" th:onclick="javascript:remove(/*[[${invert.getId()}]]*/)">
+                        <i class="fas fa-trash-alt"></i></button>
+                    <button id="death_button" th:onclick="javascript:markDead(/*[[${invert.getId()}]]*/)">
+                        <i class="fas fa-skull"></i></button>
+                </div>
+            </div>
+            <div class="details">
+                <div>
+                    <label for="acquired">Specie: </label>
+                    <span id="specie" th:text="${invert.getSpecie().getName()}"></span>
+                </div>
+                <div>
+                    <label for="acquired">Sex: </label>
+                    <span id="sex" th:text="${invert.getSex().getName()}"></span>
+                </div>
+                <div>
+                    <label for="acquired">Date of Birth: </label>
+                    <span id="birth" th:text="${invert.getBirth()}"></span>
+                </div>
+                <div th:if="${invert.getDeath() != null}">
+                    <label for="death">Date of Death: </label>
+                    <span id="death" th:text="${invert.getDeath()}"></span>
+                </div>
+                <div>
+                    <label for="last_instar">Last Instar: </label>
+                    <span id="last_instar"
+                          th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()} ?: 'N/A'"></span>
+                </div>
+                <div>
+                    <label for="last_instar_date">Date of Last Instar: </label>
+                    <span id="last_instar_date"
+                          th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getMoltDate()} ?: 'N/A'"></span>
+                </div>
+                <div id="table">
+                <label for="table">Instars:</label>
+                <div >
+                    <table class="instars_table">
+                        <thead>
+                        <tr>
+                            <th>L</th>
+                            <th>Data</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each = "instar : ${invert.getInstars()}">
+                            <td><span th:text="${instar.getL()}"></span></td>
+                            <td><span th:text="${instar.getMoltDate()} ?: 'N/A'"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

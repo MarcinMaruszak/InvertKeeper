@@ -6,40 +6,18 @@
     <link th:href="@{/css/home.css}" rel="stylesheet"/>
 </head>
 <body>
+    <div class="top_nav">
+        <a class="link_left" href="/">Home</a>
+        <a class="link_left" href="/myInverts">My Inverts</a>
+        <span th:if="${user == null}">
+            <a class="link_right" href="/register">Register</a>
+            <a class="link_right" href="/login">Login</a>
+        </span>
+        <span th:unless="${user == null}">
+            <a class="link_right" href="/logout">Logout</a>
+            <a class="link_right" href="/profile">Profile</a>
+        </span>
+    </div>
     <div><h1>Welcome in Inverts Keeper</h1></div>
-    <div th:if="${user == null}">
-        <button id="login" class="float-left submit-button" >Login</button>
-        <script type="text/javascript">
-            document.getElementById("login").onclick = function () {
-
-            location.href = window.location.origin + "/login";
-            };
-        </script>
-        <button id="register" class="float-left submit-button" >Register</button>
-        <script type="text/javascript">
-            document.getElementById("register").onclick = function () {
-
-            location.href = window.location.origin + "/register";
-            };
-        </script>
-    </div>
-    <div th:unless="${user == null}">
-        <button id="logout" class="float-left submit-button" >Logout</button>
-        <script type="text/javascript">
-            document.getElementById("logout").onclick = function () {
-
-            location.href = window.location.origin + "/logout";
-            };
-        </script>
-    </div>
-    <div>
-        <button id="myInvert" class="float-left submit-button" >My Inverts</button>
-        <script type="text/javascript">
-            document.getElementById("myInvert").onclick = function () {
-
-            location.href = window.location.origin + "/myInverts";
-            };
-        </script>
-    </div>
 </body>
 </html>

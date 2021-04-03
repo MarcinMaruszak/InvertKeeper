@@ -17,7 +17,7 @@ public class InstarServiceImpl {
     @Autowired
     InstarRepository instarRepository;
 
-    public List<Instar> getInstarsByInvertAsc(Invertebrate invertebrate){
+    public List<Instar> findInstarsByInvertAsc(Invertebrate invertebrate){
         return instarRepository.findAllByInvertebrateOrderByMoltDateAsc(invertebrate);
     }
 

@@ -5,14 +5,14 @@
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link th:href="@{/css/addAndEditInvert.css}" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/5788f7a270.js" crossorigin="anonymous"></script>
     <script type="text/javascript" th:src="@{/js/editInvert.js}"></script>
     <title th:text="${'Edit ' + invert.getName()}"></title>
 </head>
 <body>
 <div class="wrap">
     <div>
-        <p1 th:text="${'Edit '+ invert.getName()}"></p1>
+        <p1 th:text=" ${invert.getClass().getSimpleName()} +' '+ ${invert.getName()}"></p1>
     </div>
     <div class="content">
         <div>
@@ -70,12 +70,12 @@
                 <label for="l_date">Date:</label>
                 <input id="l_date" type="date" th:value="${instar.getMoltDate()}"/>
                 <span th:if="${instarStats.last}">
-                    <button type="button" id="add_button" onclick="add()" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span></button>
+                    <button type="button" id="add_button" onclick="add()">
+                    <i class="fas fa-plus"></i></button>
                 </span>
                 <span th:unless="${instarStats.last}">
-                    <button type="button" id="del_button" th:onclick="javascript:del(/*[[${instarStats.index}]]*/)" class="btn btn-default">
-                    <span class="glyphicon glyphicon-minus"></span></button>
+                    <button type="button" id="del_button" th:onclick="javascript:del(/*[[${instarStats.index}]]*/)">
+                    <i class="fas fa-minus"></i></button>
                 </span>
                 <input type="hidden" id="instar_id" th:value="${instar.getId()}">
             </div>
@@ -86,7 +86,7 @@
     </div1>
     <div>
         <input type="button" id="saveButton" value="Save" th:onclick="javascript:validation(/*[[${user}]]*/)"/>
-        <input type="button" id="cancelButton" onclick="" value="Cancel"/>
+        <input type="button" id="cancelButton" value="Cancel"/>
         <script type="text/javascript">
             document.getElementById("cancelButton").onclick = function () {
             location.href = window.location.origin + "/myInverts/";
@@ -94,6 +94,7 @@
         </script>
     </div>
     <input type="hidden" id="invert_id" th:value="${invert.getId()}">
+    <input type="hidden" id="alive" value=true>
 </div>
 </body>
 </html>

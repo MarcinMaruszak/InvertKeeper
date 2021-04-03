@@ -40,7 +40,8 @@ function addPet(user){
         "specie": document.getElementById("specie").value,
         "sex": document.getElementById("sex").value,
         "birth": document.getElementById("birth").value,
-        "acquired": document.getElementById("acquired").value
+        "acquired": document.getElementById("acquired").value,
+        "alive" : document.getElementById("alive").value
     };
 
     let instar = {

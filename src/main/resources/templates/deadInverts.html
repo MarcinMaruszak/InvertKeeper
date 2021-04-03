@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link th:href="@{/css/myInverts.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/myInverts.js}"></script>
+    <script src="https://kit.fontawesome.com/5788f7a270.js" crossorigin="anonymous"></script>
+    <title>My Dead Inverts</title>
+</head>
+<body>
+<div class="top_nav">
+    <a class="link_left" href="/">Home</a>
+    <a class="link_left" href="/myInverts">Alive Inverts</a>
+    <a class="link_right" href="/logout">Logout</a>
+    <a class="link_right" href="/profile">Profile</a>
+</div>
+<div id="par">
+    <span th:text="${user.getUsername()} + '\'s Dead Inverts'"></span>
+</div>
+<div th:if="${user.getInvertebratesList().empty}">
+    <p>You don't have any dead inverts</p>
+</div>
+<div th:unless="${user.getInvertebratesList().empty}">
+    <table class="invertTable">
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Specie</th>
+            <th>Sex</th>
+            <th>Birth</th>
+            <th>Death</th>
+            <th>Instar</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="invert : ${user.getInvertebratesList()}">
+            <td><span th:text="${invert.class.simpleName}"></span></td>
+            <td><a th:href="'/myInverts/details/'+${invert.getId()}" th:text="${invert.getName()}"></a></td>
+            <td><span th:text="${invert.getSpecie().getName()}"></span></td>
+            <td><span th:text="${invert.getSex()}"></span></td>
+            <td><span th:text="${invert.getBirth()} ?: 'N/A'"></span></td>
+            <td><span th:text="${invert.getDeath()} ?: 'N/A'"></span></td>
+            <td><span th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()}"></span></td>
+            <td>
+                <button id="edit" th:onclick="javascript:edit(/*[[${invert.getId()}]]*/)">
+                    <i class="fas fa-edit"></i></button>
+                <button id="delete" th:onclick="javascript:remove(/*[[${invert.getId()}]]*/)">
+                    <i class="fas fa-trash-alt"></i></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+</html>

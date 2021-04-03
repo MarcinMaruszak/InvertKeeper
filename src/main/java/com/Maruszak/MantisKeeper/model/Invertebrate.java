@@ -36,6 +36,13 @@ public abstract class Invertebrate {
     @NotNull
     private Sex sex;
 
+    @Column
+    @NotNull
+    private boolean alive;
+
+    @Column
+    private LocalDate death;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "invertebrate")
     @ElementCollection(targetClass = Instar.class)
@@ -105,5 +112,35 @@ public abstract class Invertebrate {
         this.instars = instars;
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public abstract Specie getSpecie();
+
+    public LocalDate getDeath() {
+        return death;
+    }
+
+    public void setDeath(LocalDate death) {
+        this.death = death;
+    }
+
+    @Override
+    public String toString() {
+        return "Invertebrate{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", birth=" + birth +
+                ", acquired=" + acquired +
+                ", sex=" + sex +
+                ", alive=" + alive +
+                ", user=" + user +
+                '}';
+    }
 }
 

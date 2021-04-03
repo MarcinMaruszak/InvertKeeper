@@ -12,4 +12,8 @@ public interface InvertebrateRepository extends JpaRepository<Invertebrate , Lon
 
     List<Invertebrate> findAllByUser(User user);
 
+    List<Invertebrate> findAllByUserAndAliveTrue(User user);
+
+    List<Invertebrate> findAllByUserAndAliveFalse(User user);
+
 }

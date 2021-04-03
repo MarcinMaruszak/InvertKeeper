@@ -42,7 +42,8 @@ function edit(user){
             "specie": document.getElementById("specie").value,
             "sex": document.getElementById("sex").value,
             "birth": document.getElementById("birth").value,
-            "acquired": document.getElementById("acquired").value
+            "acquired": document.getElementById("acquired").value,
+            "alive" : document.getElementById("alive").value
         };
 
          invert["user"] = user;
@@ -102,11 +103,10 @@ function add(){
     var delButton = document.createElement("BUTTON");
     delButton.type = "button";
     delButton.id = "del_button";
-    delButton.className = "btn btn-default";
     delButton.setAttribute("onclick", "del(" + (index-1) + ")");
 
-    var span = document.createElement('span');
-    span.className = "glyphicon glyphicon-minus";
+    var span = document.createElement('i');
+    span.className = "fas fa-minus";
     delButton.appendChild(span);
 
     div.appendChild(delButton);

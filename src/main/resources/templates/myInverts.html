@@ -2,17 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link th:href="@{/css/myInverts.css}" rel="stylesheet"/>
     <script type="text/javascript" th:src="@{/js/myInverts.js}"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/5788f7a270.js" crossorigin="anonymous"></script>
     <title>My Inverts</title>
 </head>
 <body>
-    <div>
-        <span1 id="user_name" th:text="${user.getUsername() + 's Inverts'}"></span1>
+    <div class="top_nav">
+        <a class="link_left" href="/">Home</a>
+        <a class="link_left" href="/myInverts/dead">Dead Inverts</a>
+        <a class="link_right" href="/logout">Logout</a>
+        <a class="link_right" href="/profile">Profile</a>
+    </div>
+    <div id="par">
+        <span th:text="${user.getUsername()} + '\'s Inverts'"></span>
     </div>
     <div th:if="${user.getInvertebratesList().empty}">
-        <p>You don't have any pets added</p>
+        <p>You don't have any inverts added</p>
     </div>
     <div th:unless="${user.getInvertebratesList().empty}">
         <table class="invertTable">
@@ -30,19 +38,23 @@
             <tbody>
             <tr th:each = "invert : ${user.getInvertebratesList()}">
                 <td><span th:text="${invert.class.simpleName}"></span></td>
-                <td><span th:text="${invert.getName()}"></span></td>
+                <td><a th:href="'/myInverts/details/'+${invert.getId()}" th:text="${invert.getName()}"></a></td>
                 <td><span th:text="${invert.getSpecie().getName()}"></span></td>
                 <td><span th:text="${invert.getBirth()} ?: 'N/A'"></span></td>
                 <td><span th:text="${invert.getSex()}"></span></td>
                 <td><span th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()}"></span></td>
-                <td><button id="edit" th:onclick="javascript:edit(/*[[${invert.getId()}]]*/)" class="btn btn-default">
-                    <span class="glyphicon glyphicon-edit"></span></button>
+                <td><button id="edit" th:onclick="javascript:edit(/*[[${invert.getId()}]]*/)">
+                    <i class="fas fa-edit"></i></button>
+                    <button id="delete" th:onclick="javascript:remove(/*[[${invert.getId()}]]*/)">
+                        <i class="fas fa-trash-alt"></i></button>
+                    <button id="death" th:onclick="javascript:markDead(/*[[${invert.getId()}]]*/)">
+                        <i class="fas fa-skull"></i></button>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-    <div>
+    <div id = "add_button">
         <button id="addPet" class="float-left submit-button" >Add Invert</button>
         <script type="text/javascript">
             document.getElementById("addPet").onclick = function () {
