@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @JsonTypeInfo(
@@ -20,8 +21,9 @@ import java.util.List;
 public abstract class Invertebrate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    @GeneratedValue
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @Column
     private String name;
@@ -56,11 +58,11 @@ public abstract class Invertebrate {
     public Invertebrate() {
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -128,19 +130,6 @@ public abstract class Invertebrate {
 
     public void setDeath(LocalDate death) {
         this.death = death;
-    }
-
-    @Override
-    public String toString() {
-        return "Invertebrate{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", birth=" + birth +
-                ", acquired=" + acquired +
-                ", sex=" + sex +
-                ", alive=" + alive +
-                ", user=" + user +
-                '}';
     }
 }
 

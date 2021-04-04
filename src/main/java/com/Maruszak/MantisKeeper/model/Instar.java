@@ -5,12 +5,15 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 public class Instar {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    @GeneratedValue
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @Column
     @NotNull
@@ -27,11 +30,11 @@ public class Instar {
     public Instar() {
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -59,12 +62,4 @@ public class Instar {
         this.invertebrate = invertebrate;
     }
 
-    @Override
-    public String toString() {
-        return "Instar{" +
-                "id=" + id +
-                ", l=" + l +
-                ", date=" + moltDate +
-                '}';
-    }
 }

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface InvertebrateRepository extends JpaRepository<Invertebrate , Long> {
@@ -16,4 +18,7 @@ public interface InvertebrateRepository extends JpaRepository<Invertebrate , Lon
 
     List<Invertebrate> findAllByUserAndAliveFalse(User user);
 
+    Optional<Invertebrate> findById(UUID id);
+
+    void deleteById(UUID id);
 }

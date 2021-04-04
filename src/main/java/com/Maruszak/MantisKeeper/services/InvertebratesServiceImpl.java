@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class InvertebratesServiceImpl {
@@ -28,7 +29,7 @@ public class InvertebratesServiceImpl {
     private UserDetailsServiceImpl userService;
 
 
-    public Invertebrate findInvertById(long id) {
+    public Invertebrate findInvertById(UUID id) {
         Optional<Invertebrate> invertOptional = invertRepository.findById(id);
         if (invertOptional.isPresent()) {
             return invertOptional.get();
@@ -53,21 +54,21 @@ public class InvertebratesServiceImpl {
     }
 
     @Transactional
-    public void deleteInvert(long id) {
+    public void deleteInvert(UUID id) {
         Invertebrate invert = findInvertById(id);
         instarService.deleteAllByInvert(invert);
         invertRepository.deleteById(id);
     }
 
     @Transactional
-    public void saveAsDead(long id , LocalDate date) {
+    public void saveAsDead(UUID id , LocalDate date) {
         Invertebrate invertebrate = findInvertById(id);
         invertebrate.setAlive(false);
         invertebrate.setDeath(date);
         invertRepository.save(invertebrate);
     }
 
-    public String editInvertHTML(long id, Model model) {
+    public String editInvertHTML(UUID id, Model model) {
         User user = userService.getUser();
         List<Invertebrate> invertebrates = invertRepository.findAllByUser(user);
         for(Invertebrate invert : invertebrates){
@@ -80,7 +81,7 @@ public class InvertebratesServiceImpl {
         return "editInvert";
     }
 
-    public String markInvertDeadHTML(long id, Model model) {
+    public String markInvertDeadHTML(UUID id, Model model) {
         model.addAttribute("id" , id);
         return "markDead";
     }
@@ -113,7 +114,7 @@ public class InvertebratesServiceImpl {
         return "addInvert";
     }
 
-    public String invertDetailsHTML(long id, Model model) {
+    public String invertDetailsHTML(UUID id, Model model) {
         Invertebrate invert = findInvertById(id);
         model.addAttribute("invert", invert);
         return "invertDetails";

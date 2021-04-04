@@ -31,8 +31,8 @@
                         <i class="fas fa-edit"></i></button>
                     <button id="delete_button" th:onclick="javascript:remove(/*[[${invert.getId()}]]*/)">
                         <i class="fas fa-trash-alt"></i></button>
-                    <button id="death_button" th:onclick="javascript:markDead(/*[[${invert.getId()}]]*/)">
-                        <i class="fas fa-skull"></i></button>
+                    <span th:if="${invert.isAlive()}"><button id="death_button" th:onclick="javascript:markDead(/*[[${invert.getId()}]]*/)">
+                        <i class="fas fa-skull"></i></button></span>
                 </div>
             </div>
             <div class="details">

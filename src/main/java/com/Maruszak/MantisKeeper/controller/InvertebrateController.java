@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class InvertebrateController {
@@ -27,12 +28,12 @@ public class InvertebrateController {
     public String addNew(Model model){return invertService.addInvertHTML(model);}
 
     @GetMapping(path = "/myInverts/edit/{id}")
-    public String editInvert(@PathVariable long id, Model model) {
+    public String editInvert(@PathVariable UUID id, Model model) {
         return invertService.editInvertHTML(id, model);
     }
 
     @GetMapping(path = "/myInverts/markDead/{id}")
-    public String markInvertDead(@PathVariable long id, Model model) {
+    public String markInvertDead(@PathVariable UUID id, Model model) {
         return invertService.markInvertDeadHTML(id, model);
     }
 
@@ -42,7 +43,7 @@ public class InvertebrateController {
     }
 
     @GetMapping(path = "myInverts/details/{id}")
-    public String invertDetails(@PathVariable long id,  Model model){
+    public String invertDetails(@PathVariable UUID id, Model model){
         return invertService.invertDetailsHTML(id, model);
     }
 
@@ -62,13 +63,13 @@ public class InvertebrateController {
 
     @DeleteMapping(path = "/api/deleteInvert/{id}")
     public @ResponseBody
-    void deleteInvert(@PathVariable long id) {
+    void deleteInvert(@PathVariable UUID id) {
         invertService.deleteInvert(id);
     }
 
     @PostMapping(path = "/api/saveAsDead/{id}")
     public @ResponseBody
-    void markDead(@PathVariable long id, @RequestParam("date")
+    void markDead(@PathVariable UUID id, @RequestParam("date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         invertService.saveAsDead(id, date);
     }
