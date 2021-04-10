@@ -24,7 +24,7 @@ input{
 }
 
 #saveButton, #addButton{
-  scale: 1.2;
+
    max-width: 120px;
   background-color: green;
   color: white;
@@ -33,7 +33,7 @@ input{
   margin: 10px;
 }
 #cancelButton{
-  scale: 1.2;
+
    max-width: 120px;
   background-color: red;
   color: white;
@@ -43,13 +43,13 @@ input{
 }
 
 #add_button{
-  scale: 1.15;
+
   margin-left: 5px;
   color: green;
   background-color: white
 }
 #del_button{
-  scale: 1.15;
+
   margin-left: 5px;
   color: red;
   background-color: white
@@ -66,7 +66,7 @@ label{
   background: #999;
   color: #555;
   cursor: not-allowed;
-  scale: 1.2;
+
   max-width: 120px;
   border-radius: 4px;
   margin: 10px;

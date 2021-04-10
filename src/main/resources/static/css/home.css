@@ -36,7 +36,6 @@ button{
   margin: 10px
 }
 button{
-  scale: 1.2;
    max-width: 120px;
   align-self: center;
   background-color: green;

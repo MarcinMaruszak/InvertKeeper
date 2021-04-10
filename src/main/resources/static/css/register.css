@@ -1,7 +1,8 @@
 body {
   align-content: center;
-  margin-top: 80px;
+  margin-top: 60px;
   scale: 1.5;
+  zoom:150%;
 }
 div{
   text-align: center;
@@ -12,7 +13,7 @@ p1{
 }
 p{
   color: red;
-  font-size: 8px;
+  font-size: 10px;
 }
 input{
   border-radius: 4px;

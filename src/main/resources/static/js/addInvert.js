@@ -81,12 +81,12 @@ function addPet(){
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/api/addInvert' , true);
-        xhr.setRequestHeader(header, token);
-        xhr.onload = function (e) {
-              if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                   var name =  document.getElementById("name").value;
-                   var type = document.getElementById("type").value;
+    xhr.setRequestHeader(header, token);
+    xhr.onload = function (e) {
+       if (xhr.readyState === 4) {
+           if (xhr.status === 200) {
+                 var name =  document.getElementById("name").value;
+                  var type = document.getElementById("type").value;
                    alert(type +" '" + name + "' saved.");
                    var id = document.getElementById("invert_id").value;
                    window.location.replace("/myInverts")
@@ -94,7 +94,7 @@ function addPet(){
                   alert("Error!!")
                 }
               }
-            };
+           };
         xhr.send(invertForm);
 
 }

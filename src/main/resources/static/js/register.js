@@ -4,8 +4,17 @@ function validation(){
     username = document.getElementById("username").value;
     email = document.getElementById("email").value;
     password = document.getElementById("password").value;
+    password2 = document.getElementById("password2").value;
 
     var valid = true;
+
+    if(password!=password2){
+        valid=false;
+        document.getElementById("p_password2").innerHTML = "passwords don't match";
+    }else{
+        document.getElementById("p_password2").innerHTML = "";
+    }
+
 
     var nameRegex = /[a-zA-Z0-9_]{6,}/
     if(username.length<6 && !nameRegex.test(name)){
@@ -31,6 +40,13 @@ function validation(){
         document.getElementById("p_password").innerHTML = "";
     }
 
+    if(password2.length<8){
+            valid = false;
+            document.getElementById("p_password").innerHTML = "min 8 characters";
+        }else{
+            document.getElementById("p_password").innerHTML = "";
+        }
+
     if(valid){
         register();
     }
@@ -48,16 +64,20 @@ function register(){
     var header = document.querySelector('meta[name="_csrf_header"]').content;
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/api/register' , false)
+    xhr.open("POST", '/api/register' , true)
     xhr.setRequestHeader(header, token)
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
+    xhr.onload = function (e) {
+      if (xhr.readyState === 4) {
+           if (xhr.status === 200) {
+                alert("registration successful")
+                window.location.replace(window.location.origin + "/login")
+           } else {
+                console.log(e)
+                var err = JSON.parse(xhr.responseText);
+                alert(err.message)
+           }
+       }
+    };
     xhr.send(json);
-
-    if (xhr.status == 200) {
-         alert("registration successful")
-         window.location.replace(window.location.origin + "/login")
-    }else{
-        var err = JSON.parse(xhr.responseText);
-        alert(err.message)
-    }
 }
