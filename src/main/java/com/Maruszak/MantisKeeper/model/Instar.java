@@ -62,4 +62,12 @@ public class Instar {
         this.invertebrate = invertebrate;
     }
 
+    @Override
+    public String toString() {
+        return "Instar{" +
+                "id=" + id +
+                ", l=" + l +
+                ", moltDate=" + moltDate +
+                '}';
+    }
 }

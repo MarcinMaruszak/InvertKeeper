@@ -1,6 +1,7 @@
 var index = 0;
+var ids = [];
 
-function validation(user){
+function validation(){
     var name = document.getElementById("name").value.trim();
 
     var valid = true;
@@ -30,11 +31,14 @@ function validation(user){
     }
 
     if(valid){
-        edit(user);
+        edit();
     }
 }
 
-function edit(user){
+function edit(){
+
+    var invertDTO = new Object();
+
     let invert = {
             "id" : document.getElementById("invert_id").value,
             "type" : document.getElementById("type").value,
@@ -46,15 +50,9 @@ function edit(user){
             "alive" : document.getElementById("alive").value
         };
 
-         invert["user"] = user;
-
-
-
         var instars = document.getElementsByClassName("instar_input");
 
-        var array = [];
-
-
+        var instarArray = [];
 
         for(var i = 0; i < instars.length ; i++){
 
@@ -65,29 +63,59 @@ function edit(user){
                   "l" : instars[i].children.l.value,
                   "moltDate" : instars[i].children.l_date.value
             }
-            instar["invertebrate"] = invert;
-            array[i] = instar;
-
+            instarArray[i] = instar;
         }
 
-         let json = JSON.stringify(array);
+        invertDTO["invertebrate"] = invert;
+        invertDTO["instars"] = instarArray;
+
+        var invertForm = new FormData();
+
+        invertForm.append("invertDTO", new Blob([JSON.stringify(invertDTO)], {type: "application/json"}));
 
 
-         var token = document.querySelector('meta[name="_csrf"]').content;
-         var header = document.querySelector('meta[name="_csrf_header"]').content;
+        var photosToUpload = document.getElementById("photos_button").files.length;
 
+        var photosCurrent = document.getElementsByClassName("img_wrap").length;
+
+        if(photosToUpload>10-photosCurrent){
+            photosToUpload=10-photosCurrent;
+       }
+
+        for(var i = 0 ; i<photosToUpload; i++ ){
+            invertForm.append("photos" ,document.getElementById("photos_button").files[i]);
+        }
+
+        invertForm.append("removePhotos",  new Blob([JSON.stringify(ids)], {type: "application/json"}));
+
+
+        var paragraph = document.createElement("p");
+        paragraph.id = "savingPar";
+        paragraph.innerHTML="Saving in progress..."
+        document.getElementById("wrap").appendChild(paragraph);
+        document.getElementById("saveButton").disabled = true;
+        document.getElementById("saveButton").id = "disabled";
+
+        var token = document.querySelector('meta[name="_csrf"]').content;
+        var header = document.querySelector('meta[name="_csrf_header"]').content;
 
         let xhr = new XMLHttpRequest();
-             xhr.open("POST", '/api/updateInvert' , false);
-             xhr.setRequestHeader(header, token);
-             xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-             xhr.send(json);
-        if(xhr.status = 200){
-            var name =  document.getElementById("name").value;
-            var type = document.getElementById("type").value;
-            alert(type +" '" + name + "' updated.")
-            window.location.replace(window.location.origin + "/myInverts")
-        }
+        xhr.open("POST", '/api/updateInvert' , true);
+        xhr.setRequestHeader(header, token);
+        xhr.onload = function (e) {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+               var name =  document.getElementById("name").value;
+               var type = document.getElementById("type").value;
+               alert(type +" '" + name + "' updated.");
+               var id = document.getElementById("invert_id").value;
+               window.location.replace("/myInverts/details/"+id)
+            } else {
+              alert("Error!!")
+            }
+          }
+        };
+        xhr.send(invertForm);
 }
 
 function add(){
@@ -97,19 +125,6 @@ function add(){
     if(index==0){
         index = instars.length;
     }
-
-    var div = instars[instars.length-1];
-
-    var delButton = document.createElement("BUTTON");
-    delButton.type = "button";
-    delButton.id = "del_button";
-    delButton.setAttribute("onclick", "del(" + (index-1) + ")");
-
-    var span = document.createElement('i');
-    span.className = "fas fa-minus";
-    delButton.appendChild(span);
-
-    div.appendChild(delButton);
 
     var newDiv = document.createElement("div");
     newDiv.id = "instar"+index;
@@ -143,7 +158,18 @@ function add(){
 
      newDiv.appendChild(selectD);
 
-     newDiv.appendChild(document.getElementById("add_button"));
+     newDiv.appendChild(document.getElementById("plusButton").cloneNode(true));
+
+    var delButton = document.createElement("BUTTON");
+    delButton.type = "button";
+    delButton.className = "del_button";
+    delButton.setAttribute("onclick", "del(" + (index) + ")");
+
+    var span = document.createElement('i');
+    span.className = "fas fa-minus";
+    delButton.appendChild(span);
+
+    newDiv.appendChild(delButton);
 
     document.getElementById("instars").appendChild(newDiv);
 
@@ -153,4 +179,9 @@ function add(){
 function del(i){
    var div = document.getElementById("instar"+i).remove();
 
+}
+
+function removePhoto(id, i){
+    ids.push(id);
+    document.getElementById("photo"+i).remove();
 }

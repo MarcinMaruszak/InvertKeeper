@@ -23,7 +23,7 @@ input{
   text-align: center;
 }
 
-#saveButton, #addButton{
+#saveButton{
   scale: 1.2;
    max-width: 120px;
   background-color: green;
@@ -42,13 +42,13 @@ input{
   margin: 10px;
 }
 
-#add_button{
+.add_button{
   scale: 1.15;
   margin-left: 5px;
   color: green;
   background-color: white
 }
-#del_button{
+.del_button{
   scale: 1.15;
   margin-left: 5px;
   color: red;
@@ -57,4 +57,32 @@ input{
 label{
   margin-right:  5px;
   margin-left: 10px;
+}
+.photo{
+   max-width:  110px;
+   max-height: 110px;
+}
+
+.img_wrap{
+  position: relative;
+}
+.remove {
+    position: absolute;
+    right:  1px;
+    padding: 0px;
+    scale: 1.1;
+    color: red;
+}
+#savingPar{
+    font-size: 20px;
+    color: green;
+}
+#disabled{
+  background: #999;
+  color: #555;
+  cursor: not-allowed;
+  scale: 1.2;
+  max-width: 120px;
+  border-radius: 4px;
+  margin: 10px;
 }

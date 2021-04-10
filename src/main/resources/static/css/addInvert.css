@@ -1,0 +1,73 @@
+.wrap{
+  text-align: center;
+}
+.content{
+  text-align: left;
+  display: inline-block;
+}
+p1{
+    font-size: 25px;
+}
+div{
+  margin-top: 10px;
+}
+p{
+  color: red;
+  font-size: 11px;
+}
+input{
+  border-radius: 4px;
+}
+
+.parr{
+  text-align: center;
+}
+
+#saveButton, #addButton{
+  scale: 1.2;
+   max-width: 120px;
+  background-color: green;
+  color: white;
+  border-radius: 4px;
+  border-color: green;
+  margin: 10px;
+}
+#cancelButton{
+  scale: 1.2;
+   max-width: 120px;
+  background-color: red;
+  color: white;
+  border-radius: 4px;
+  border-color: red;
+  margin: 10px;
+}
+
+#add_button{
+  scale: 1.15;
+  margin-left: 5px;
+  color: green;
+  background-color: white
+}
+#del_button{
+  scale: 1.15;
+  margin-left: 5px;
+  color: red;
+  background-color: white
+}
+label{
+  margin-right:  5px;
+  margin-left: 10px;
+}
+#savingPar{
+    font-size: 20px;
+    color: green;
+}
+#disabled{
+  background: #999;
+  color: #555;
+  cursor: not-allowed;
+  scale: 1.2;
+  max-width: 120px;
+  border-radius: 4px;
+  margin: 10px;
+}

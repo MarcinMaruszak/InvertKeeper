@@ -1,4 +1,4 @@
-function validation(user){
+function validation(){
     var name = document.getElementById("name").value.trim();
 
     var valid = true;
@@ -28,11 +28,13 @@ function validation(user){
     }
 
     if(valid){
-        addPet(user);
+        addPet();
     }
 }
 
-function addPet(user){
+function addPet(){
+
+    var invertDTO = new Object();
 
     let invert = {
         "type" : document.getElementById("type").value,
@@ -48,26 +50,53 @@ function addPet(user){
         "l" : document.getElementById("l").value,
         "moltDate" : document.getElementById("l_date").value
     }
+    var instars = [instar];
 
-    invert["user"] = user;
+    invertDTO["invertebrate"] = invert;
+    invertDTO["instars"] = [instar];
+
+    var invertForm = new FormData();
+
+    invertForm.append("invertDTO", new Blob([JSON.stringify(invertDTO)], {type: "application/json"}));
+
+    var filesSize = document.getElementById("photos").files.length;
+
+    if(filesSize>10){
+        filesSize=10;
+   }
+
+    for(var i = 0 ; i<filesSize; i++ ){
+        invertForm.append("photos" ,document.getElementById("photos").files[i]);
+    }
+
+        var paragraph = document.createElement("p");
+        paragraph.id = "savingPar";
+        paragraph.innerHTML="Saving in progress..."
+        document.getElementById("wrap").appendChild(paragraph);
+        document.getElementById("addButton").disabled = true;
+        document.getElementById("addButton").id = "disabled";
 
     var token = document.querySelector('meta[name="_csrf"]').content;
     var header = document.querySelector('meta[name="_csrf_header"]').content;
 
-    instar["invertebrate"] = invert;
-
-    let json = JSON.stringify(instar);
-
     let xhr = new XMLHttpRequest();
-        xhr.open("POST", '/api/addInvert' , false);
+    xhr.open("POST", '/api/addInvert' , true);
         xhr.setRequestHeader(header, token);
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        xhr.send(json);
+        xhr.onload = function (e) {
+              if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                   var name =  document.getElementById("name").value;
+                   var type = document.getElementById("type").value;
+                   alert(type +" '" + name + "' saved.");
+                   var id = document.getElementById("invert_id").value;
+                   window.location.replace("/myInverts")
+                } else {
+                  alert("Error!!")
+                }
+              }
+            };
+        xhr.send(invertForm);
 
-    if(xhr.status = 200){
-        var name =  document.getElementById("name").value;
-        var type = document.getElementById("type").value;
-        alert(type +" '" + name + "' added.")
-        window.location.replace(window.location.origin + "/myInverts")
-    }
 }
+
+

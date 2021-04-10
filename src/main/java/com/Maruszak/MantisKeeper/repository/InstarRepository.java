@@ -13,4 +13,5 @@ public interface InstarRepository extends JpaRepository<Instar, Long> {
     List<Instar> findAllByInvertebrateOrderByMoltDateAsc(Invertebrate invertebrate);
 
     void deleteAllByInvertebrate(Invertebrate invertebrate);
+
 }

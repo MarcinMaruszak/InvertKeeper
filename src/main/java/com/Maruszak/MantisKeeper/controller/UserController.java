@@ -5,6 +5,7 @@ import com.Maruszak.MantisKeeper.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,11 @@ public class UserController {
     public @ResponseBody
     User register(@Valid @RequestBody User user) {
         return userServices.register(user);
+    }
+
+    @GetMapping(path = "/profile")
+    public String profile(Model model){
+        return userServices.profile(model);
     }
 
 }

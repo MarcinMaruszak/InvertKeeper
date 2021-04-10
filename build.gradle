@@ -24,7 +24,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
+	compile 'com.cloudinary:cloudinary-http44:1.29.0'
 }
 
 test {

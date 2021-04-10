@@ -11,13 +11,13 @@ function remove(id){
          xhr.setRequestHeader(header, token);
          xhr.send();
 
-         location.reload(true);
+         window.location.replace("/myInverts")
     }
 }
 
 function markDead(id){
-
-
     location.href = window.location.origin + "/myInverts/markDead/"+id;
-
 }
+
+
+

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -70,5 +71,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(username + " not found");
         }
         return user.get();
+    }
+
+    public String profile(Model model) {
+        return "userProfile";
     }
 }

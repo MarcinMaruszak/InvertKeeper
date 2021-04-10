@@ -5,11 +5,11 @@
     <title>Add Invert</title>
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <link th:href="@{/css/addAndEditInvert.css}" rel="stylesheet"/>
+    <link th:href="@{/css/addInvert.css}" rel="stylesheet"/>
     <script type="text/javascript" th:src="@{/js/addInvert.js}"></script>
 </head>
 <body>
-    <div class="wrap">
+    <div id="wrap" class="wrap">
         <div class="content">
             <div class="parr">
                 <p1>Add Invert</p1>
@@ -71,7 +71,11 @@
             </div>
         </div>
         <div>
-            <input type="button" id="addButton" value="Add" th:onclick="javascript:validation(/*[[${user}]]*/)"/>
+            <label for="photos">Add Photos(max 10): </label>
+            <input id="photos" type="file" accept="image/*" multiple="multiple"/>
+        </div>
+        <div>
+            <input type="button" id="addButton" value="Add" th:onclick="javascript:validation()"/>
             <input type="button" id="cancelButton" onclick="" value="Cancel"/>
             <script type="text/javascript">
             document.getElementById("cancelButton").onclick = function () {

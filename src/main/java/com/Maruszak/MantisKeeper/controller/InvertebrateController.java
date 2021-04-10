@@ -1,14 +1,14 @@
 package com.Maruszak.MantisKeeper.controller;
 
-import com.Maruszak.MantisKeeper.model.Instar;
+import com.Maruszak.MantisKeeper.DTO.InvertDTO;
 import com.Maruszak.MantisKeeper.services.InvertebratesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -51,14 +51,17 @@ public class InvertebrateController {
 
     @PostMapping(path = "/api/addInvert")
     public @ResponseBody
-    void addInvert(@Valid @RequestBody Instar instar) {
-        invertService.saveInvertAndInstar(instar);
+    void addInvert(@RequestPart(value = "invertDTO") InvertDTO invertDTO,
+                   @RequestPart(value = "photos", required = false) List<MultipartFile> photos) {
+        invertService.saveNewInvert(invertDTO, photos);
     }
 
     @PostMapping(path = "/api/updateInvert")
     public @ResponseBody
-    void updateInvert(@RequestBody List<Instar> instars) {
-        invertService.updateInvertAndInstar(instars);
+    void updateInvert(@RequestPart("invertDTO") InvertDTO invertDTO,
+                      @RequestPart(value = "photos", required = false) List<MultipartFile> photos,
+                      @RequestPart (value = "removePhotos", required = false) List<UUID> toRemovePhotosIds) {
+        invertService.updateInvert(invertDTO, photos, toRemovePhotosIds);
     }
 
     @DeleteMapping(path = "/api/deleteInvert/{id}")

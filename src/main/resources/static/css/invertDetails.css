@@ -44,10 +44,11 @@
 }
 .main{
   float: left;
-
+  padding-inline: 20px;
 }
 .details{
   float: right;
+  padding-inline: 20px;
 }
 label{
   font-weight: bold;
@@ -69,9 +70,35 @@ div{
 #table{
   margin-top: 10px;
 }
+button{
+  scale: 1.1;
+}
 #edit_button{
   color: blue;
 }
 #delete_button{
   color: red;
+}
+#gallery{
+  color: green;
+}
+.main_photo{
+  width:  220px;
+  border-radius: 4px;
+
+}
+#buttons{
+  margin-top: 20px;
+}
+.photo{
+  max-width:  280px;
+  max-height: 280px;
+  border-radius: 4px;
+  margin-inline: 10px;
+}
+#p_gallery{
+  margin-top: 15px;
+  font-size:  25px;
+  color: blue;
+  font-weight: bold;
 }

@@ -1,7 +1,6 @@
 package com.Maruszak.MantisKeeper.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -45,7 +44,7 @@ public abstract class Invertebrate {
     @Column
     private LocalDate death;
 
-    @JsonManagedReference
+
     @OneToMany(mappedBy = "invertebrate")
     @ElementCollection(targetClass = Instar.class)
     private List<Instar> instars;
@@ -54,6 +53,10 @@ public abstract class Invertebrate {
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;
+
+    @OneToMany
+    @ElementCollection(targetClass = Photo.class)
+    private List<Photo> photos;
 
     public Invertebrate() {
     }
@@ -130,6 +133,27 @@ public abstract class Invertebrate {
 
     public void setDeath(LocalDate death) {
         this.death = death;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
+
+    @Override
+    public String toString() {
+        return "Invertebrate{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", birth=" + birth +
+                ", acquired=" + acquired +
+                ", sex=" + sex +
+                ", alive=" + alive +
+                ", death=" + death +
+                '}';
     }
 }
 

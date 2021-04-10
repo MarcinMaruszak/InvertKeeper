@@ -138,4 +138,15 @@ public class User implements UserDetails {
     }
 
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", authority='" + authority + '\'' +
+                ", active=" + active +
+                '}';
+    }
 }
