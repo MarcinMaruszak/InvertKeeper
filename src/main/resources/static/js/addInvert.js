@@ -61,20 +61,22 @@ function addPet(){
 
     var filesSize = document.getElementById("photos").files.length;
 
-    if(filesSize>10){
-        filesSize=10;
+    if(filesSize>9){
+        filesSize=9;
    }
 
     for(var i = 0 ; i<filesSize; i++ ){
         invertForm.append("photos" ,document.getElementById("photos").files[i]);
     }
 
-        var paragraph = document.createElement("p");
-        paragraph.id = "savingPar";
-        paragraph.innerHTML="Saving in progress..."
-        document.getElementById("wrap").appendChild(paragraph);
-        document.getElementById("addButton").disabled = true;
-        document.getElementById("addButton").id = "disabled";
+    invertForm.append("avatar" ,document.getElementById("avatar").files[0]);
+
+    var paragraph = document.createElement("p");
+    paragraph.id = "savingPar";
+    paragraph.innerHTML="Saving in progress...";
+    document.getElementById("wrap").appendChild(paragraph);
+    document.getElementById("addButton").disabled = true;
+    document.getElementById("addButton").id = "disabled";
 
     var token = document.querySelector('meta[name="_csrf"]').content;
     var header = document.querySelector('meta[name="_csrf_header"]').content;
@@ -88,7 +90,6 @@ function addPet(){
                  var name =  document.getElementById("name").value;
                   var type = document.getElementById("type").value;
                    alert(type +" '" + name + "' saved.");
-                   var id = document.getElementById("invert_id").value;
                    window.location.replace("/myInverts")
                 } else {
                   alert("Error!!")

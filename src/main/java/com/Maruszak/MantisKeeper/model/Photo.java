@@ -31,14 +31,18 @@ public class Photo {
     @JoinColumn(name = "invert_id" , nullable = false)
     private Invertebrate invertebrate;
 
+    @Column
+    private boolean avatar;
+
     public Photo() {
     }
 
-    public Photo(String link, String publicID, LocalDateTime added, Invertebrate invertebrate) {
+    public Photo(String link, String publicID, LocalDateTime added, Invertebrate invertebrate, boolean avatar) {
         this.link = link;
         this.publicID = publicID;
         this.added = added;
         this.invertebrate = invertebrate;
+        this.avatar = avatar;
     }
 
     public UUID getId() {
@@ -79,5 +83,13 @@ public class Photo {
 
     public void setInvertebrate(Invertebrate invertebrate) {
         this.invertebrate = invertebrate;
+    }
+
+    public boolean isAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(boolean avatar) {
+        this.avatar = avatar;
     }
 }

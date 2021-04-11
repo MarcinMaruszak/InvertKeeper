@@ -44,7 +44,6 @@ public abstract class Invertebrate {
     @Column
     private LocalDate death;
 
-
     @OneToMany(mappedBy = "invertebrate")
     @ElementCollection(targetClass = Instar.class)
     private List<Instar> instars;
@@ -57,6 +56,9 @@ public abstract class Invertebrate {
     @OneToMany
     @ElementCollection(targetClass = Photo.class)
     private List<Photo> photos;
+
+    @Transient
+    private Photo avatar;
 
     public Invertebrate() {
     }
@@ -143,17 +145,12 @@ public abstract class Invertebrate {
         this.photos = photos;
     }
 
-    @Override
-    public String toString() {
-        return "Invertebrate{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", birth=" + birth +
-                ", acquired=" + acquired +
-                ", sex=" + sex +
-                ", alive=" + alive +
-                ", death=" + death +
-                '}';
+    public Photo getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Photo avatar) {
+        this.avatar = avatar;
     }
 }
 

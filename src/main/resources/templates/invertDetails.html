@@ -24,12 +24,12 @@
                     <label for="name">Name: </label>
                     <span id="name" th:text="${invert.getName()}"></span>
                 </div>
-                <div th:if="${invert.getPhotos().empty}">
+                <div th:if="${invert.getAvatar()==null}">
                     <img class="main_photo" src="https://res.cloudinary.com/mmaruszak/image/upload/v1617744509/no-image-icon-23492_y3c5us.png">
                 </div>
-                <div th:unless="${invert.getPhotos().empty}">
-                    <a th:href="${invert.getPhotos()[0].getLink()}">
-                        <img class="main_photo" th:src="${invert.getPhotos()[0].getLink()}">
+                <div th:unless="${invert.getAvatar()==null}">
+                    <a th:href="${invert.getAvatar().getLink()}">
+                        <img class="main_photo" th:src="${invert.getAvatar().getLink()}">
                     </a>
                 </div>
                 <div>

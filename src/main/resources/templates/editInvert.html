@@ -87,9 +87,13 @@
         <p id="p_instarDate"></p>
     </div>
     <div id="photos">
+        <div>
+            <p id="photos_paragraph">Select one Picture to set as Avatar</p>
+        </div>
         <span th:id ="'photo' + ${photoStats.index}" class="img_wrap" th:each="photo, photoStats : ${invert.getPhotos()}">
             <button  class="remove"  th:onclick="javascript:removePhoto(/*[[${photo.getId()}]]*/
                 , /*[[${photoStats.index}]]*/)"><i class="fas fa-times-circle"></i></button>
+            <input th:value="${photo.getId()}" class="radio" name="photo" type="radio" th:checked="${photo.isAvatar()}">
             <img class="photo" th:src="${photo.getLink()}">
         </span>
     </div>

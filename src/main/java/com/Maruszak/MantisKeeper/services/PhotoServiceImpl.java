@@ -17,12 +17,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
-
 
 @Service
 public class PhotoServiceImpl {
-
 
     @Autowired
     private PhotoRepository photoRepository;
@@ -39,20 +38,29 @@ public class PhotoServiceImpl {
                             "cloud_name", "mmaruszak",
                             "api_key", "816365741111569",
                             "api_secret", "i8K4Lh4avhtJXCTLA56jZSlJtFA",
-                            "upload_preset", "xtmxos3s"
+                            "upload_preset", "xtmxos3s",
+                            "folder", "inverts/" + invert.getUser().getId().toString()
                     ));
                     Photo Photo = new Photo(uploadResults.get("url").toString(),
-                            uploadResults.get("public_id").toString(), LocalDateTime.now(), invert);
+                            uploadResults.get("public_id").toString(), LocalDateTime.now(), invert, false);
                     photoRepository.save(Photo);
                 } catch (IOException e) {
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There was a problem with files upload");
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "{\"message\":\"There was a problem with files upload\"}");
                 }
             }
         }
     }
 
-    List<Photo> findAllByInvert(Invertebrate invert) {
+    public List<Photo> findAllByInvert(Invertebrate invert) {
         return photoRepository.findAllByInvertebrateOrderByAddedAsc(invert);
+    }
+
+    public List<Photo> findAllFromGalleryByInvert(Invertebrate invert) {
+        return photoRepository.findAllByInvertebrateAndAvatarFalseOrderByAddedAsc(invert);
+    }
+
+    public Photo findAvatar(Invertebrate invertebrate) {
+        return photoRepository.findByInvertebrateAndAvatarTrue(invertebrate).orElse(null);
     }
 
     @Transactional
@@ -69,6 +77,7 @@ public class PhotoServiceImpl {
         photoRepository.deleteByIdIn(ids);
     }
 
+
     private void deletePhotos(List<Photo> photoGalleries) {
         Cloudinary cloudinary = new Cloudinary();
         for (Photo photo : photoGalleries) {
@@ -81,6 +90,44 @@ public class PhotoServiceImpl {
                         ));
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    @Transactional
+    public void saveAsAvatar(UUID avatarId, Invertebrate invert) {
+        Optional<Photo> currentAvatarOpt = photoRepository.findByInvertebrateAndAvatarTrue(invert);
+        if (currentAvatarOpt.isPresent()) {
+            Photo avatar = currentAvatarOpt.get();
+            avatar.setAvatar(false);
+            photoRepository.save(avatar);
+        }
+        Optional<Photo> photoOptional = photoRepository.findById(avatarId);
+        if (photoOptional.isPresent()) {
+            Photo photo = photoOptional.get();
+            photo.setAvatar(true);
+            photoRepository.save(photo);
+        }
+    }
+
+    public void saveAvatar(MultipartFile avatar, Invertebrate invert) {
+        if (avatar != null) {
+            Cloudinary cloudinary = new Cloudinary();
+            try {
+                String file = "data:" + avatar.getContentType() + ";base64," +
+                        DatatypeConverter.printBase64Binary(avatar.getBytes());
+                Map uploadResults = cloudinary.uploader().upload(file, ObjectUtils.asMap(
+                        "cloud_name", "mmaruszak",
+                        "api_key", "816365741111569",
+                        "api_secret", "i8K4Lh4avhtJXCTLA56jZSlJtFA",
+                        "upload_preset", "xtmxos3s",
+                        "folder", "inverts/" + invert.getUser().getId().toString()
+                ));
+                Photo Photo = new Photo(uploadResults.get("url").toString(),
+                        uploadResults.get("public_id").toString(), LocalDateTime.now(), invert, true);
+                photoRepository.save(Photo);
+            } catch (IOException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "{\"message\":\"There was a problem with files upload\"}");
             }
         }
     }

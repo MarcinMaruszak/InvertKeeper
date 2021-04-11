@@ -88,6 +88,24 @@ function edit(){
 
         invertForm.append("removePhotos",  new Blob([JSON.stringify(ids)], {type: "application/json"}));
 
+        var avatarId;
+
+        var radios = document.getElementsByName("photo");
+
+        if(radios!== null&&radios!==undefined){
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    avatarId = radios[i].value;
+                    break;
+                }
+            }
+        }
+
+        if(avatarId!==null&&avatarId!==undefined){
+            invertForm.append("avatarID", new Blob([JSON.stringify(avatarId)], {type: "application/json"}));
+        }
+
+
 
         var paragraph = document.createElement("p");
         paragraph.id = "savingPar";
@@ -111,7 +129,11 @@ function edit(){
                var id = document.getElementById("invert_id").value;
                window.location.replace("/myInverts/details/"+id)
             } else {
-              alert("Error!!")
+
+                 alert(xhr.responseText);
+                 document.getElementById("savingPar").remove();
+                 document.getElementById("disabled").disabled =false;
+                 document.getElementById("disabled").id = "saveButton";
             }
           }
         };

@@ -52,16 +52,18 @@ public class InvertebrateController {
     @PostMapping(path = "/api/addInvert")
     public @ResponseBody
     void addInvert(@RequestPart(value = "invertDTO") InvertDTO invertDTO,
-                   @RequestPart(value = "photos", required = false) List<MultipartFile> photos) {
-        invertService.saveNewInvert(invertDTO, photos);
+                   @RequestPart(value = "photos", required = false) List<MultipartFile> photos,
+                   @RequestPart(value = "avatar", required = false) MultipartFile avatar) {
+        invertService.saveNewInvert(invertDTO, photos, avatar);
     }
 
     @PostMapping(path = "/api/updateInvert")
     public @ResponseBody
     void updateInvert(@RequestPart("invertDTO") InvertDTO invertDTO,
                       @RequestPart(value = "photos", required = false) List<MultipartFile> photos,
-                      @RequestPart (value = "removePhotos", required = false) List<UUID> toRemovePhotosIds) {
-        invertService.updateInvert(invertDTO, photos, toRemovePhotosIds);
+                      @RequestPart(value = "removePhotos", required = false) List<UUID> toRemovePhotosIds,
+                      @RequestPart(value ="avatarID", required = false) UUID avatarId) {
+        invertService.updateInvert(invertDTO, photos, toRemovePhotosIds, avatarId);
     }
 
     @DeleteMapping(path = "/api/deleteInvert/{id}")

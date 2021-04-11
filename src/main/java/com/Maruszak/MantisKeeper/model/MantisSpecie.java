@@ -1,6 +1,7 @@
 package com.Maruszak.MantisKeeper.model;
 
 public enum MantisSpecie implements Specie{
+    O("Other"),
     AF("African Mantis - Sphodromantis lineola"),
     DLM("Dead Leaf Mantis – Deroplatys desiccata"),
     GSM("Gambian Spotted-Eye Mantis – Pseudoharpax virescens"),
@@ -22,7 +23,10 @@ public enum MantisSpecie implements Specie{
     BXM("Boxer mantis - Odontomantis sp."),
     GM("Carolina mantis - Stagmomantis carolina"),
     DPM("Desert Pebble Mantis - Eremiaphila zetterstedti"),
-    O("Other");
+    AT("AFRICAN TWIG MANTIS - Popa spurca"),
+    MM("Plistospilota guineensis - Mega Mantis"),
+    AH("Alien Head Mantis - Idolomorpha lateralis");
+
 
     private final String name;
 

@@ -68,6 +68,12 @@ label{
     padding: 0px;
     color: red;
 }
+.radio{
+    position: absolute;
+    left:  1px;
+    padding: 0px;
+    color: red;
+}
 #savingPar{
     font-size: 20px;
     color: green;
@@ -79,4 +85,8 @@ label{
   max-width: 120px;
   border-radius: 4px;
   margin: 10px;
+}
+#photos_paragraph{
+  color: black;
+  font-size: 14px;
 }

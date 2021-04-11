@@ -43,7 +43,7 @@ public class InvertebratesServiceImpl {
     }
 
     @Transactional
-    public void saveNewInvert(InvertDTO invertDTO, List<MultipartFile> photos) {
+    public void saveNewInvert(InvertDTO invertDTO, List<MultipartFile> photos, MultipartFile avatar) {
         invertDTO.getInvertebrate().setUser(userService.getUser());
         for (Instar instar : invertDTO.getInstars()) {
             instar.setInvertebrate(invertDTO.getInvertebrate());
@@ -51,10 +51,12 @@ public class InvertebratesServiceImpl {
         instarService.saveAllInstars(invertDTO.getInstars());
         invertRepository.save(invertDTO.getInvertebrate());
         photoService.saveFiles(photos, invertDTO.getInvertebrate());
+        photoService.saveAvatar(avatar, invertDTO.getInvertebrate());
     }
 
     @Transactional
-    public void updateInvert(InvertDTO invertDTO, List<MultipartFile> photos, List<UUID> ids) {
+    public void updateInvert(InvertDTO invertDTO, List<MultipartFile> photos, List<UUID> ids,
+                             UUID avatarId) {
         User user = userService.getUser();
         invertDTO.getInvertebrate().setUser(user);
         for (Instar instar : invertDTO.getInstars()) {
@@ -65,6 +67,7 @@ public class InvertebratesServiceImpl {
         invertRepository.save(invertDTO.getInvertebrate());
         photoService.deleteAllById(ids);
         photoService.saveFiles(photos, invertDTO.getInvertebrate());
+        photoService.saveAsAvatar(avatarId, invertDTO.getInvertebrate());
     }
 
     @Transactional
@@ -101,7 +104,6 @@ public class InvertebratesServiceImpl {
         invert.setInstars(instarService.findInstarsByInvertAsc(invert));
         invert.setPhotos(photoService.findAllByInvert(invert));
         model.addAttribute("invert", invert);
-
         return "editInvert";
     }
 
@@ -142,8 +144,9 @@ public class InvertebratesServiceImpl {
 
     public String invertDetailsHTML(UUID id, Model model) {
         Invertebrate invert = findInvertById(id);
-        invert.setPhotos(photoService.findAllByInvert(invert));
+        invert.setPhotos(photoService.findAllFromGalleryByInvert(invert));
         invert.setInstars(instarService.findInstarsByInvertAsc(invert));
+        invert.setAvatar(photoService.findAvatar(invert));
         model.addAttribute("invert", invert);
         return "invertDetails";
     }
