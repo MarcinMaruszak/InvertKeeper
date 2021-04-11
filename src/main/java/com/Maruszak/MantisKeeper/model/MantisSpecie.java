@@ -23,7 +23,7 @@ public enum MantisSpecie implements Specie{
     BXM("Boxer mantis - Odontomantis sp."),
     GM("Carolina mantis - Stagmomantis carolina"),
     DPM("Desert Pebble Mantis - Eremiaphila zetterstedti"),
-    AT("AFRICAN TWIG MANTIS - Popa spurca"),
+    AT("African Twig Mantis - Popa spurca"),
     MM("Plistospilota guineensis - Mega Mantis"),
     AH("Alien Head Mantis - Idolomorpha lateralis");
 

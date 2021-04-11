@@ -18,6 +18,37 @@
             <a class="link_right" href="/profile">Profile</a>
         </span>
     </div>
-    <div><h1>Welcome in Inverts Keeper</h1></div>
+    <div id="wrap">
+        <div><h id="welcome">Welcome in Inverts Keeper</h></div>
+        <div id="table1" th:unless="${inverts.empty}">
+            <div>
+                <label for="latest">Recently Added</label>
+            </div>
+            <table id="latest" class="invertTable">
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Specie</th>
+                    <th>Birth</th>
+                    <th>Sex</th>
+                    <th>Instar</th>
+                    <th>Owner</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each = "invert : ${inverts}">
+                    <td><span th:text="${invert.class.simpleName}"></span></td>
+                    <td><a th:href="'/myInverts/details/'+${invert.getId()}" th:text="${invert.getName()}"></a></td>
+                    <td><span th:text="${invert.getSpecie().getName()}"></span></td>
+                    <td><span th:text="${invert.getBirth()} ?: 'N/A'"></span></td>
+                    <td><span th:text="${invert.getSex()}"></span></td>
+                    <td><span th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()}"></span></td>
+                    <td><span th:text="${invert.getUser().getUsername()}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

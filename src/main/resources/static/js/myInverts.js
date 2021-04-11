@@ -7,11 +7,19 @@ function remove(id){
          var header = document.querySelector('meta[name="_csrf_header"]').content;
 
          var xhr = new XMLHttpRequest();
-         xhr.open("DELETE", '/api/deleteInvert/'+id , false);
+         xhr.open("DELETE", '/api/deleteInvert/'+id , true);
          xhr.setRequestHeader(header, token);
+         xhr.onload = function (e) {
+         if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                 window.location.replace("/myInverts")
+            } else {
+                var err = JSON.parse(xhr.responseText);
+                alert(err.message);
+                }
+            }
+         };
          xhr.send();
-
-         window.location.replace("/myInverts")
     }
 }
 

@@ -92,7 +92,8 @@ function addPet(){
                    alert(type +" '" + name + "' saved.");
                    window.location.replace("/myInverts")
                 } else {
-                  alert("Error!!")
+                    var err = JSON.parse(xhr.responseText);
+                    alert(err.message);
                 }
               }
            };

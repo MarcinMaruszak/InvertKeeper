@@ -20,5 +20,7 @@ public interface InvertebrateRepository extends JpaRepository<Invertebrate , Lon
 
     Optional<Invertebrate> findById(UUID id);
 
+    List<Invertebrate> findTop10ByOrderByAddedDesc();
+
     void deleteById(UUID id);
 }

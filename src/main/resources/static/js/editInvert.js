@@ -105,9 +105,7 @@ function edit(){
             invertForm.append("avatarID", new Blob([JSON.stringify(avatarId)], {type: "application/json"}));
         }
 
-
-
-        var paragraph = document.createElement("p");
+         var paragraph = document.createElement("p");
         paragraph.id = "savingPar";
         paragraph.innerHTML="Saving in progress..."
         document.getElementById("wrap").appendChild(paragraph);
@@ -129,8 +127,8 @@ function edit(){
                var id = document.getElementById("invert_id").value;
                window.location.replace("/myInverts/details/"+id)
             } else {
-
-                 alert(xhr.responseText);
+                var err = JSON.parse(xhr.responseText);
+                alert(err.message);
                  document.getElementById("savingPar").remove();
                  document.getElementById("disabled").disabled =false;
                  document.getElementById("disabled").id = "saveButton";

@@ -36,7 +36,7 @@
                     <label for="acquired">Bought: </label>
                     <span id="acquired" th:text="${invert.getAcquired()} ?: 'N/A'"></span>
                 </div>
-                <div id="buttons">
+                <div id="buttons" th:if="${userId==invert.getUser().getId()}">
                     <button id="edit_button" title="Edit" th:onclick="javascript:edit(/*[[${invert.getId()}]]*/)">
                         <i class="fas fa-edit"></i></button>
                     <button id="delete_button" title="Delete" th:onclick="javascript:remove(/*[[${invert.getId()}]]*/)">

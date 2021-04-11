@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,6 +60,9 @@ public abstract class Invertebrate {
 
     @Transient
     private Photo avatar;
+
+    @Column
+    private LocalDateTime added;
 
     public Invertebrate() {
     }
@@ -151,6 +155,14 @@ public abstract class Invertebrate {
 
     public void setAvatar(Photo avatar) {
         this.avatar = avatar;
+    }
+
+    public LocalDateTime getAdded() {
+        return added;
+    }
+
+    public void setAdded(LocalDateTime added) {
+        this.added = added;
     }
 }
 

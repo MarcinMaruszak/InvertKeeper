@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -49,6 +50,7 @@ public class InvertebratesServiceImpl {
             instar.setInvertebrate(invertDTO.getInvertebrate());
         }
         instarService.saveAllInstars(invertDTO.getInstars());
+        invertDTO.getInvertebrate().setAdded(LocalDateTime.now());
         invertRepository.save(invertDTO.getInvertebrate());
         photoService.saveFiles(photos, invertDTO.getInvertebrate());
         photoService.saveAvatar(avatar, invertDTO.getInvertebrate());
@@ -75,7 +77,8 @@ public class InvertebratesServiceImpl {
         User user = userService.getUser();
         Invertebrate invert = findInvertById(id);
         if(!invert.getUser().getId().equals(user.getId())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not Your invert cannot delete");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Not Your invert cannot delete");
         }
         instarService.deleteAllByInvert(invert);
         photoService.deleteAllByInvert(invert);
@@ -87,7 +90,8 @@ public class InvertebratesServiceImpl {
         User user = userService.getUser();
         Invertebrate invert = findInvertById(id);
         if(!invert.getUser().getId().equals(user.getId())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not Your invert, cannot change it");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Not Your invert, cannot change it");
         }
         invert.setAlive(false);
         invert.setDeath(date);
@@ -98,7 +102,8 @@ public class InvertebratesServiceImpl {
         User user = userService.getUser();
         Invertebrate invert = findInvertById(id);
         if(!invert.getUser().getId().equals(user.getId())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not Your invert, cannot edit");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Not Your invert, cannot edit");
         }
         invert.setUser(user);
         invert.setInstars(instarService.findInstarsByInvertAsc(invert));
@@ -108,6 +113,12 @@ public class InvertebratesServiceImpl {
     }
 
     public String markInvertDeadHTML(UUID id, Model model) {
+        User user = userService.getUser();
+        Invertebrate invert = findInvertById(id);
+        if(!invert.getUser().getId().equals(user.getId())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Not Your invert, cannot change it");
+        }
         model.addAttribute("id", id);
         return "markDead";
     }
@@ -147,8 +158,12 @@ public class InvertebratesServiceImpl {
         invert.setPhotos(photoService.findAllFromGalleryByInvert(invert));
         invert.setInstars(instarService.findInstarsByInvertAsc(invert));
         invert.setAvatar(photoService.findAvatar(invert));
+        model.addAttribute("userId" , userService.getUser().getId());
         model.addAttribute("invert", invert);
         return "invertDetails";
     }
 
+    public List<Invertebrate> findLast10Added() {
+        return invertRepository.findTop10ByOrderByAddedDesc();
+    }
 }
