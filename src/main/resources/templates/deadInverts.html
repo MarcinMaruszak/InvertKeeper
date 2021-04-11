@@ -13,7 +13,10 @@
 <div class="top_nav">
     <a class="link_left" href="/">Home</a>
     <a class="link_left" href="/myInverts">Alive Inverts</a>
-    <a class="link_right" href="/logout">Logout</a>
+    <form id="logout_form" class="link_right" th:action="@{/logout}" method="post">
+        <a class="link_right"
+           href="javascript:{}" onclick="document.getElementById('logout_form').submit(); return false;">Log Out</a>
+    </form>
     <a class="link_right" href="/profile">Profile</a>
 </div>
 <div id="par">

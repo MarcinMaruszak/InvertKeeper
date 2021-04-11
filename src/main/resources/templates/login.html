@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/login.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/login.js}"></script>
+    <title>Login</title>
+</head>
+<body>
+    <div>
+        <p1>Login</p1>
+    </div>
+    <div>
+        <input id="username" type="text" required placeholder="username"/>
+        <div>
+            <p id="p_username"></p>
+        </div>
+    </div>
+    <div>
+        <input id="password" type="password" required placeholder="password"/>
+        <div>
+            <p id="p_password"></p>
+        </div>
+    </div>
+    <div>
+        <button id="register" type="submit" onclick="validation()">Login</button>
+    </div>
+    <div>
+        <a href="/register">Register</a>
+    </div>
+</body>
+</html>

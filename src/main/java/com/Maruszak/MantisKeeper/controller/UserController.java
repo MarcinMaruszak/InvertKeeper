@@ -19,12 +19,6 @@ public class UserController {
     UserDetailsServiceImpl userServices;
 
 
-    @GetMapping(path = "/register")
-    public String register() {
-        return "register";
-    }
-
-
     @PostMapping(path = "/api/register")
     public @ResponseBody
     User register(@Valid @RequestBody User user) {

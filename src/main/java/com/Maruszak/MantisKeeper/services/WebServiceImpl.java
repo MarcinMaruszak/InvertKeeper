@@ -30,4 +30,12 @@ public class WebServiceImpl {
         model.addAttribute("inverts" , inverts);
         return "home";
     }
+
+    public String register() {
+        return "register";
+    }
+
+    public String login() {
+        return "login";
+    }
 }

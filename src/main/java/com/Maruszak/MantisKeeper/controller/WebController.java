@@ -17,5 +17,13 @@ public class WebController {
         return webService.getHomeHTML(model);
     }
 
+    @GetMapping(path = "/register")
+    public String register() {
+        return webService.register();
+    }
 
+    @GetMapping(path = "/login")
+    public String login(){
+        return webService.login();
+    }
 }

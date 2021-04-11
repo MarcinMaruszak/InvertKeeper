@@ -1,20 +1,9 @@
 function validation(){
 
-
     var username = document.getElementById("username").value;
-    var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
-    var password2 = document.getElementById("password2").value;
 
     var valid = true;
-
-    if(password!=password2){
-        valid=false;
-        document.getElementById("p_password2").innerHTML = "passwords don't match";
-    }else{
-        document.getElementById("p_password2").innerHTML = "";
-    }
-
 
     var nameRegex = /[a-zA-Z0-9_]{6,}/
     if(username.length<6 && !nameRegex.test(name)){
@@ -25,14 +14,6 @@ function validation(){
         document.getElementById("p_username").innerHTML = "";
     }
 
-    var emailRegex = /\S+@\S+\.\S+/;
-    if(!emailRegex.test(email)){
-        valid = false;
-        document.getElementById("p_email").innerHTML = "email not valid"
-    }else{
-        document.getElementById("p_email").innerHTML = ""
-    }
-
     if(password.length<8){
         valid = false;
         document.getElementById("p_password").innerHTML = "min 8 characters";
@@ -40,43 +21,41 @@ function validation(){
         document.getElementById("p_password").innerHTML = "";
     }
 
-    if(password2.length<8){
-            valid = false;
-            document.getElementById("p_password").innerHTML = "min 8 characters";
-        }else{
-            document.getElementById("p_password").innerHTML = "";
-        }
 
     if(valid){
-        register();
+        login();
     }
 }
 
-function register(){
-    let object = {
+function login(){
+    /*let object = {
         "username" : document.getElementById("username").value,
-        "email": document.getElementById("email").value,
         "password": document.getElementById("password").value
     };
-    let json = JSON.stringify(object);
+    let json = JSON.stringify(object);*/
+
+    var loginForm = new FormData();
+
+    loginForm.append("username" , document.getElementById("username").value);
+    loginForm.append("password", document.getElementById("password").value);
 
     var token = document.querySelector('meta[name="_csrf"]').content;
     var header = document.querySelector('meta[name="_csrf_header"]').content;
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/api/register' , true)
+    xhr.open("POST", '/login' , true)
     xhr.setRequestHeader(header, token)
-    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
     xhr.onload = function (e) {
       if (xhr.readyState === 4) {
            if (xhr.status === 200) {
-                alert("registration successful")
-                window.location.replace(window.location.origin + "/login")
+                console.log(xhr.responseText)
+                window.location.replace(xhr.responseURL)
            } else {
+                console.log(e)
                 var err = JSON.parse(xhr.responseText);
                 alert(err.message)
            }
        }
     };
-    xhr.send(json);
+    xhr.send(loginForm);
 }

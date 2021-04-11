@@ -21,6 +21,9 @@ public class SecurityLogic extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
 
+    @Autowired
+    CustomAuthenticationSuccessHandler authenticationSuccessHandler;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -28,9 +31,12 @@ public class SecurityLogic extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/register", "/login" , "*").permitAll()
+        http.authorizeRequests().antMatchers("/register", "/login" , "/logout",  "*").permitAll()
                 .antMatchers( "/myInverts/**", "/profile/**").hasAnyAuthority("USER", "ADMIN")
-                .and().formLogin().and().logout().logoutSuccessUrl("/");
+                .and()
+                .formLogin().loginPage("/login")
+                .successHandler(authenticationSuccessHandler)
+                .and().logout().logoutSuccessUrl("/");
     }
 
     @Bean
