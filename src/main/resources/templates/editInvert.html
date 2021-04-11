@@ -10,6 +10,12 @@
     <title th:text="${'Edit ' + invert.getName()}"></title>
 </head>
 <body>
+<div class="top_nav">
+    <a class="link_left" href="/">Home</a>
+    <a class="link_left" href="/myInverts">My Inverts</a>
+    <a class="link_right" href="/logout">Logout</a>
+    <a class="link_right" href="/profile">Profile</a>
+</div>
 <div id="wrap" class="wrap">
     <div>
         <p1 th:text=" ${invert.getClass().getSimpleName()} +' '+ ${invert.getName()}"></p1>
