@@ -47,7 +47,8 @@ function edit(){
             "sex": document.getElementById("sex").value,
             "birth": document.getElementById("birth").value,
             "acquired": document.getElementById("acquired").value,
-            "alive" : document.getElementById("alive").value
+            "alive" : document.getElementById("alive").value,
+            "added" : document.getElementById("added").value
         };
 
         var instars = document.getElementsByClassName("instar_input");
