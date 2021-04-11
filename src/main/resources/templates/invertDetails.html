@@ -46,7 +46,37 @@
                 </div>
             </div>
             <div class="details">
-                <div>
+                <table id="details_table">
+                    <tbody>
+                    <tr>
+                        <th class="col">Specie:</th>
+                        <td th:text="${invert.getSpecie().getName()}"> </td>
+                    </tr>
+                    <tr>
+                        <th class="col">Sex:</th>
+                        <td th:text="${invert.getSex().getName()}"></td>
+                    </tr>
+                    <tr>
+                        <th class="col">Date of Birth:</th>
+                        <td th:text="${invert.getBirth()} ?: 'N/A'"></td>
+                    </tr>
+                    <tr th:if="${invert.getDeath() != null}">
+                        <th class="col">Date of Death:</th>
+                        <td th:text="${invert.getDeath()}"></td>
+                    </tr>
+                    <tr>
+                        <th class="col">Last Instar:</th>
+                        <td th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()} ?: 'N/A'"></td>
+                    </tr>
+                    <tr>
+                        <th class="col">Date of Last Instar:</th>
+                        <td th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getMoltDate()} ?: 'N/A'"></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <!--<div>
                     <label for="acquired">Specie: </label>
                     <span id="specie" th:text="${invert.getSpecie().getName()}"></span>
                 </div>
@@ -71,7 +101,7 @@
                     <label for="last_instar_date">Date of Last Instar: </label>
                     <span id="last_instar_date"
                           th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getMoltDate()} ?: 'N/A'"></span>
-                </div>
+                </div>-->
                 <div id="table">
                     <label for="table">Instars:</label>
                 <div>

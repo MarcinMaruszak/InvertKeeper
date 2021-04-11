@@ -101,3 +101,16 @@ div{
   color: blue;
   font-weight: bold;
 }
+#details_table{
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  border: solid 1px green;
+}
+#details_table th, td{
+  text-align: left;
+  border-top: 1px solid green;
+  padding-inline: 10px;
+  padding-block: 5px;
+}
