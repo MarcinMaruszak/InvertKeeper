@@ -1,5 +1,6 @@
 package com.Maruszak.MantisKeeper.services;
 
+import com.Maruszak.MantisKeeper.DTO.PasswordsDTO;
 import com.Maruszak.MantisKeeper.model.User;
 import com.Maruszak.MantisKeeper.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     public String profile(Model model) {
+        User user = getUser();
+        user.setInvertebratesList(invertService.findInvertsByUser(user));
+        model.addAttribute("user" , user);
         return "userProfile";
+    }
+
+    @Transactional
+    public void changePass(PasswordsDTO passwords) {
+        User user = getUser();
+        if(passwordEncoder.matches(passwords.getOldPass(), user.getPassword())){
+            user.setPassword(passwordEncoder.encode(passwords.getNewPass()));
+            userRepository.save(user);
+        }else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Old Password!");
+        }
     }
 }

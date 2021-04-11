@@ -29,7 +29,7 @@ public class SecurityLogic extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/register", "/login" , "*").permitAll()
-                .antMatchers("/myInverts", "/myInverts/**").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers( "/myInverts/**", "/profile/**").hasAnyAuthority("USER", "ADMIN")
                 .and().formLogin().and().logout().logoutSuccessUrl("/");
     }
 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.getUsername()} + ' Profile'"></title>
+    <link th:href="@{/css/userProfile.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/userProfile.js}"></script>
+    <script src="https://kit.fontawesome.com/5788f7a270.js" crossorigin="anonymous"></script>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+  <div class="top_nav">
+    <a class="link_left" href="/">Home</a>
+    <a class="link_left" href="/myInverts">My Inverts</a>
+    <a class="link_right" href="/logout">Logout</a>
+  </div>
+  <div>
+    <div id="wrap" class="wrap">
+        <div id ="user_name" th:text="${user.getUsername()}"></div>
+      <div class="content">
+          <table>
+              <tbody>
+                <tr>
+                    <th class="col">Email:</th>
+                    <td th:text="${user.getEmail()}"> </td>
+                </tr>
+                <tr>
+                    <th class="col">Number of Invertebrates:</th>
+                    <td th:text="${#lists.size(user.getInvertebratesList())}"></td>
+                </tr>
+              </tbody>
+          </table>
+      </div>
+        <div>
+            <input type="button" id="passButton" value="Change Password" th:onclick="showPassFields()"/>
+        </div>
+    </div>
+  </div>
+</body>
+</html>

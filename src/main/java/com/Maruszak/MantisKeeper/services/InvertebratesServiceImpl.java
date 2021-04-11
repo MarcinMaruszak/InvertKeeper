@@ -34,6 +34,9 @@ public class InvertebratesServiceImpl {
     @Autowired
     private PhotoServiceImpl photoService;
 
+    public List<Invertebrate> findInvertsByUser(User user){
+        return invertRepository.findAllByUser(user);
+    }
 
     public Invertebrate findInvertById(UUID id) {
         Optional<Invertebrate> invertOptional = invertRepository.findById(id);
