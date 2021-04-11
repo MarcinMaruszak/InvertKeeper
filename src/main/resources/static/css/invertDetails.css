@@ -58,7 +58,7 @@ div{
    margin-top: 5px;
    margin-bottom: 5px;
 }
-.instars_table, th, td{
+.instars_table, .instar_col{
     border: 1px solid black;
     margin-bottom: 25px;
     border: 1px solid black;
@@ -108,7 +108,7 @@ div{
   border-collapse: collapse;
   border: solid 1px green;
 }
-#details_table th, td{
+.details_col{
   text-align: left;
   border-top: 1px solid green;
   padding-inline: 10px;

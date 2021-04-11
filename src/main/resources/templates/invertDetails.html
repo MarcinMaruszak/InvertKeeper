@@ -49,73 +49,45 @@
                 <table id="details_table">
                     <tbody>
                     <tr>
-                        <th class="col">Specie:</th>
-                        <td th:text="${invert.getSpecie().getName()}"> </td>
+                        <th class="details_col">Specie:</th>
+                        <td class="details_col" th:text="${invert.getSpecie().getName()}"> </td>
                     </tr>
                     <tr>
-                        <th class="col">Sex:</th>
-                        <td th:text="${invert.getSex().getName()}"></td>
+                        <th class="details_col">Sex:</th>
+                        <td class="details_col" th:text="${invert.getSex().getName()}"></td>
                     </tr>
                     <tr>
-                        <th class="col">Date of Birth:</th>
-                        <td th:text="${invert.getBirth()} ?: 'N/A'"></td>
+                        <th class="details_col">Date of Birth:</th>
+                        <td class="details_col" th:text="${invert.getBirth()} ?: 'N/A'"></td>
                     </tr>
                     <tr th:if="${invert.getDeath() != null}">
-                        <th class="col">Date of Death:</th>
-                        <td th:text="${invert.getDeath()}"></td>
+                        <th class="details_col">Date of Death:</th>
+                        <td class="details_col" th:text="${invert.getDeath()}"></td>
                     </tr>
                     <tr>
-                        <th class="col">Last Instar:</th>
-                        <td th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()} ?: 'N/A'"></td>
+                        <th class="details_col">Last Instar:</th>
+                        <td class="details_col" th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()} ?: 'N/A'"></td>
                     </tr>
                     <tr>
-                        <th class="col">Date of Last Instar:</th>
-                        <td th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getMoltDate()} ?: 'N/A'"></td>
+                        <th class="details_col">Date of Last Instar:</th>
+                        <td class="details_col" th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getMoltDate()} ?: 'N/A'"></td>
                     </tr>
-
                     </tbody>
                 </table>
-
-                <!--<div>
-                    <label for="acquired">Specie: </label>
-                    <span id="specie" th:text="${invert.getSpecie().getName()}"></span>
-                </div>
-                <div>
-                    <label for="acquired">Sex: </label>
-                    <span id="sex" th:text="${invert.getSex().getName()}"></span>
-                </div>
-                <div>
-                    <label for="acquired">Date of Birth: </label>
-                    <span id="birth" th:text="${invert.getBirth()} ?: 'N/A'"></span>
-                </div>
-                <div th:if="${invert.getDeath() != null}">
-                    <label for="death">Date of Death: </label>
-                    <span id="death" th:text="${invert.getDeath()}"></span>
-                </div>
-                <div>
-                    <label for="last_instar">Last Instar: </label>
-                    <span id="last_instar"
-                          th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()} ?: 'N/A'"></span>
-                </div>
-                <div>
-                    <label for="last_instar_date">Date of Last Instar: </label>
-                    <span id="last_instar_date"
-                          th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getMoltDate()} ?: 'N/A'"></span>
-                </div>-->
                 <div id="table">
                     <label for="table">Instars:</label>
                 <div>
                     <table class="instars_table">
                         <thead>
                         <tr>
-                            <th>L</th>
-                            <th>Date</th>
+                            <th class="instar_col">L</th>
+                            <th class="instar_col">Date</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each = "instar : ${invert.getInstars()}">
-                            <td><span th:text="${instar.getL()}"></span></td>
-                            <td><span th:text="${instar.getMoltDate()} ?: 'N/A'"></span></td>
+                            <td class="instar_col"><span th:text="${instar.getL()}"></span></td>
+                            <td class="instar_col"><span th:text="${instar.getMoltDate()} ?: 'N/A'"></span></td>
                         </tr>
                         </tbody>
                     </table>
