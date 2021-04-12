@@ -1,58 +1,18 @@
-.top_nav {
-  background-color: green;
-  overflow: hidden;
-  margin-bottom: 15px;
- height: 40px;
-}
-
-.top_nav a {
-  color: #f2f2f2;
-  text-align: center;
-  padding: 8px 16px;
-  text-decoration: none;
-  font-size: 20px;
-}
-.top_nav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-.link_left{
-  text-align: left;
-  float: left;
-}
-.link_right{
-  text-align: right;
-  float: right;
-}
-
-.invertTable, th, td{
-  border: 1px solid black;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 25px;
-  margin-top: 20px;
-  border: 1px solid black;
-  border-collapse: collapse;
-  padding-block: 2px;
-  padding-inline: 10px;
-  text-align: center;
-  font-size: 18px;
-}
 #par{
   font-size: 25px;
   margin-bottom: 10px;
   text-align: center;
+  color: white;
 }
-
 #add_button{
-
- text-align: center;
+  text-align: center;
 }
 #addPet{
+  font-size: 15px;
   color: white;
   border-radius: 4px;
-  border-color: green;
-  background-color: green;
+  border-color: rgb(100,255,102);
+  background-color: rgb(50,105,22);
 }
 #edit{
   color: blue;
@@ -60,8 +20,15 @@
 #delete{
   color: red;
 }
+#death, #edit, #delete{
+   background-color: white;
+}
+#death:hover, #edit:hover, #delete:hover{
+   border-color: black;
+}
 p{
+  margin-top: 40px;
   text-align: center;
   font-size: 19px;
-  color: red;
+  color: rgb(250,250,142);
 }

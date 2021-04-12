@@ -1,0 +1,47 @@
+body{
+  background-color: rgb(70,130,26);
+}
+a:hover{
+  color: black;
+}
+a{
+  color: white;
+}
+.top_nav {
+  background-color: rgb(12,92,20);
+  overflow: hidden;
+  margin-bottom: 15px;
+   height: 40px;
+}
+.top_nav a {
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.link_left{
+  text-align: left;
+  float: left;
+}
+.link_right{
+  text-align: right;
+  float: right;
+}
+.top_nav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+table, th, td{
+  border: 1px solid rgb(50,50,50);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 25px;
+  margin-top: 10px;
+  border-collapse: collapse;
+  padding-block: 3px;
+  padding-inline: 12px;
+  text-align: center;
+  font-size: 18px;
+  color: white;
+}

@@ -1,30 +1,3 @@
-.top_nav {
-  background-color: green;
-  overflow: hidden;
-  margin-bottom: 15px;
- height: 40px;
-}
-
-.top_nav a {
-  color: #f2f2f2;
-  text-align: center;
-  padding: 8px 16px;
-  text-decoration: none;
-  font-size: 20px;
-}
-.top_nav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-.link_left{
-  text-align: left;
-  float: left;
-}
-.link_right{
-  text-align: right;
-  float: right;
-}
-
 .wrap{
   text-align: center;
 }
@@ -39,8 +12,10 @@
    margin: 10px;
    padding: 10px;
    border-radius: 8px;
-   border-color: rgb(39 103 35);
+   border-color: rgb(39 83 25);
    font-size: 19px;
+  color: white;
+
 }
 .main{
   float: left;
@@ -59,13 +34,7 @@ div{
    margin-bottom: 5px;
 }
 .instars_table, .instar_col{
-    border: 1px solid black;
-    margin-bottom: 25px;
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding-block: 2px;
-    padding-inline: 9px;
-   text-align: center;
+    margin-left: 0px;
 }
 #table{
   margin-top: 10px;
@@ -77,8 +46,11 @@ div{
 #delete_button{
   color: red;
 }
-#gallery{
-  color: green;
+#death_button, #edit_button, #delete_button{
+   background-color: white;
+}
+#death_button:hover, #edit_button:hover, #delete_button:hover{
+   border-color: black;
 }
 .main_photo{
   width:  220px;
@@ -98,19 +70,9 @@ div{
 #p_gallery{
   margin-top: 15px;
   font-size:  25px;
-  color: blue;
+  color: rgb(154,255,154);
   font-weight: bold;
-}
-#details_table{
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  border-collapse: collapse;
-  border: solid 1px green;
 }
 .details_col{
   text-align: left;
-  border-top: 1px solid green;
-  padding-inline: 10px;
-  padding-block: 5px;
 }

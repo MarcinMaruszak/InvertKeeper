@@ -6,20 +6,18 @@
   display: inline-block;
 }
 #markButton{
-
-   max-width: 120px;
-  background-color: green;
+ max-width: 120px;
   color: white;
   border-radius: 4px;
-  border-color: green;
-  margin: 10px;
+  border-color: rgb(100,255,102);
+  background-color: rgb(50,105,22);
+  margin: 7px;
 }
 #cancelButton{
-
-   max-width: 120px;
+max-width: 120px;
   background-color: red;
   color: white;
   border-radius: 4px;
-  border-color: red;
-  margin: 10px;
+  border-color: rgb(255,240,102);
+  margin: 7px;
 }

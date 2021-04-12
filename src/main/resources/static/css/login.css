@@ -8,6 +8,7 @@ div{
 }
 p1{
     font-size: 20px;
+    color: white;
 }
 p{
   color: red;
@@ -18,10 +19,14 @@ input{
 }
 button{
   scale: 1.2;
-   max-width: 120px;
-  align-self: center;
-  background-color: green;
   color: white;
   border-radius: 4px;
-  border-color: green;
+  border-color: rgb(100,255,102);
+  background-color: rgb(50,105,22);
+}
+a:hover{
+  color: black;
+}
+a{
+  color: white;
 }

@@ -18,10 +18,11 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
         DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST");
-        if (defaultSavedRequest != null) {
-            getRedirectStrategy().sendRedirect(request, response, defaultSavedRequest.getRedirectUrl());
+        if (defaultSavedRequest != null && !defaultSavedRequest.getRedirectUrl().contains("login")) {
+            setDefaultTargetUrl(defaultSavedRequest.getRedirectUrl());
         } else {
             setDefaultTargetUrl("/");
         }
+        getRedirectStrategy().sendRedirect(request, response, getDefaultTargetUrl());
     }
 }
