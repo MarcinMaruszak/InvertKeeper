@@ -28,11 +28,6 @@ function validation(){
 }
 
 function login(){
-    /*let object = {
-        "username" : document.getElementById("username").value,
-        "password": document.getElementById("password").value
-    };
-    let json = JSON.stringify(object);*/
 
     var loginForm = new FormData();
 
@@ -48,10 +43,8 @@ function login(){
     xhr.onload = function (e) {
       if (xhr.readyState === 4) {
            if (xhr.status === 200) {
-                console.log(xhr.responseText)
                 window.location.replace(xhr.responseURL)
            } else {
-                console.log(e)
                 var err = JSON.parse(xhr.responseText);
                 alert(err.message)
            }

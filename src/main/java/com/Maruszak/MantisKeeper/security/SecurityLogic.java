@@ -24,6 +24,9 @@ public class SecurityLogic extends WebSecurityConfigurerAdapter {
     @Autowired
     CustomAuthenticationSuccessHandler authenticationSuccessHandler;
 
+    @Autowired
+    CustomAuthenticationFailureHandler authenticationFailureHandler;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -36,6 +39,7 @@ public class SecurityLogic extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/login")
                 .successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler)
                 .and().logout().logoutSuccessUrl("/");
     }
 
