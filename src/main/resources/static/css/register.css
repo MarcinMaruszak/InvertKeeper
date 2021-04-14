@@ -12,7 +12,7 @@ p1{
 }
 p{
   color: black;
-  font-size: 10px;
+  font-size: 12px;
 }
 input{
   border-radius: 4px;
@@ -25,4 +25,9 @@ button{
     background-color: rgb(50,105,22);
   color: white;
   border-radius: 4px;
+}
+#info_register {
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
 }

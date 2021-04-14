@@ -43,10 +43,11 @@ function login(){
     xhr.onload = function (e) {
       if (xhr.readyState === 4) {
            if (xhr.status === 200) {
+            document.getElementById("info_login").innerHTML="";
                 window.location.replace(xhr.responseURL)
            } else {
                 var err = JSON.parse(xhr.responseText);
-                alert(err.message)
+                document.getElementById("info_login").innerHTML=err.message;
            }
        }
     };

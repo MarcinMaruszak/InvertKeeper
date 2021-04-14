@@ -10,10 +10,6 @@ p1{
     font-size: 20px;
     color: white;
 }
-p{
-  color: black;
-  font-size: 11px;
-}
 input{
   border-radius: 4px;
 }
@@ -29,4 +25,9 @@ a:hover{
 }
 a{
   color: white;
+}
+.info {
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
 }

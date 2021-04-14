@@ -23,9 +23,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
                                         AuthenticationException exception) throws IOException, ServletException {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         Map<String, Object> data = new HashMap<>();
-        data.put("exception", exception.getMessage());
-        data.put("message","Bad Credentials!");
+        data.put("message", exception.getMessage());
         response.getOutputStream().println(objectMapper.writeValueAsString(data));
-        //super.onAuthenticationFailure(request, response, exception);
     }
 }

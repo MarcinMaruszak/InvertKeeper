@@ -64,13 +64,13 @@ function register(){
     var header = document.querySelector('meta[name="_csrf_header"]').content;
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/api/register' , true)
+    xhr.open("POST", '/register' , true)
     xhr.setRequestHeader(header, token)
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
     xhr.onload = function (e) {
       if (xhr.readyState === 4) {
            if (xhr.status === 200) {
-                alert("registration successful")
+                alert("Registration successful! Email with activation link was sent.")
                 window.location.replace(window.location.origin + "/login")
            } else {
                 var err = JSON.parse(xhr.responseText);

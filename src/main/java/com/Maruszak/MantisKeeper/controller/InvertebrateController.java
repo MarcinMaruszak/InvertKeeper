@@ -47,9 +47,7 @@ public class InvertebrateController {
         return invertService.invertDetailsHTML(id, model);
     }
 
-    //--------api------
-
-    @PostMapping(path = "/api/addInvert")
+    @PostMapping(path = "/addInvert")
     public @ResponseBody
     void addInvert(@RequestPart(value = "invertDTO") InvertDTO invertDTO,
                    @RequestPart(value = "photos", required = false) List<MultipartFile> photos,
@@ -57,7 +55,7 @@ public class InvertebrateController {
         invertService.saveNewInvert(invertDTO, photos, avatar);
     }
 
-    @PostMapping(path = "/api/updateInvert")
+    @PostMapping(path = "/updateInvert")
     public @ResponseBody
     void updateInvert(@RequestPart("invertDTO") InvertDTO invertDTO,
                       @RequestPart(value = "photos", required = false) List<MultipartFile> photos,
@@ -66,13 +64,13 @@ public class InvertebrateController {
         invertService.updateInvert(invertDTO, photos, toRemovePhotosIds, avatarId);
     }
 
-    @DeleteMapping(path = "/api/deleteInvert/{id}")
+    @DeleteMapping(path = "/deleteInvert/{id}")
     public @ResponseBody
     void deleteInvert(@PathVariable UUID id) {
         invertService.deleteInvert(id);
     }
 
-    @PostMapping(path = "/api/saveAsDead/{id}")
+    @PostMapping(path = "/saveAsDead/{id}")
     public @ResponseBody
     void markDead(@PathVariable UUID id, @RequestParam("date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {

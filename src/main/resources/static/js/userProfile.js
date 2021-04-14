@@ -99,7 +99,7 @@ function saveNewPass(){
    let json = JSON.stringify(object);
 
     let xhr = new XMLHttpRequest();
-     xhr.open("POST", '/api/changePass' , true);
+     xhr.open("POST", '/changePass' , true);
      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
      xhr.setRequestHeader(header, token);
      xhr.onload = function (e) {

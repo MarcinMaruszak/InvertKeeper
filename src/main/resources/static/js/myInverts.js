@@ -7,7 +7,7 @@ function remove(id){
          var header = document.querySelector('meta[name="_csrf_header"]').content;
 
          var xhr = new XMLHttpRequest();
-         xhr.open("DELETE", '/api/deleteInvert/'+id , true);
+         xhr.open("DELETE", '/deleteInvert/'+id , true);
          xhr.setRequestHeader(header, token);
          xhr.onload = function (e) {
          if (xhr.readyState === 4) {

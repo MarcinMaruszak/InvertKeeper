@@ -98,7 +98,7 @@
     </div>
     <div id="photos">
         <div>
-            <p id="photos_paragraph">Select one Picture to set as Avatar</p>
+            <p id="photos_paragraph" th:unless="${invert.getPhotos().empty}">Select one Picture to set as Avatar</p>
         </div>
         <span th:id ="'photo' + ${photoStats.index}" class="img_wrap" th:each="photo, photoStats : ${invert.getPhotos()}">
             <button  class="remove"  th:onclick="javascript:removePhoto(/*[[${photo.getId()}]]*/

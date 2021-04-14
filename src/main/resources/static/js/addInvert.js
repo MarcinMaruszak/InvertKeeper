@@ -82,7 +82,7 @@ function addPet(){
     var header = document.querySelector('meta[name="_csrf_header"]').content;
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/api/addInvert' , true);
+    xhr.open("POST", '/addInvert' , true);
     xhr.setRequestHeader(header, token);
     xhr.onload = function (e) {
        if (xhr.readyState === 4) {

@@ -5,7 +5,7 @@ function markDead(id){
 
         var date = document.getElementById("date").value;
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", '/api/saveAsDead/'+id +'?date='+date, false);
+        xhr.open("POST", '/saveAsDead/'+id +'?date='+date, false);
         xhr.setRequestHeader(header, token);
         xhr.send();
 

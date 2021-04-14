@@ -2,9 +2,11 @@ package com.Maruszak.MantisKeeper.services;
 
 import com.Maruszak.MantisKeeper.DTO.PasswordsDTO;
 import com.Maruszak.MantisKeeper.model.User;
+import com.Maruszak.MantisKeeper.model.VerificationToken;
 import com.Maruszak.MantisKeeper.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,8 +35,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private InstarServiceImpl instarService;
 
+    @Autowired
+    private VerificationTokenServiceImpl tokenService;
+
+    @Autowired
+    private EmailServiceImpl emailService;
+
+
+
     @Transactional
-    public User register(User userTemp) {
+    public void register(User userTemp) {
 
         Optional<User> userOptional = userRepository.findByEmail(userTemp.getEmail());
         if (userOptional.isPresent()) {
@@ -45,15 +55,26 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(userOptional.isPresent()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already in use");
         }
+
         User user = new User();
         user.setUsername(userTemp.getUsername());
         user.setEmail(userTemp.getEmail());
         user.setPassword(passwordEncoder.encode(userTemp.getPassword()));
         user.setInvertebratesList(new ArrayList<>());
         user.setAuthority("USER");
-        user.setActive(true);
+        user.setActive(false);
         userRepository.save(user);
-        return user;
+
+        VerificationToken verificationToken = new VerificationToken(user);
+        tokenService.save(verificationToken);
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(user.getEmail());
+        mail.setSubject("Complete Registration for Inverts Keepers Website");
+        mail.setFrom("invertebrates.keepers@gmail.com");
+        mail.setText("To confirm your account, please click here : " +
+                "http://81.97.217.199/confirmAccount?token="+verificationToken.getToken());
+        emailService.sendEmail(mail);
     }
 
     public User getUser(){
@@ -90,5 +111,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Old Password!");
         }
+    }
+
+    @Transactional
+    public String activateUser(String token, Model model) {
+        Optional<VerificationToken> tokenOptional = tokenService.findByToken(token);
+        if(tokenOptional.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad link or token doesn't exist!");
+        }else {
+            User user = tokenOptional.get().getUser();
+            user.setActive(true);
+            userRepository.save(user);
+            tokenService.deleteToken(tokenOptional.get().getId());
+            model.addAttribute("message" , "User account successfully activated");
+        }
+        return "activation";
     }
 }

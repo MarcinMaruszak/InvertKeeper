@@ -117,7 +117,7 @@ function edit(){
         var header = document.querySelector('meta[name="_csrf_header"]').content;
 
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", '/api/updateInvert' , true);
+        xhr.open("POST", '/updateInvert' , true);
         xhr.setRequestHeader(header, token);
         xhr.onload = function (e) {
           if (xhr.readyState === 4) {
