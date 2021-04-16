@@ -22,8 +22,9 @@ public class VerificationTokenServiceImpl {
         return tokenRepository.findByToken(token);
     }
 
-    public void deleteToken(UUID uuid){
+    public void deleteTokenById(UUID uuid){
         tokenRepository.deleteById(uuid);
     }
+
 }
 

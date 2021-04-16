@@ -1,5 +1,6 @@
 package com.Maruszak.MantisKeeper.services;
 
+import com.Maruszak.MantisKeeper.DTO.PasswordTokenDTO;
 import com.Maruszak.MantisKeeper.DTO.PasswordsDTO;
 import com.Maruszak.MantisKeeper.model.User;
 import com.Maruszak.MantisKeeper.model.VerificationToken;
@@ -17,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -42,9 +45,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private EmailServiceImpl emailService;
 
 
-
     @Transactional
-    public void register(User userTemp) {
+    public void register(User userTemp, HttpServletRequest request) {
 
         Optional<User> userOptional = userRepository.findByEmail(userTemp.getEmail());
         if (userOptional.isPresent()) {
@@ -52,7 +54,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     "Email address already in use");
         }
         userOptional = userRepository.findByUsername(userTemp.getUsername());
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already in use");
         }
 
@@ -68,18 +70,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         VerificationToken verificationToken = new VerificationToken(user);
         tokenService.save(verificationToken);
 
-        SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(user.getEmail());
-        mail.setSubject("Complete Registration for Inverts Keepers Website");
-        mail.setFrom("invertebrates.keepers@gmail.com");
-        mail.setText("To confirm your account, please click here : " +
-                "http://81.97.217.199/confirmAccount?token="+verificationToken.getToken());
+        String hostAddress = request.getRemoteAddr();
+        SimpleMailMessage mail = createActivationEmail(verificationToken, user.getEmail(), hostAddress);
+
         emailService.sendEmail(mail);
     }
 
-    public User getUser(){
-        Object user  =  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(user.getClass()!=User.class){
+    public User getUser() {
+        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user.getClass() != User.class) {
             return null;
         }
         return (User) user;
@@ -89,42 +88,135 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         Optional<User> user = userRepository.findByUsername(username);
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             throw new UsernameNotFoundException(username + " not found");
         }
         return user.get();
     }
 
-    public String profile(Model model) {
+    public String profileHTML(Model model) {
         User user = getUser();
         user.setInvertebratesList(invertService.findInvertsByUser(user));
-        model.addAttribute("user" , user);
+        model.addAttribute("user", user);
         return "userProfile";
     }
 
     @Transactional
     public void changePass(PasswordsDTO passwords) {
         User user = getUser();
-        if(passwordEncoder.matches(passwords.getOldPass(), user.getPassword())){
+        if (passwordEncoder.matches(passwords.getOldPass(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(passwords.getNewPass()));
             userRepository.save(user);
-        }else {
+        } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Old Password!");
         }
     }
 
     @Transactional
-    public String activateUser(String token, Model model) {
+    public String activateUserHTML(String token, Model model) {
         Optional<VerificationToken> tokenOptional = tokenService.findByToken(token);
-        if(tokenOptional.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad link or token doesn't exist!");
-        }else {
-            User user = tokenOptional.get().getUser();
-            user.setActive(true);
-            userRepository.save(user);
-            tokenService.deleteToken(tokenOptional.get().getId());
-            model.addAttribute("message" , "User account successfully activated");
+        if (tokenOptional.isEmpty()) {
+            model.addAttribute("message", "Bad link or token doesn't exist!");
+        } else {
+            VerificationToken verificationToken = tokenOptional.get();
+            if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+                model.addAttribute("message", "Token expired!");
+            } else {
+                User user = tokenOptional.get().getUser();
+                if (user.isActive()) {
+                    model.addAttribute("message", "User account already active");
+                } else {
+                    user.setActive(true);
+                    userRepository.save(user);
+                    tokenService.deleteTokenById(verificationToken.getId());
+                    model.addAttribute("message", "User account successfully activated");
+                }
+            }
         }
         return "activation";
+    }
+
+    @Transactional
+    public void resendToken(String email, HttpServletRequest request) {
+
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "No account found with " + email + " address");
+        }
+        VerificationToken token = new VerificationToken(userOptional.get());
+        tokenService.save(token);
+
+        String hostAddress = request.getRemoteAddr();
+        SimpleMailMessage mail = createActivationEmail(token, email, hostAddress);
+        emailService.sendEmail(mail);
+
+    }
+
+    private SimpleMailMessage createActivationEmail(VerificationToken token, String email, String hostAddress) {
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(email);
+        mail.setSubject("Complete Registration for Inverts Keepers Website");
+        mail.setFrom("invertebrates.keepers@gmail.com");
+        mail.setText("To confirm your account, please click here: " +
+                "http://" + hostAddress + "/confirmAccount?token=" + token.getToken() +
+                " (active 24h)");
+        return mail;
+    }
+
+    @Transactional
+    public void resetPasswordRequest(String email, HttpServletRequest request) {
+
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "No account found with " + email + " address");
+        }
+        if (!userOptional.get().isActive()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "User account not active!");
+        }
+        VerificationToken token = new VerificationToken(userOptional.get());
+        tokenService.save(token);
+
+        String hostAddress = request.getRemoteAddr();
+        SimpleMailMessage mail = createResetPassEmail(token, email, hostAddress);
+        emailService.sendEmail(mail);
+    }
+
+    private SimpleMailMessage createResetPassEmail(VerificationToken token, String email, String hostAddress) {
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(email);
+        mail.setSubject("Reset Your Inverts Keepers Account Password");
+        mail.setFrom("invertebrates.keepers@gmail.com");
+        mail.setText("To reset password, please click here: " +
+                "http://" + hostAddress + "/resetPassword?token=" + token.getToken() +
+                " (active 24h)");
+        return mail;
+    }
+
+    public String resetPasswordHTML(String token, Model model) {
+        Optional<VerificationToken> tokenOptional = tokenService.findByToken(token);
+        if (tokenOptional.isEmpty()) {
+            model.addAttribute("message", "Bad link or token doesn't exist!");
+        } else {
+            model.addAttribute("token", token);
+        }
+        return "resetPassword";
+    }
+
+    @Transactional
+    public void resetPassword(PasswordTokenDTO passwordTokenDTO) {
+        Optional<VerificationToken> tokenOptional = tokenService.findByToken(passwordTokenDTO.getToken());
+        if (tokenOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad token!");
+        }
+
+        User user = tokenOptional.get().getUser();
+
+        user.setPassword(passwordEncoder.encode(passwordTokenDTO.getPassword()));
+        userRepository.save(user);
+        tokenService.deleteTokenById(tokenOptional.get().getId());
     }
 }

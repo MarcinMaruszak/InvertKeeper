@@ -3,13 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Activation</title>
+    <link th:href="@{/css/general.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/activation.js}"></script>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
-  <div>
-    <p th:text="${message}"></p>
-  </div>
-  <div>
-      <a href="/login">Login</a>
-  </div>
+    <div th:if="${#strings.contains(message, 'User account')}">
+        <div>
+            <p th:text="${message}"></p>
+        </div>
+        <div>
+            <a href="/login">Login</a>
+        </div>
+    </div>
+    <div th:if="${#strings.contains(message, 'Token expired')}">
+        <div>
+            <p th:text="${message}"></p>
+        </div>
+        <div>
+            <p>Enter email to resend activation link</p>
+        </div>
+        <div>
+            <input id="email" type="email" placeholder="Email">
+        </div>
+        <div>
+            <button type="button" onclick="valid()">Resend</button>
+        </div>
+        <div>
+            <p id="p_email"></p>
+        </div>
+    </div>
+    <div th:if="${#strings.contains(message, 'Bad link')}">
+        <div>
+            <p th:text="${message}"></p>
+        </div>
+        <div>
+            <a href="/">Home page</a>
+        </div>
+    </div>
 </body>
 </html>

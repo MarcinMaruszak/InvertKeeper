@@ -10,7 +10,7 @@
     <script type="text/javascript" th:src="@{/js/login.js}"></script>
     <title>Login</title>
 </head>
-<body>
+<body id="body">
     <div>
         <p1>Login</p1>
     </div>
@@ -30,10 +30,13 @@
         </div>
     </div>
     <div>
-        <button id="register" type="submit" onclick="validation()">Login</button>
+        <button id="login" type="submit" onclick="validation()">Login</button>
     </div>
     <div>
         <a href="/register">Register</a>
+    </div>
+    <div>
+        <button id="forgotten_pass" type="button" onclick="showFields()">Forgot password?</button>
     </div>
 </body>
 </html>
