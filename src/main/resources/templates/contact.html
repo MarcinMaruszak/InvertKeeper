@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <script type="text/javascript" th:src="@{/js/contact.js}"></script>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link th:href="@{/css/contact.css}" rel="stylesheet"/>
+    <link th:href="@{/css/general.css}" rel="stylesheet"/>
+    <title>Contact</title>
+</head>
+<body>
+    <div class="top_nav">
+    <a class="link_left" href="/">Home</a>
+    <a class="link_left" href="/myInverts">My Inverts</a>
+    <span th:if="${user == null}">
+            <a class="link_right" href="/register">Register</a>
+            <a class="link_right" href="/login">Login</a>
+        </span>
+    <span th:unless="${user == null}">
+            <form id="logout_form" class="link_right" th:action="@{/logout}" method="post">
+            <a class="link_right"
+               href="javascript:{}" onclick="document.getElementById('logout_form').submit(); return false;">Log Out</a>
+        </form>
+            <a class="link_right" href="/profile">Profile</a>
+        </span>
+    </div>
+    <div id="wrap">
+        <div>
+            <label for="type">Type of Message:</label>
+            <select name="type" id="type">
+                <option value="Other">Other</option>
+                <option value="Bug Report">Bug report</option>
+                <option value="Request">Feature Request</option>
+            </select>
+        </div>
+        <div>
+            <textarea id="message" rows="6" cols="50" placeholder="Enter message or bug information"></textarea>
+        </div>
+        <div>
+            <button id="send_button" type="button" onclick="send()">Send</button>
+        </div>
+    </div>
+</body>
+</html>

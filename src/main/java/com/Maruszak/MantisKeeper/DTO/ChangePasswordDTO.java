@@ -2,15 +2,16 @@ package com.Maruszak.MantisKeeper.DTO;
 
 import javax.validation.constraints.NotNull;
 
-public class PasswordsDTO {
+public class ChangePasswordDTO {
 
-    @NotNull
     private String oldPass;
 
     @NotNull
     private String newPass;
 
-    public PasswordsDTO() {
+    private String token;
+
+    public ChangePasswordDTO() {
     }
 
     public String getOldPass() {
@@ -27,5 +28,13 @@ public class PasswordsDTO {
 
     public void setNewPass(String newPass) {
         this.newPass = newPass;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

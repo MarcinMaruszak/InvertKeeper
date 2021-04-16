@@ -58,7 +58,7 @@ function showFields(){
 
     document.getElementById("forgotten_pass").remove();
 
-    var body = document.getElementById("body");
+    var wrap = document.getElementById("wrap");
     var div = document.createElement("div");
 
     var input = document.createElement("input");
@@ -85,7 +85,7 @@ function showFields(){
 
     div.appendChild(parDiv);
 
-    body.appendChild(div);
+    wrap.appendChild(div);
 
 }
 

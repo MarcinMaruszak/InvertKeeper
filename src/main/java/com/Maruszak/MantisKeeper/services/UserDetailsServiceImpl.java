@@ -1,7 +1,6 @@
 package com.Maruszak.MantisKeeper.services;
 
-import com.Maruszak.MantisKeeper.DTO.PasswordTokenDTO;
-import com.Maruszak.MantisKeeper.DTO.PasswordsDTO;
+import com.Maruszak.MantisKeeper.DTO.ChangePasswordDTO;
 import com.Maruszak.MantisKeeper.model.User;
 import com.Maruszak.MantisKeeper.model.VerificationToken;
 import com.Maruszak.MantisKeeper.repository.UserRepository;
@@ -102,7 +101,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Transactional
-    public void changePass(PasswordsDTO passwords) {
+    public void changePass(ChangePasswordDTO passwords) {
         User user = getUser();
         if (passwordEncoder.matches(passwords.getOldPass(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(passwords.getNewPass()));
@@ -159,7 +158,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         mail.setFrom("invertebrates.keepers@gmail.com");
         mail.setText("To confirm your account, please click here: " +
                 "https://" + hostAddress + "/confirmAccount?token=" + token.getToken() +
-                " (active 24h)");
+                "\n(active 24h)");
         return mail;
     }
 
@@ -191,7 +190,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         mail.setFrom("invertebrates.keepers@gmail.com");
         mail.setText("To reset password, please click here: " +
                 "https://" + hostAddress + "/resetPassword?token=" + token.getToken() +
-                " (active 24h)");
+                "\n(active 24h)");
         return mail;
     }
 
@@ -206,15 +205,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Transactional
-    public void resetPassword(PasswordTokenDTO passwordTokenDTO) {
-        Optional<VerificationToken> tokenOptional = tokenService.findByToken(passwordTokenDTO.getToken());
+    public void resetPassword(ChangePasswordDTO changePasswordDTO) {
+        Optional<VerificationToken> tokenOptional = tokenService.findByToken(changePasswordDTO.getToken());
         if (tokenOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad token!");
         }
 
         User user = tokenOptional.get().getUser();
 
-        user.setPassword(passwordEncoder.encode(passwordTokenDTO.getPassword()));
+        user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPass()));
         userRepository.save(user);
         tokenService.deleteTokenById(tokenOptional.get().getId());
     }

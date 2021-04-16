@@ -1,0 +1,26 @@
+.wrap{
+  text-align: center;
+}
+.content{
+  display: inline-block;
+}
+.info{
+    font-size: 20px;
+    color: white;
+}
+.error{
+    font-size: 20px;
+    color: black;
+}
+#email_info{
+    font-size: 13px;
+    color: white;
+}
+button{
+  max-width: 120px;
+  color: white;
+  border-radius: 4px;
+  border-color: rgb(100,255,102);
+  background-color: rgb(50,105,22);
+  margin: 7px;
+}

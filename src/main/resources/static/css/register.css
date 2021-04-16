@@ -1,18 +1,15 @@
-body {
+#wrap{
   align-content: center;
-  margin-top: 80px;
-}
-div{
+  margin-top: 40px;
   text-align: center;
-  margin-top:  10px;
 }
 p1{
-    font-size: 20px;
+    font-size: 23px;
     color: white;
 }
 p{
   color: black;
-  font-size: 12px;
+  font-size: 14px;
 }
 input{
   border-radius: 4px;
@@ -26,8 +23,7 @@ button{
   color: white;
   border-radius: 4px;
 }
-#info_register {
-    color: black;
-    font-size: 15px;
-    font-weight: bold;
+#paragraph{
+    margin-bottom: 20px;
 }
+

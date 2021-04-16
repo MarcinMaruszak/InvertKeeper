@@ -20,12 +20,14 @@ public class InvertebrateController {
     InvertebratesServiceImpl invertService;
 
     @GetMapping(path = "/myInverts")
-    public String myInverts(Model model){
+    public String myInverts(Model model) {
         return invertService.getMyAliveInvertsHTML(model);
     }
 
     @GetMapping(path = "/myInverts/addInvert")
-    public String addNew(Model model){return invertService.addInvertHTML(model);}
+    public String addNew(Model model) {
+        return invertService.addInvertHTML(model);
+    }
 
     @GetMapping(path = "/myInverts/edit/{id}")
     public String editInvert(@PathVariable UUID id, Model model) {
@@ -38,13 +40,11 @@ public class InvertebrateController {
     }
 
     @GetMapping(path = "myInverts/dead")
-    public String deadInverts(Model model){
-        return invertService.deadInvertsHTML(model);
+    public String deadInverts(Model model) { return invertService.deadInvertsHTML(model);
     }
 
     @GetMapping(path = "myInverts/details/{id}")
-    public String invertDetails(@PathVariable UUID id, Model model){
-        return invertService.invertDetailsHTML(id, model);
+    public String invertDetails(@PathVariable UUID id, Model model) { return invertService.invertDetailsHTML(id, model);
     }
 
     @PostMapping(path = "/addInvert")
@@ -60,7 +60,7 @@ public class InvertebrateController {
     void updateInvert(@RequestPart("invertDTO") InvertDTO invertDTO,
                       @RequestPart(value = "photos", required = false) List<MultipartFile> photos,
                       @RequestPart(value = "removePhotos", required = false) List<UUID> toRemovePhotosIds,
-                      @RequestPart(value ="avatarID", required = false) UUID avatarId) {
+                      @RequestPart(value = "avatarID", required = false) UUID avatarId) {
         invertService.updateInvert(invertDTO, photos, toRemovePhotosIds, avatarId);
     }
 

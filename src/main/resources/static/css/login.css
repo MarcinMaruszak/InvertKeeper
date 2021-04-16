@@ -1,10 +1,7 @@
-body {
+#wrap{
   align-content: center;
   margin-top: 60px;
-}
-div{
   text-align: center;
-  margin-top:  15px;
 }
 p1{
     font-size: 20px;
@@ -48,4 +45,10 @@ a{
     border-radius: 4px;
     margin: 10px;
     font-size: 14px;
+}
+#p_pass{
+  font-size: 14px;
+}
+.link{
+    margin: 10px;
 }

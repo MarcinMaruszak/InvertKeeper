@@ -87,18 +87,17 @@ function addPet(){
     xhr.onload = function (e) {
        if (xhr.readyState === 4) {
            if (xhr.status === 200) {
-                 var name =  document.getElementById("name").value;
-                  var type = document.getElementById("type").value;
-                   alert(type +" '" + name + "' saved.");
-                   window.location.replace("/myInverts")
-                } else {
-                    var err = JSON.parse(xhr.responseText);
-                    alert(err.message);
-                }
-              }
-           };
-        xhr.send(invertForm);
-
+                var name =  document.getElementById("name").value;
+                var type = document.getElementById("type").value;
+                alert(type +" '" + name + "' saved.");
+                window.location.replace("/myInverts")
+           } else {
+               var err = JSON.parse(xhr.responseText);
+               alert(err.message);
+           }
+        }
+    };
+    xhr.send(invertForm);
 }
 
 

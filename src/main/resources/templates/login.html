@@ -10,7 +10,11 @@
     <script type="text/javascript" th:src="@{/js/login.js}"></script>
     <title>Login</title>
 </head>
-<body id="body">
+<body>
+<div class="top_nav">
+    <a class="link_left" href="/">Home</a>
+</div>
+<div id="wrap">
     <div>
         <p1>Login</p1>
     </div>
@@ -32,11 +36,12 @@
     <div>
         <button id="login" type="submit" onclick="validation()">Login</button>
     </div>
-    <div>
+    <div class="link">
         <a href="/register">Register</a>
     </div>
-    <div>
+    <div class="link">
         <button id="forgotten_pass" type="button" onclick="showFields()">Forgot password?</button>
     </div>
+</div>
 </body>
 </html>

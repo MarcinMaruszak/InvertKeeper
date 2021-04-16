@@ -1,7 +1,6 @@
 package com.Maruszak.MantisKeeper.controller;
 
-import com.Maruszak.MantisKeeper.DTO.PasswordTokenDTO;
-import com.Maruszak.MantisKeeper.DTO.PasswordsDTO;
+import com.Maruszak.MantisKeeper.DTO.ChangePasswordDTO;
 import com.Maruszak.MantisKeeper.model.User;
 import com.Maruszak.MantisKeeper.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,35 +32,37 @@ public class UserController {
     }
 
     @PostMapping(path = "/changePass")
-    public @ResponseBody void changePass(@Valid @RequestBody PasswordsDTO passwords){
-        userServices.changePass(passwords);
+    public @ResponseBody
+    void changePass(@Valid @RequestBody ChangePasswordDTO changePasswordDTO) {
+        userServices.changePass(changePasswordDTO);
     }
 
     @RequestMapping(path = "/confirmAccount")
-    public String confirmAccount(@RequestParam("token") String token, Model model){
+    public String confirmAccount(@RequestParam("token") String token, Model model) {
         return userServices.activateUserHTML(token, model);
     }
 
     @PostMapping(path = "/resendToken")
     public @ResponseBody
-    void resendToken(@RequestParam("email") String email, HttpServletRequest request){
+    void resendToken(@RequestParam("email") String email, HttpServletRequest request) {
         userServices.resendToken(email, request);
     }
 
     @PostMapping(path = "/requestPasswordReset")
     public @ResponseBody
-    void requestPasswordReset(@RequestParam("email") String email, HttpServletRequest request){
+    void requestPasswordReset(@RequestParam("email") String email, HttpServletRequest request) {
         userServices.resetPasswordRequest(email, request);
     }
 
     @RequestMapping(path = "/resetPassword")
-    public String resetPasswordHTML(@RequestParam("token") String token, Model model){
+    public String resetPasswordHTML(@RequestParam("token") String token, Model model) {
         return userServices.resetPasswordHTML(token, model);
     }
 
     @PostMapping(path = "/resetPassword")
-    public @ResponseBody void resetPassword(@RequestBody PasswordTokenDTO passwordTokenDTO){
-        userServices.resetPassword(passwordTokenDTO);
+    public @ResponseBody
+    void resetPassword(@Valid @RequestBody ChangePasswordDTO changePasswordDTO) {
+        userServices.resetPassword(changePasswordDTO);
     }
 }
 

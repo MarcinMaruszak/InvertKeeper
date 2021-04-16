@@ -30,7 +30,7 @@ function reset(){
     var header = document.querySelector('meta[name="_csrf_header"]').content;
 
     let passwordDTO = {
-        "password" : document.getElementById("pass1").value,
+        "newPass" : document.getElementById("pass1").value,
         "token" : document.getElementById("token").value
     }
 
@@ -48,9 +48,8 @@ function reset(){
 
 
                 } else {
-                    /*var err = JSON.parse(xhr.responseText);
-                    alert(err.message);*/
-                    console.log(xhr.responseText)
+                 /*   var err = JSON.parse(xhr.responseText);
+                    console.log(xhr.responseText)*/
                 }
               }
            };
