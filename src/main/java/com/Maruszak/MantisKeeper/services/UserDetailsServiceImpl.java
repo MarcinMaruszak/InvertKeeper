@@ -47,7 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional
     public void register(User userTemp, HttpServletRequest request) {
-
+        System.out.println(request.getLocalAddr());
         Optional<User> userOptional = userRepository.findByEmail(userTemp.getEmail());
         if (userOptional.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -138,8 +138,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional
     public void resendToken(String email, HttpServletRequest request) {
-
-        System.out.println(request.getLocalAddr());
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
