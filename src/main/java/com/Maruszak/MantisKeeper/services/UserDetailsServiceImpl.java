@@ -19,8 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -49,13 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional
     public void register(User userTemp, HttpServletRequest request) {
-        System.out.println(request.getServerName());
-        System.out.println(request.getRequestURL().toString());
-        try {
-            System.out.println(InetAddress.getLocalHost().getHostAddress());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+
         Optional<User> userOptional = userRepository.findByEmail(userTemp.getEmail());
         if (userOptional.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -78,7 +70,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         VerificationToken verificationToken = new VerificationToken(user);
         tokenService.save(verificationToken);
 
-        String hostAddress = request.getRemoteAddr();
+        String hostAddress = request.getServerName();
         SimpleMailMessage mail = createActivationEmail(verificationToken, user.getEmail(), hostAddress);
 
         emailService.sendEmail(mail);
@@ -154,7 +146,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         VerificationToken token = new VerificationToken(userOptional.get());
         tokenService.save(token);
 
-        String hostAddress = request.getRemoteAddr();
+        String hostAddress = request.getServerName();
         SimpleMailMessage mail = createActivationEmail(token, email, hostAddress);
         emailService.sendEmail(mail);
 
@@ -166,7 +158,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         mail.setSubject("Complete Registration for Inverts Keepers Website");
         mail.setFrom("invertebrates.keepers@gmail.com");
         mail.setText("To confirm your account, please click here: " +
-                "https://intense-castle-58668.herokuapp.com/confirmAccount?token=" + token.getToken() +
+                "https://" + hostAddress + "/confirmAccount?token=" + token.getToken() +
                 " (active 24h)");
         return mail;
     }
@@ -186,7 +178,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         VerificationToken token = new VerificationToken(userOptional.get());
         tokenService.save(token);
 
-        String hostAddress = request.getRemoteAddr();
+        String hostAddress = request.getServerName();
         SimpleMailMessage mail = createResetPassEmail(token, email, hostAddress);
         emailService.sendEmail(mail);
     }
@@ -198,7 +190,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         mail.setSubject("Reset Your Inverts Keepers Account Password");
         mail.setFrom("invertebrates.keepers@gmail.com");
         mail.setText("To reset password, please click here: " +
-                "https://intense-castle-58668.herokuapp.com/resetPassword?token=" + token.getToken() +
+                "https://" + hostAddress + "/resetPassword?token=" + token.getToken() +
                 " (active 24h)");
         return mail;
     }
