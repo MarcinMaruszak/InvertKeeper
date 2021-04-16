@@ -49,9 +49,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional
     public void register(User userTemp, HttpServletRequest request) {
-        System.out.println(request.getLocalName());
+        System.out.println(request.getServerName());
+        System.out.println(request.getRequestURL().toString());
         try {
-            System.out.println(InetAddress.getLocalHost().getHostName());
+            System.out.println(InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
