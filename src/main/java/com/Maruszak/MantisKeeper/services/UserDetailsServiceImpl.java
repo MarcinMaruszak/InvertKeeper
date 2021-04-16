@@ -47,7 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional
     public void register(User userTemp, HttpServletRequest request) {
-        System.out.println(request.getLocalAddr());
+        System.out.println(request.getLocalName());
         Optional<User> userOptional = userRepository.findByEmail(userTemp.getEmail());
         if (userOptional.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
