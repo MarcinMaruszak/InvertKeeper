@@ -19,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -48,6 +50,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     public void register(User userTemp, HttpServletRequest request) {
         System.out.println(request.getLocalName());
+        try {
+            System.out.println(InetAddress.getLocalHost().getHostName());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         Optional<User> userOptional = userRepository.findByEmail(userTemp.getEmail());
         if (userOptional.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
