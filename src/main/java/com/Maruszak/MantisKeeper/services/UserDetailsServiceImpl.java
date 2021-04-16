@@ -139,6 +139,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     public void resendToken(String email, HttpServletRequest request) {
 
+        System.out.println(request.getLocalAddr());
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -159,7 +160,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         mail.setSubject("Complete Registration for Inverts Keepers Website");
         mail.setFrom("invertebrates.keepers@gmail.com");
         mail.setText("To confirm your account, please click here: " +
-                "http://" + hostAddress + "/confirmAccount?token=" + token.getToken() +
+                "https://intense-castle-58668.herokuapp.com/confirmAccount?token=" + token.getToken() +
                 " (active 24h)");
         return mail;
     }
@@ -191,7 +192,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         mail.setSubject("Reset Your Inverts Keepers Account Password");
         mail.setFrom("invertebrates.keepers@gmail.com");
         mail.setText("To reset password, please click here: " +
-                "http://" + hostAddress + "/resetPassword?token=" + token.getToken() +
+                "https://intense-castle-58668.herokuapp.com/resetPassword?token=" + token.getToken() +
                 " (active 24h)");
         return mail;
     }
