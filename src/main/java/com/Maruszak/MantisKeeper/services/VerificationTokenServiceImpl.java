@@ -1,5 +1,6 @@
 package com.Maruszak.MantisKeeper.services;
 
+import com.Maruszak.MantisKeeper.model.User;
 import com.Maruszak.MantisKeeper.model.VerificationToken;
 import com.Maruszak.MantisKeeper.repository.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,8 @@ public class VerificationTokenServiceImpl {
         tokenRepository.deleteById(uuid);
     }
 
+    public void deleteAllByUser(User user) {
+        tokenRepository.deleteAllByUser(user);
+    }
 }
 

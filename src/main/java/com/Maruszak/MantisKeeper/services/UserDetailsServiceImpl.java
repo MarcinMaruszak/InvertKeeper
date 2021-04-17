@@ -1,6 +1,7 @@
 package com.Maruszak.MantisKeeper.services;
 
 import com.Maruszak.MantisKeeper.DTO.ChangePasswordDTO;
+import com.Maruszak.MantisKeeper.model.Invertebrate;
 import com.Maruszak.MantisKeeper.model.User;
 import com.Maruszak.MantisKeeper.model.VerificationToken;
 import com.Maruszak.MantisKeeper.repository.UserRepository;
@@ -17,9 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,6 +45,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private EmailServiceImpl emailService;
+
+    @Autowired
+    private PhotoServiceImpl photoService;
 
 
     @Transactional
@@ -216,5 +222,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPass()));
         userRepository.save(user);
         tokenService.deleteTokenById(tokenOptional.get().getId());
+    }
+    @Transactional
+    public void deleteAccount(HttpServletRequest request) {
+        User user =getUser();
+        List<Invertebrate> inverts = invertService.findInvertsByUser(user);
+        for(Invertebrate invert : inverts){
+            instarService.deleteAllByInvert(invert);
+            photoService.deleteAllByInvert(invert);
+        }
+        invertService.deleteAll(inverts);
+        tokenService.deleteAllByUser(user);
+        userRepository.delete(user);
+        try {
+            request.logout();
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
     }
 }

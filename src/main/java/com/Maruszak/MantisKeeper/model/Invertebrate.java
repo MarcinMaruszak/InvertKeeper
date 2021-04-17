@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         property = "type")
@@ -131,7 +132,6 @@ public abstract class Invertebrate {
         this.alive = alive;
     }
 
-    public abstract Specie getSpecie();
 
     public LocalDate getDeath() {
         return death;
@@ -164,5 +164,6 @@ public abstract class Invertebrate {
     public void setAdded(LocalDateTime added) {
         this.added = added;
     }
+
 }
 

@@ -25,4 +25,9 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
     void deleteByIdIn(List<UUID> ids);
 
     List<Photo> findByIdIn(List<UUID> id);
+
+    Optional<Photo> findTopByInvertebrateOrderByAddedDesc(Invertebrate invertebrate);
+
 }
+
+

@@ -2,6 +2,7 @@ package com.Maruszak.MantisKeeper.services;
 
 import com.Maruszak.MantisKeeper.DTO.ContactDTO;
 import com.Maruszak.MantisKeeper.model.Invertebrate;
+import com.Maruszak.MantisKeeper.model.Photo;
 import com.Maruszak.MantisKeeper.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WebServiceImpl {
@@ -27,14 +30,21 @@ public class WebServiceImpl {
     @Autowired
     private EmailServiceImpl emailService;
 
+    @Autowired
+    private PhotoServiceImpl photoService;
+
     public String getHomeHTML(Model model) {
         User user = userService.getUser();
         List<Invertebrate> inverts = invertService.findLast10Added();
+        List<Photo> photos = new ArrayList<>();
         for(Invertebrate invert : inverts){
             invert.setInstars(instarService.findInstarsByInvertAsc(invert));
+            Optional<Photo> photoOptional = photoService.findLatestByInvert(invert);
+            photoOptional.ifPresent(photos::add);
         }
         model.addAttribute("user" , user);
         model.addAttribute("inverts" , inverts);
+        model.addAttribute("photos" , photos);
         return "home";
     }
 

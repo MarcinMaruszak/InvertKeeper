@@ -14,6 +14,7 @@
 <div class="top_nav">
     <a class="link_left" href="/">Home</a>
     <a class="link_left" href="/myInverts">Alive Inverts</a>
+    <a class="link_left" href="/allInverts">All Inverts</a>
     <form id="logout_form" class="link_right" th:action="@{/logout}" method="post">
         <a class="link_right"
            href="javascript:{}" onclick="document.getElementById('logout_form').submit(); return false;">Log Out</a>
@@ -44,11 +45,11 @@
         <tbody>
         <tr th:each="invert : ${user.getInvertebratesList()}">
             <td><span th:text="${invert.class.simpleName}"></span></td>
-            <td><a th:href="'/myInverts/details/'+${invert.getId()}" th:text="${invert.getName()}"></a></td>
+            <td><a th:href="'/invert/details/'+${invert.getId()}" th:text="${invert.getName()}"></a></td>
             <td><span th:text="${invert.getSpecie().getName()}"></span></td>
             <td><span th:text="${invert.getSex()}"></span></td>
-            <td><span th:text="${invert.getBirth()} ?: 'N/A'"></span></td>
-            <td><span th:text="${invert.getDeath()} ?: 'N/A'"></span></td>
+            <td><span th:text="${#temporals.format(invert.getBirth() , 'dd-MM-yyyy')} ?: 'N/A'"></span></td>
+            <td><span th:text="${#temporals.format(invert.getDeath() , 'dd-MM-yyyy')} ?: 'N/A'"></span></td>
             <td><span th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()}"></span></td>
             <td>
                 <button id="edit" th:onclick="javascript:edit(/*[[${invert.getId()}]]*/)">

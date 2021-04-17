@@ -15,10 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class PhotoServiceImpl {
@@ -50,6 +47,7 @@ public class PhotoServiceImpl {
             }
         }
     }
+
 
     public List<Photo> findAllByInvert(Invertebrate invert) {
         return photoRepository.findAllByInvertebrateOrderByAddedAsc(invert);
@@ -130,5 +128,9 @@ public class PhotoServiceImpl {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "{\"message\":\"There was a problem with files upload\"}");
             }
         }
+    }
+
+    public Optional<Photo> findLatestByInvert(Invertebrate inverts) {
+        return photoRepository.findTopByInvertebrateOrderByAddedDesc(inverts);
     }
 }

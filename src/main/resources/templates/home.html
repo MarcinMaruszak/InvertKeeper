@@ -10,6 +10,7 @@
     <div class="top_nav">
         <a class="link_left" href="/">Home</a>
         <a class="link_left" href="/myInverts">My Inverts</a>
+        <a class="link_left" href="/allInverts">All Inverts</a>
         <span th:if="${user == null}">
             <a class="link_right" href="/register">Register</a>
             <a class="link_right" href="/login">Login</a>
@@ -18,18 +19,21 @@
             <form id="logout_form" class="link_right" th:action="@{/logout}" method="post">
             <a class="link_right"
                href="javascript:{}" onclick="document.getElementById('logout_form').submit(); return false;">Log Out</a>
-        </form>
+            </form>
             <a class="link_right" href="/profile">Profile</a>
         </span>
         <a class="link_right" href="/contact">Contact</a>
     </div>
     <div id="wrap">
         <div><h id="welcome">Welcome in Inverts Keeper</h></div>
-        <div id="table1" th:unless="${inverts.empty}">
+        <div id="table_wrap">
             <div>
-                <label for="latest">Recently Added:</label>
+                <label class="label" for="latest">Recently Added Inverts:</label>
             </div>
-            <table id="latest" class="invertTable">
+            <div th:if="${inverts.empty}">
+                <p class="info_paragraph">No Inverts added</p>
+            </div>
+            <table id="latest" class="invertTable" th:unless="${inverts.empty}">
                 <thead>
                 <tr>
                     <th>Type</th>
@@ -46,13 +50,32 @@
                     <td><span th:text="${invert.class.simpleName}"></span></td>
                     <td><a th:href="'/myInverts/details/'+${invert.getId()}" th:text="${invert.getName()}"></a></td>
                     <td><span th:text="${invert.getSpecie().getName()}"></span></td>
-                    <td><span th:text="${invert.getBirth()} ?: 'N/A'"></span></td>
+                    <td><span th:text="${#temporals.format(invert.getBirth(), 'dd-MM-yyyy')} ?: 'N/A'"></span></td>
                     <td><span th:text="${invert.getSex()}"></span></td>
                     <td><span th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()}"></span></td>
                     <td><span th:text="${invert.getUser().getUsername()}"></span></td>
                 </tr>
                 </tbody>
             </table>
+            <div>
+                <a href="/allInverts">See all Inverts</a>
+            </div>
+        </div>
+        <div id="gallery_wrap">
+            <div>
+                <label class="label" for="latest">Recently Added Photos:</label>
+            </div>
+            <div th:if="${photos.empty}">
+                <p class="info_paragraph">No Photos added</p>
+            </div>
+            <div th:unless="${photos.empty}">
+                <span th:each="photo : ${photos}">
+                <a th:href="'/invert/details/' + ${photo.getInvertebrate().getId()}">
+                    <img class="photo" th:src="${photo.getLink()}">
+                </a>
+            </span>
+            </div>
+
         </div>
     </div>
 </body>

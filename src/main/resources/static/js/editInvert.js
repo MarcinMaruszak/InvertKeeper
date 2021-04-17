@@ -126,7 +126,7 @@ function edit(){
                var type = document.getElementById("type").value;
                alert(type +" '" + name + "' updated.");
                var id = document.getElementById("invert_id").value;
-               window.location.replace("/myInverts/details/"+id)
+               window.location.replace("/invert/details/"+id)
             } else {
                 var err = JSON.parse(xhr.responseText);
                 alert(err.message);

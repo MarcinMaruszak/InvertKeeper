@@ -28,7 +28,7 @@ public class Photo {
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "invert_id" , nullable = false)
+    @JoinColumn(name = "invert_id", nullable = false)
     private Invertebrate invertebrate;
 
     @Column

@@ -40,11 +40,13 @@ public class InvertebrateController {
     }
 
     @GetMapping(path = "myInverts/dead")
-    public String deadInverts(Model model) { return invertService.deadInvertsHTML(model);
+    public String deadInverts(Model model) {
+        return invertService.deadInvertsHTML(model);
     }
 
-    @GetMapping(path = "myInverts/details/{id}")
-    public String invertDetails(@PathVariable UUID id, Model model) { return invertService.invertDetailsHTML(id, model);
+    @GetMapping(path = "invert/details/{id}")
+    public String invertDetails(@PathVariable UUID id, Model model) {
+        return invertService.invertDetailsHTML(id, model);
     }
 
     @PostMapping(path = "/addInvert")
@@ -75,5 +77,16 @@ public class InvertebrateController {
     void markDead(@PathVariable UUID id, @RequestParam("date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         invertService.saveAsDead(id, date);
+    }
+
+    @GetMapping(path = "/allInverts")
+    public String allInvertsHTML(
+            @RequestParam(value = "sortBy", required = false, defaultValue = "added") String sortBy,
+            @RequestParam(value = "pageNo", required = false, defaultValue = "0") int pageNo,
+            @RequestParam(value = "direction", required = false, defaultValue = "asc") String direction,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "20") int pageSize,
+            Model model) {
+
+        return invertService.allInvertsHTML(model, sortBy, pageNo, direction, pageSize);
     }
 }

@@ -1,11 +1,16 @@
 package com.Maruszak.MantisKeeper.services;
 
 import com.Maruszak.MantisKeeper.DTO.InvertDTO;
+import com.Maruszak.MantisKeeper.DTO.TableDTO;
 import com.Maruszak.MantisKeeper.model.Instar;
 import com.Maruszak.MantisKeeper.model.Invertebrate;
 import com.Maruszak.MantisKeeper.model.User;
 import com.Maruszak.MantisKeeper.repository.InvertebrateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +49,10 @@ public class InvertebratesServiceImpl {
             return invertOptional.get();
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invertebrate not found!");
+    }
+
+    public void deleteAll(List<Invertebrate> invertebrates){
+        invertRepository.deleteAll(invertebrates);
     }
 
     @Transactional
@@ -168,5 +177,23 @@ public class InvertebratesServiceImpl {
 
     public List<Invertebrate> findLast10Added() {
         return invertRepository.findTop10ByOrderByAddedDesc();
+    }
+
+    public String allInvertsHTML(Model model, String sortBy, int pageNo, String direction, int PageSize) {
+        Sort sort = direction.equals("asc")? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageable = PageRequest.of(pageNo, PageSize , sort);
+        Page<Invertebrate> invertsPage =  invertRepository.findAllByAliveTrue(pageable);
+        List<Invertebrate> inverts = invertsPage.getContent();
+        for (Invertebrate invert : inverts) {
+            invert.setInstars(instarService.findInstarsByInvertAsc(invert));
+        }
+        TableDTO tableDTO = new TableDTO();
+        tableDTO.setInverts(inverts);
+        tableDTO.setPageNo(pageNo);
+        tableDTO.setTotalPages(invertsPage.getTotalPages());
+        tableDTO.setSortBY(sortBy);
+        tableDTO.setDirection(direction);
+        model.addAttribute("tableDTO", tableDTO);
+        return "AllInverts";
     }
 }

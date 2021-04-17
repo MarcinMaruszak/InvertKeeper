@@ -14,6 +14,7 @@
     <div class="top_nav">
         <a class="link_left" href="/">Home</a>
         <a class="link_left" href="/myInverts">My Inverts</a>
+        <a class="link_left" href="/allInverts">All Inverts</a>
         <form id="logout_form" class="link_right" th:action="@{/logout}" method="post">
             <a class="link_right"
                href="javascript:{}" onclick="document.getElementById('logout_form').submit(); return false;">Log Out</a>
@@ -29,7 +30,8 @@
                     <span id="name" th:text="${invert.getName()}"></span>
                 </div>
                 <div th:if="${invert.getAvatar()==null}">
-                    <img class="main_photo" src="https://res.cloudinary.com/mmaruszak/image/upload/v1617744509/no-image-icon-23492_y3c5us.png">
+                    <img class="main_photo"
+                         src="https://res.cloudinary.com/mmaruszak/image/upload/v1617744509/no-image-icon-23492_y3c5us.png">
                 </div>
                 <div th:unless="${invert.getAvatar()==null}">
                     <a th:href="${invert.getAvatar().getLink()}">
@@ -38,14 +40,16 @@
                 </div>
                 <div>
                     <label for="acquired">Bought: </label>
-                    <span id="acquired" th:text="${invert.getAcquired()} ?: 'N/A'"></span>
+                    <span id="acquired" th:text="${#temporals.format(invert.getAcquired(), 'dd-MM-yyyy')} ?: 'N/A'"></span>
                 </div>
                 <div id="buttons" th:if="${userId==invert.getUser().getId()}">
                     <button id="edit_button" title="Edit" th:onclick="javascript:edit(/*[[${invert.getId()}]]*/)">
                         <i class="fas fa-edit"></i></button>
                     <button id="delete_button" title="Delete" th:onclick="javascript:remove(/*[[${invert.getId()}]]*/)">
                         <i class="fas fa-trash-alt"></i></button>
-                    <span th:if="${invert.isAlive()}"><button id="death_button" title="Mark as dead" th:onclick="javascript:markDead(/*[[${invert.getId()}]]*/)">
+                    <span th:if="${invert.isAlive()}">
+                        <button id="death_button" title="Mark as dead"
+                                th:onclick="javascript:markDead(/*[[${invert.getId()}]]*/)">
                         <i class="fas fa-skull"></i></button></span>
                 </div>
             </div>
@@ -62,19 +66,25 @@
                     </tr>
                     <tr>
                         <th class="details_col">Date of Birth:</th>
-                        <td class="details_col" th:text="${invert.getBirth()} ?: 'N/A'"></td>
+                        <td class="details_col"
+                            th:text="${#temporals.format(invert.getBirth() , 'dd-MM-yyyy')} ?: 'N/A'"></td>
                     </tr>
                     <tr th:if="${invert.getDeath() != null}">
                         <th class="details_col">Date of Death:</th>
-                        <td class="details_col" th:text="${invert.getDeath()}"></td>
+                        <td class="details_col"
+                            th:text="${#temporals.format(invert.getDeath() , 'dd-MM-yyyy')} ?: 'N/A'"></td>
                     </tr>
                     <tr>
                         <th class="details_col">Last Instar:</th>
-                        <td class="details_col" th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()} ?: 'N/A'"></td>
+                        <td class="details_col"
+                            th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()} ?: 'N/A'"></td>
                     </tr>
                     <tr>
                         <th class="details_col">Date of Last Instar:</th>
-                        <td class="details_col" th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getMoltDate()} ?: 'N/A'"></td>
+                        <td class="details_col"
+                            th:text="${#temporals.format(invert.getInstars()[#lists.size(invert.getInstars())-1].getMoltDate() , 'dd-MM-yyyy')} ?: 'N/A'">
+
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -91,7 +101,9 @@
                         <tbody>
                         <tr th:each = "instar : ${invert.getInstars()}">
                             <td class="instar_col"><span th:text="${instar.getL()}"></span></td>
-                            <td class="instar_col"><span th:text="${instar.getMoltDate()} ?: 'N/A'"></span></td>
+                            <td class="instar_col"><span
+                                    th:text="${#temporals.format(instar.getMoltDate() , 'dd-MM-yyyy')} ?: 'N/A'">
+                            </span></td>
                         </tr>
                         </tbody>
                     </table>

@@ -2,6 +2,8 @@ package com.Maruszak.MantisKeeper.repository;
 
 import com.Maruszak.MantisKeeper.model.Invertebrate;
 import com.Maruszak.MantisKeeper.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -23,4 +25,6 @@ public interface InvertebrateRepository extends JpaRepository<Invertebrate , Lon
     List<Invertebrate> findTop10ByOrderByAddedDesc();
 
     void deleteById(UUID id);
+
+    Page<Invertebrate> findAllByAliveTrue(Pageable pageable);
 }

@@ -1,5 +1,6 @@
 package com.Maruszak.MantisKeeper.repository;
 
+import com.Maruszak.MantisKeeper.model.User;
 import com.Maruszak.MantisKeeper.model.VerificationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,6 @@ public interface VerificationTokenRepository extends JpaRepository<VerificationT
     Optional<VerificationToken> findByToken(String token);
 
     void deleteById(UUID uuid);
+
+    void deleteAllByUser(User user);
 }

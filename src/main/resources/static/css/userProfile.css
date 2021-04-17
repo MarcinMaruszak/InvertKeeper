@@ -25,15 +25,6 @@
   border-color: rgb(100,255,102);
   background-color: rgb(50,105,22);
 }
-#passButton{
-    background-color: red;
-    border-color: rgb(255,240,102);
-    max-width: 140px;
-    color: white;
-    border-radius: 4px;
-    margin: 10px;
-    font-size: 14px;
-}
 #password_fields{
     margin-top: 20px;
 }
@@ -44,4 +35,17 @@
 }
 label{
   color: white;
+}
+.button_as_link{
+    background: none;
+  border: none;
+  padding: 0;
+   color: white;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 6px;
+}
+.content {
+    padding: 10px;
 }

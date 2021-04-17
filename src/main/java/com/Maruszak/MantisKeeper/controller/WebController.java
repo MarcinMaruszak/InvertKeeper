@@ -43,4 +43,5 @@ public class WebController {
     void contact(@Valid @RequestBody ContactDTO contactDTO){
         webService.contact(contactDTO);
     }
+
 }

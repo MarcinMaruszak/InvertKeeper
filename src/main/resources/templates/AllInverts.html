@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>All Invertebrates</title>
+  <link th:href="@{/css/general.css}" rel="stylesheet"/>
+  <link th:href="@{/css/allInverts.css}" rel="stylesheet"/>
+  <script src="https://kit.fontawesome.com/5788f7a270.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div class="top_nav">
+  <a class="link_left" href="/">Home</a>
+  <a class="link_left" href="/myInverts">My Inverts</a>
+  <form id="logout_form" class="link_right" th:action="@{/logout}" method="post">
+    <a class="link_right"
+       href="javascript:{}" onclick="document.getElementById('logout_form').submit(); return false;">Log Out</a>
+  </form>
+  <a class="link_right" href="/profile">Profile</a>
+  <a class="link_right" href="/contact">Contact</a>
+</div>
+<div id="wrap">
+  <div th:if="${tableDTO.getInverts().empty}">
+    <p>No Inverts</p>
+  </div>
+  <div th:unless="${tableDTO.getInverts().empty}">
+    <table class="invertTable">
+      <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name
+          <span class="button">
+          <a th:href="@{'/allInverts?sortBy=name&direction=asc'}"><i class="fas fa-sort-amount-down-alt"></i></a>
+          <a th:href="@{'/allInverts?sortBy=name&direction=desc'}"><i class="fas fa-sort-amount-up"></i></a>
+        </span>
+        </th>
+        <th>Specie</th>
+        <th>Birth
+          <span class="button">
+           <a th:href="@{'/allInverts?sortBy=birth&direction=asc'}"><i class="fas fa-sort-amount-down-alt"></i></a>
+          <a th:href="@{'/allInverts?sortBy=birth&direction=desc'}"><i class="fas fa-sort-amount-up"></i></a>
+        </span>
+        </th>
+        <th>Sex
+          <span class="button">
+           <a th:href="@{'/allInverts?sortBy=sex&direction=asc'}"><i class="fas fa-sort-amount-down-alt"></i></a>
+          <a th:href="@{'/allInverts?sortBy=sex&direction=desc'}"><i class="fas fa-sort-amount-up"></i></a>
+        </span>
+        </th>
+        <th>Instar
+          <span class="button">
+          <a th:href="@{'/allInverts?sortBy=instars&direction=asc'}"><i class="fas fa-sort-amount-down-alt"></i></a>
+          <a th:href="@{'/allInverts?sortBy=instars&direction=desc'}"><i class="fas fa-sort-amount-up"></i></a>
+        </span>
+        </th>
+        <th>Owner</th>
+        <th>Added
+          <a th:href="@{'/allInverts?sortBy=added&direction=asc'}"><i class="fas fa-sort-amount-down-alt"></i></a>
+          <a th:href="@{'/allInverts?sortBy=added&direction=desc'}"><i class="fas fa-sort-amount-up"></i></a>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each = "invert : ${tableDTO.getInverts()}">
+        <td><span th:text="${invert.class.simpleName}"></span></td>
+        <td><a th:href="'/invert/details/'+${invert.getId()}" th:text="${invert.getName()}"></a></td>
+        <td><span th:text="${invert.getSpecie().getName()}"></span></td>
+        <td><span th:text="${#temporals.format(invert.getBirth() , 'dd-MM-yyyy')} ?: 'N/A'"></span></td>
+        <td><span th:text="${invert.getSex()}"></span></td>
+        <td><span th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()}"></span></td>
+        <td><span th:text="${invert.getUser().getUsername()}"></span></td>
+        <td><span th:text="${#temporals.format(invert.getAdded(), 'dd-MM-yyyy')}"></span></td>
+      </tr>
+      </tbody>
+    </table>
+    <div id="pages" th:if="${tableDTO.getTotalPages()>1}">
+      <span class="page" th:if="${tableDTO.getPageNo()>0}">
+        <a th:href="@{'/allInverts?sortBy='+${tableDTO.getSortBY()}+'&direction='+${tableDTO.getDirection()}+'&pageNo='+${tableDTO.getPageNo()-1}}"
+           th:text="${tableDTO.getPageNo()}"></a>
+      </span>
+      <span class="page" th:text="${tableDTO.getPageNo()+1}"></span>
+      <span class="page" th:if="${tableDTO.getPageNo()<tableDTO.getTotalPages()-1}">
+        <a th:href="@{'/allInverts?sortBy='+${tableDTO.getSortBY()}+'&direction='+${tableDTO.getDirection()}+'&pageNo='+${tableDTO.getPageNo()+1}}"
+           th:text="${tableDTO.getPageNo()+2}"></a>
+      </span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

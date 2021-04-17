@@ -64,6 +64,12 @@ public class UserController {
     void resetPassword(@Valid @RequestBody ChangePasswordDTO changePasswordDTO) {
         userServices.resetPassword(changePasswordDTO);
     }
+
+    @DeleteMapping(path = "/deleteAccount")
+    public @ResponseBody
+    void deleteAccount(HttpServletRequest request){
+        userServices.deleteAccount(request);
+    }
 }
 
 

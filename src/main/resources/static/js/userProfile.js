@@ -117,3 +117,25 @@ function saveNewPass(){
 
 
 }
+
+function deleteAcc(){
+    if(confirm("Are you sure you want to Delete Your Account? All data will be lost")){
+        var token = document.querySelector('meta[name="_csrf"]').content;
+        var header = document.querySelector('meta[name="_csrf_header"]').content;
+        let xhr = new XMLHttpRequest();
+        xhr.open("DELETE", '/deleteAccount' , true);
+        xhr.setRequestHeader(header, token);
+        xhr.onload = function (e) {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    alert("Account has been deleted");
+                    window.location.replace("/")
+                } else {
+                    var err = JSON.parse(xhr.responseText);
+                    alert(err.message);
+                }
+            }
+        };
+        xhr.send();
+    }
+}

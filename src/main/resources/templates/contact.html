@@ -13,12 +13,9 @@
     <div class="top_nav">
     <a class="link_left" href="/">Home</a>
     <a class="link_left" href="/myInverts">My Inverts</a>
-    <span th:if="${user == null}">
-            <a class="link_right" href="/register">Register</a>
-            <a class="link_right" href="/login">Login</a>
-        </span>
-    <span th:unless="${user == null}">
-            <form id="logout_form" class="link_right" th:action="@{/logout}" method="post">
+    <a class="link_left" href="/allInverts">All Inverts</a>
+    <span>
+        <form id="logout_form" class="link_right" th:action="@{/logout}" method="post">
             <a class="link_right"
                href="javascript:{}" onclick="document.getElementById('logout_form').submit(); return false;">Log Out</a>
         </form>

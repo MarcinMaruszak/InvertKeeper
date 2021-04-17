@@ -14,6 +14,7 @@
   <div class="top_nav">
     <a class="link_left" href="/">Home</a>
     <a class="link_left" href="/myInverts">My Inverts</a>
+      <a class="link_left" href="/allInverts">All Inverts</a>
       <form id="logout_form" class="link_right" th:action="@{/logout}" method="post">
           <a class="link_right"
              href="javascript:{}" onclick="document.getElementById('logout_form').submit(); return false;">Log Out</a>
@@ -38,7 +39,10 @@
           </table>
       </div>
         <div>
-            <input type="button" id="passButton" value="Change Password" th:onclick="showPassFields()"/>
+            <input type="button" id="pass_button" class="button_as_link" value="Change Password" th:onclick="showPassFields()"/>
+        </div>
+        <div>
+            <input type="button" id="delete_account" class="button_as_link" value="Delete Account" th:onclick="deleteAcc()"/>
         </div>
     </div>
   </div>
