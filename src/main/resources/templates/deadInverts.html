@@ -44,7 +44,7 @@
         </thead>
         <tbody>
         <tr th:each="invert : ${user.getInvertebratesList()}">
-            <td><span th:text="${invert.class.simpleName}"></span></td>
+            <td><span th:text="${invert.getInsectType()}"></span></td>
             <td><a th:href="'/invert/details/'+${invert.getId()}" th:text="${invert.getName()}"></a></td>
             <td><span th:text="${invert.getSpecie().getName()}"></span></td>
             <td><span th:text="${invert.getSex()}"></span></td>

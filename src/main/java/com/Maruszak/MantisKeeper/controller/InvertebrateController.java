@@ -54,6 +54,7 @@ public class InvertebrateController {
     void addInvert(@RequestPart(value = "invertDTO") InvertDTO invertDTO,
                    @RequestPart(value = "photos", required = false) List<MultipartFile> photos,
                    @RequestPart(value = "avatar", required = false) MultipartFile avatar) {
+        System.out.println(invertDTO.getInvertebrate());
         invertService.saveNewInvert(invertDTO, photos, avatar);
     }
 

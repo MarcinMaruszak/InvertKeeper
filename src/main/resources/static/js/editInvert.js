@@ -48,7 +48,8 @@ function edit(){
             "birth": document.getElementById("birth").value,
             "acquired": document.getElementById("acquired").value,
             "alive" : document.getElementById("alive").value,
-            "added" : document.getElementById("added").value
+            "added" : document.getElementById("added").value,
+            "insectType" : document.getElementById("type").value,
         };
 
         var instars = document.getElementsByClassName("instar_input");

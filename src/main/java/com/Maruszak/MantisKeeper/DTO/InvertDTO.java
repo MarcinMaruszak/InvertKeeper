@@ -11,9 +11,6 @@ public class InvertDTO {
     @NotNull
     private Invertebrate invertebrate;
 
-    /*@NotNull
-    private User user;*/
-
     @NotNull
     private List<Instar> instars;
 

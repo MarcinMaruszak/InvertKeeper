@@ -43,8 +43,11 @@ function addPet(){
         "sex": document.getElementById("sex").value,
         "birth": document.getElementById("birth").value,
         "acquired": document.getElementById("acquired").value,
-        "alive" : document.getElementById("alive").value
+        "alive" : document.getElementById("alive").value,
+        "insectType" : document.getElementById("type").value,
     };
+
+
 
     let instar = {
         "l" : document.getElementById("l").value,
@@ -52,8 +55,11 @@ function addPet(){
     }
     var instars = [instar];
 
+
+
     invertDTO["invertebrate"] = invert;
     invertDTO["instars"] = [instar];
+
 
     var invertForm = new FormData();
 
@@ -70,6 +76,8 @@ function addPet(){
     }
 
     invertForm.append("avatar" ,document.getElementById("avatar").files[0]);
+
+    console.log(invertDTO)
 
     var paragraph = document.createElement("p");
     paragraph.id = "savingPar";
@@ -92,8 +100,8 @@ function addPet(){
                 alert(type +" '" + name + "' saved.");
                 window.location.replace("/myInverts")
            } else {
-               var err = JSON.parse(xhr.responseText);
-               alert(err.message);
+               //var err = JSON.parse(xhr.responseText);
+               alert(xhr.responseText);
            }
         }
     };

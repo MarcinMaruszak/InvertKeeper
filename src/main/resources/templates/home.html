@@ -47,8 +47,8 @@
                 </thead>
                 <tbody>
                 <tr th:each = "invert : ${inverts}">
-                    <td><span th:text="${invert.class.simpleName}"></span></td>
-                    <td><a th:href="'/myInverts/details/'+${invert.getId()}" th:text="${invert.getName()}"></a></td>
+                    <td><span th:text="${invert.getInsectType()}"></span></td>
+                    <td><a th:href="'/invert/details/'+${invert.getId()}" th:text="${invert.getName()}"></a></td>
                     <td><span th:text="${invert.getSpecie().getName()}"></span></td>
                     <td><span th:text="${#temporals.format(invert.getBirth(), 'dd-MM-yyyy')} ?: 'N/A'"></span></td>
                     <td><span th:text="${invert.getSex()}"></span></td>

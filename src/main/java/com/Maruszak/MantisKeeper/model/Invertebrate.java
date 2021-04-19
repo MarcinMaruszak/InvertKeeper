@@ -41,6 +41,10 @@ public abstract class Invertebrate {
 
     @Column
     @NotNull
+    private Type insectType;
+
+    @Column
+    @NotNull
     private boolean alive;
 
     @Column
@@ -132,7 +136,6 @@ public abstract class Invertebrate {
         this.alive = alive;
     }
 
-
     public LocalDate getDeath() {
         return death;
     }
@@ -165,5 +168,28 @@ public abstract class Invertebrate {
         this.added = added;
     }
 
+    public Type getInsectType() {
+        return insectType;
+    }
+
+    public void setInsectType(Type insectType) {
+        this.insectType = insectType;
+    }
+
+    @Override
+    public String toString() {
+        return "Invertebrate{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", birth=" + birth +
+                ", acquired=" + acquired +
+                ", sex=" + sex +
+                ", insectType=" + insectType +
+                ", alive=" + alive +
+                ", death=" + death +
+                ", avatar=" + avatar +
+                ", added=" + added +
+                '}';
+    }
 }
 

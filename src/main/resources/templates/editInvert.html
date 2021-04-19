@@ -30,7 +30,11 @@
         <div>
             <label for="type">Type:</label>
             <select id="type">
-                <option value="Mantis">Mantis</option>
+                <option th:each="type : ${T(com.Maruszak.MantisKeeper.model.Type).values()}"
+                        th:value="${type}"
+                        th:text="${type}"
+                        th:selected="${type}==${invert.getInsectType()}">
+                </option>
             </select>
         </div>
         <div>
