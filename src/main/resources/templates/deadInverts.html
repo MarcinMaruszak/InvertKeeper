@@ -50,7 +50,7 @@
             <td><span th:text="${invert.getSex()}"></span></td>
             <td><span th:text="${#temporals.format(invert.getBirth() , 'dd-MM-yyyy')} ?: 'N/A'"></span></td>
             <td><span th:text="${#temporals.format(invert.getDeath() , 'dd-MM-yyyy')} ?: 'N/A'"></span></td>
-            <td><span th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()}"></span></td>
+            <td><span th:text="${invert.getLastInstar()}"></span></td>
             <td>
                 <button id="edit" th:onclick="javascript:edit(/*[[${invert.getId()}]]*/)">
                     <i class="fas fa-edit"></i></button>

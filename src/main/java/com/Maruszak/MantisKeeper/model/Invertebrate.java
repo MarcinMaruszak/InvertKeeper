@@ -54,6 +54,9 @@ public abstract class Invertebrate {
     @ElementCollection(targetClass = Instar.class)
     private List<Instar> instars;
 
+    @Column
+    private L lastInstar;
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
@@ -70,6 +73,13 @@ public abstract class Invertebrate {
     private LocalDateTime added;
 
     public Invertebrate() {
+    }
+
+    @PrePersist
+    void lastInstar(){
+        if(lastInstar==null){
+            lastInstar=instars.get(instars.size()-1).getL();
+        }
     }
 
     public UUID getId() {
@@ -176,6 +186,17 @@ public abstract class Invertebrate {
         this.insectType = insectType;
     }
 
+    public L getLastInstar() {
+        if(lastInstar==null){
+            lastInstar=instars.get(instars.size()-1).getL();
+        }
+        return lastInstar;
+    }
+
+    public void setLastInstar(L lastInstar) {
+        this.lastInstar = lastInstar;
+    }
+
     @Override
     public String toString() {
         return "Invertebrate{" +
@@ -187,6 +208,7 @@ public abstract class Invertebrate {
                 ", insectType=" + insectType +
                 ", alive=" + alive +
                 ", death=" + death +
+                ", lastInstar=" + lastInstar +
                 ", avatar=" + avatar +
                 ", added=" + added +
                 '}';

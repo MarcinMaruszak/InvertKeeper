@@ -2,15 +2,14 @@ package com.Maruszak.MantisKeeper.services;
 
 import com.Maruszak.MantisKeeper.DTO.InvertDTO;
 import com.Maruszak.MantisKeeper.DTO.TableDTO;
-import com.Maruszak.MantisKeeper.model.Instar;
-import com.Maruszak.MantisKeeper.model.Invertebrate;
-import com.Maruszak.MantisKeeper.model.User;
+import com.Maruszak.MantisKeeper.model.*;
 import com.Maruszak.MantisKeeper.repository.InvertebrateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +17,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.criteria.Predicate;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -179,20 +180,41 @@ public class InvertebratesServiceImpl {
         return invertRepository.findTop10ByOrderByAddedDesc();
     }
 
-    public String allInvertsHTML(Model model, String sortBy, int pageNo, String direction, int PageSize) {
+    public String allInvertsHTML(Model model, String sortBy, int pageNo, String direction, int PageSize,
+                                 Type insectType, Sex sex, L lastInstar) {
+
         Sort sort = direction.equals("asc")? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(pageNo, PageSize , sort);
-        Page<Invertebrate> invertsPage =  invertRepository.findAllByAliveTrue(pageable);
+
+        Specification<Invertebrate> specification = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicateList = new ArrayList<>();
+
+            if (insectType != null) {
+                predicateList.add(criteriaBuilder.equal(root.get("insectType"), insectType));
+            }
+            if (sex != null) {
+                predicateList.add(criteriaBuilder.equal(root.get("sex"), sex));
+            }
+            if (lastInstar != null) {
+                predicateList.add(criteriaBuilder.equal(root.get("lastInstar"), lastInstar));
+            }
+            return criteriaBuilder.and(predicateList.toArray(new Predicate[0]));
+        };
+        Page<Invertebrate> invertsPage =  invertRepository.findAll(specification, pageable);
         List<Invertebrate> inverts = invertsPage.getContent();
         for (Invertebrate invert : inverts) {
             invert.setInstars(instarService.findInstarsByInvertAsc(invert));
         }
+
         TableDTO tableDTO = new TableDTO();
         tableDTO.setInverts(inverts);
         tableDTO.setPageNo(pageNo);
         tableDTO.setTotalPages(invertsPage.getTotalPages());
         tableDTO.setSortBY(sortBy);
         tableDTO.setDirection(direction);
+        tableDTO.setInsectType(insectType);
+        tableDTO.setSex(sex);
+        tableDTO.setLastInstar(lastInstar);
         model.addAttribute("tableDTO", tableDTO);
         return "AllInverts";
     }

@@ -27,6 +27,7 @@ dependencies {
 	compile 'com.cloudinary:cloudinary-http44:1.29.0'
 	compile 'org.springframework.boot:spring-boot-starter-mail:2.4.4'
 	implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.6'
+	implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.30.Final'
 
 }
 

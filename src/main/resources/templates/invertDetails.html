@@ -57,6 +57,10 @@
                 <table id="details_table">
                     <tbody>
                     <tr>
+                        <th class="details_col">Type:</th>
+                        <td class="details_col" th:text="${invert.getInsectType()}"> </td>
+                    </tr>
+                    <tr>
                         <th class="details_col">Specie:</th>
                         <td class="details_col" th:text="${invert.getSpecie().getName()}"> </td>
                     </tr>

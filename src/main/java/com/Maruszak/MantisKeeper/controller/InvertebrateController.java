@@ -1,6 +1,9 @@
 package com.Maruszak.MantisKeeper.controller;
 
 import com.Maruszak.MantisKeeper.DTO.InvertDTO;
+import com.Maruszak.MantisKeeper.model.L;
+import com.Maruszak.MantisKeeper.model.Sex;
+import com.Maruszak.MantisKeeper.model.Type;
 import com.Maruszak.MantisKeeper.services.InvertebratesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -54,7 +57,6 @@ public class InvertebrateController {
     void addInvert(@RequestPart(value = "invertDTO") InvertDTO invertDTO,
                    @RequestPart(value = "photos", required = false) List<MultipartFile> photos,
                    @RequestPart(value = "avatar", required = false) MultipartFile avatar) {
-        System.out.println(invertDTO.getInvertebrate());
         invertService.saveNewInvert(invertDTO, photos, avatar);
     }
 
@@ -81,13 +83,15 @@ public class InvertebrateController {
     }
 
     @GetMapping(path = "/allInverts")
-    public String allInvertsHTML(
+    public String sortInvertsHTML(
             @RequestParam(value = "sortBy", required = false, defaultValue = "added") String sortBy,
             @RequestParam(value = "pageNo", required = false, defaultValue = "0") int pageNo,
-            @RequestParam(value = "direction", required = false, defaultValue = "asc") String direction,
+            @RequestParam(value = "direction", required = false, defaultValue = "desc") String direction,
             @RequestParam(value = "pageSize", required = false, defaultValue = "20") int pageSize,
+            @RequestParam(value = "insectType", required = false) Type insectType,
+            @RequestParam(value = "sex", required = false) Sex sex,
+            @RequestParam(value = "lastInstar", required = false) L lastInstar,
             Model model) {
-
-        return invertService.allInvertsHTML(model, sortBy, pageNo, direction, pageSize);
+        return invertService.allInvertsHTML(model, sortBy, pageNo, direction, pageSize, insectType, sex, lastInstar);
     }
 }

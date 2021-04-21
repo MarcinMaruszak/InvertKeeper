@@ -39,6 +39,26 @@ function edit(){
 
     var invertDTO = new Object();
 
+     var instars = document.getElementsByClassName("instar_input");
+
+     var instarArray = [];
+
+     for(var i = 0; i < instars.length ; i++){
+
+        var id = instars[i].children.instar_id.value;
+
+        let instar = {
+            "id" : instars[i].children.instar_id.value,
+            "l" : instars[i].children.l.value,
+             "moltDate" : instars[i].children.l_date.value
+         }
+        instarArray[i] = instar;
+     }
+
+     instarArray.sort(function (a, b) {
+        return a.moltDate - b.moltDate;
+     });
+
     let invert = {
             "id" : document.getElementById("invert_id").value,
             "type" : document.getElementById("type").value,
@@ -50,23 +70,10 @@ function edit(){
             "alive" : document.getElementById("alive").value,
             "added" : document.getElementById("added").value,
             "insectType" : document.getElementById("type").value,
+            "lastInstar" : instarArray[instarArray.length - 1].l
         };
 
-        var instars = document.getElementsByClassName("instar_input");
 
-        var instarArray = [];
-
-        for(var i = 0; i < instars.length ; i++){
-
-            var id = instars[i].children.instar_id.value;
-
-            let instar = {
-                  "id" : instars[i].children.instar_id.value,
-                  "l" : instars[i].children.l.value,
-                  "moltDate" : instars[i].children.l_date.value
-            }
-            instarArray[i] = instar;
-        }
 
         invertDTO["invertebrate"] = invert;
         invertDTO["instars"] = instarArray;

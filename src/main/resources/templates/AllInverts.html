@@ -5,6 +5,7 @@
   <title>All Invertebrates</title>
   <link th:href="@{/css/general.css}" rel="stylesheet"/>
   <link th:href="@{/css/allInverts.css}" rel="stylesheet"/>
+  <script type="text/javascript" th:src="@{/js/allInverts.js}"></script>
   <script src="https://kit.fontawesome.com/5788f7a270.js" crossorigin="anonymous"></script>
 
 </head>
@@ -20,43 +21,102 @@
   <a class="link_right" href="/contact">Contact</a>
 </div>
 <div id="wrap">
+    <div style="display:inline-block">
+      <div>
+        <label for="type">Type</label>
+      </div>
+      <div>
+        <select id="type" class="filter">
+      <option value=null>All</option>
+      <option th:each="type : ${T(com.Maruszak.MantisKeeper.model.Type).values()}"
+              th:value="${type}"
+              th:text="${type}"
+              th:selected="${type}==${tableDTO.getInsectType()}">
+      </option>
+      </select>
+      </div>
+    </div>
+    <div style="display:inline-block">
+      <div>
+        <label for="sex">Sex</label>
+      </div>
+      <div>
+        <select id="sex" class="filter">
+      <option value=null>All</option>
+       <option th:each="sex : ${T(com.Maruszak.MantisKeeper.model.Sex).values()}"
+               th:value="${sex}"
+               th:text="${sex}"
+               th:selected="${sex}==${tableDTO.getSex()}">
+       </option>
+      </select>
+      </div>
+    </div>
+      <div style="display:inline-block">
+      <div>
+        <label for="l">Last Instar</label>
+      </div>
+      <div>
+        <select id="l" class="filter">
+          <option value=null>All</option>
+          <option th:each="l : ${T(com.Maruszak.MantisKeeper.model.L).values()}"
+                  th:value="${l}"
+                  th:text="${l}"
+                  th:selected="${l}==${tableDTO.getLastInstar()}">
+        </option>
+      </select>
+      </div>
+      </div>
+  <button id="filter" type="button" onclick="filter()">Filter</button>
+
   <div th:if="${tableDTO.getInverts().empty}">
     <p>No Inverts</p>
   </div>
-  <div th:unless="${tableDTO.getInverts().empty}">
+  <span th:fragment="table" th:unless="${tableDTO.getInverts().empty}">
     <table class="invertTable">
       <thead>
       <tr>
         <th>Type</th>
         <th>Name
           <span class="button">
-          <a th:href="@{'/allInverts?sortBy=name&direction=asc'}"><i class="fas fa-sort-amount-down-alt"></i></a>
-          <a th:href="@{'/allInverts?sortBy=name&direction=desc'}"><i class="fas fa-sort-amount-up"></i></a>
+            <button onclick="sort('?sortBy=name&direction=asc')">
+              <i class="fas fa-sort-amount-down-alt"></i></button>
+            <button onclick="sort('?sortBy=name&direction=desc')">
+              <i class="fas fa-sort-amount-up"></i></button>
         </span>
         </th>
         <th>Specie</th>
         <th>Birth
           <span class="button">
-           <a th:href="@{'/allInverts?sortBy=birth&direction=asc'}"><i class="fas fa-sort-amount-down-alt"></i></a>
-          <a th:href="@{'/allInverts?sortBy=birth&direction=desc'}"><i class="fas fa-sort-amount-up"></i></a>
+           <button type="button" onclick="sort('?sortBy=birth&direction=asc')">
+             <i class="fas fa-sort-amount-down-alt"></i></button>
+          <button type="button" onclick="sort('?sortBy=birth&direction=desc')">
+            <i class="fas fa-sort-amount-up"></i></button>
         </span>
         </th>
         <th>Sex
           <span class="button">
-           <a th:href="@{'/allInverts?sortBy=sex&direction=asc'}"><i class="fas fa-sort-amount-down-alt"></i></a>
-          <a th:href="@{'/allInverts?sortBy=sex&direction=desc'}"><i class="fas fa-sort-amount-up"></i></a>
+            <button type="button" onclick="sort('?sortBy=sex&direction=asc')">
+              <i class="fas fa-sort-amount-down-alt"></i></button>
+             <button type="button" onclick="sort('?sortBy=sex&direction=desc')">
+               <i class="fas fa-sort-amount-up"></i></button>
         </span>
         </th>
         <th>Instar
           <span class="button">
-          <a th:href="@{'/allInverts?sortBy=instars&direction=asc'}"><i class="fas fa-sort-amount-down-alt"></i></a>
-          <a th:href="@{'/allInverts?sortBy=instars&direction=desc'}"><i class="fas fa-sort-amount-up"></i></a>
+            <button type="button" onclick="sort('?sortBy=lastInstar&direction=asc')">
+              <i class="fas fa-sort-amount-down-alt"></i></button>
+            <button type="button" onclick="sort('?sortBy=lastInstar&direction=desc')">
+              <i class="fas fa-sort-amount-up"></i></button>
         </span>
         </th>
         <th>Owner</th>
         <th>Added
-          <a th:href="@{'/allInverts?sortBy=added&direction=asc'}"><i class="fas fa-sort-amount-down-alt"></i></a>
-          <a th:href="@{'/allInverts?sortBy=added&direction=desc'}"><i class="fas fa-sort-amount-up"></i></a>
+          <span class="button>">
+            <button type="button" onclick="sort('?sortBy=added&direction=asc')">
+              <i class="fas fa-sort-amount-down-alt"></i></button>
+            <button type="button" onclick="sort('?sortBy=added&direction=desc')">
+              <i class="fas fa-sort-amount-up"></i></button>
+          </span>
         </th>
       </tr>
       </thead>
@@ -67,7 +127,7 @@
         <td><span th:text="${invert.getSpecie().getName()}"></span></td>
         <td><span th:text="${#temporals.format(invert.getBirth() , 'dd-MM-yyyy')} ?: 'N/A'"></span></td>
         <td><span th:text="${invert.getSex()}"></span></td>
-        <td><span th:text="${invert.getInstars()[#lists.size(invert.getInstars())-1].getL()}"></span></td>
+        <td><span th:text="${invert.getLastInstar()}"></span></td>
         <td><span th:text="${invert.getUser().getUsername()}"></span></td>
         <td><span th:text="${#temporals.format(invert.getAdded(), 'dd-MM-yyyy')}"></span></td>
       </tr>
@@ -84,7 +144,7 @@
            th:text="${tableDTO.getPageNo()+2}"></a>
       </span>
     </div>
-  </div>
+  </span>
 </div>
 </body>
 </html>

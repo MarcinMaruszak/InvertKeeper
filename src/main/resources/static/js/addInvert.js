@@ -36,6 +36,12 @@ function addPet(){
 
     var invertDTO = new Object();
 
+    let instar = {
+            "l" : document.getElementById("l").value,
+            "moltDate" : document.getElementById("l_date").value
+        }
+    var instars = [instar];
+
     let invert = {
         "type" : document.getElementById("type").value,
         "name" : document.getElementById("name").value.trim(),
@@ -45,21 +51,13 @@ function addPet(){
         "acquired": document.getElementById("acquired").value,
         "alive" : document.getElementById("alive").value,
         "insectType" : document.getElementById("type").value,
+        "lastInstar" : instar.l
     };
-
-
-
-    let instar = {
-        "l" : document.getElementById("l").value,
-        "moltDate" : document.getElementById("l_date").value
-    }
-    var instars = [instar];
-
-
 
     invertDTO["invertebrate"] = invert;
     invertDTO["instars"] = [instar];
 
+    console.log(invert)
 
     var invertForm = new FormData();
 
@@ -100,8 +98,8 @@ function addPet(){
                 alert(type +" '" + name + "' saved.");
                 window.location.replace("/myInverts")
            } else {
-               //var err = JSON.parse(xhr.responseText);
-               alert(xhr.responseText);
+               var err = JSON.parse(xhr.responseText);
+               alert(err.message);
            }
         }
     };
