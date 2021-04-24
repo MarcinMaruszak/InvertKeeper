@@ -48,7 +48,7 @@
             <select id="specie">
                 <option th:each="specie : ${T(com.Maruszak.MantisKeeper.model.MantisSpecie).values()}"
                         th:value="${specie}"
-                        th:text="${specie.getName()}"
+                        th:text="${specie.getFullName()}"
                         th:selected="${specie}==${invert.getSpecie()}">
                 </option>
             </select>

@@ -13,11 +13,10 @@ import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = Mantis.class, name = "Mantis")
+        @JsonSubTypes.Type(value = Mantis.class, name = "Mantis"),
+        @JsonSubTypes.Type(value = Spider.class, name = "Spider")
 })
 public abstract class Invertebrate {
 

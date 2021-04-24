@@ -1,9 +1,7 @@
 package com.Maruszak.MantisKeeper.controller;
 
 import com.Maruszak.MantisKeeper.DTO.InvertDTO;
-import com.Maruszak.MantisKeeper.model.L;
-import com.Maruszak.MantisKeeper.model.Sex;
-import com.Maruszak.MantisKeeper.model.Type;
+import com.Maruszak.MantisKeeper.model.*;
 import com.Maruszak.MantisKeeper.services.InvertebratesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -83,7 +82,13 @@ public class InvertebrateController {
     }
 
     @GetMapping(path = "/allInverts")
-    public String sortInvertsHTML(
+    public String allInvertsHTML(Model model) {
+        return invertService.allInvertsHTML(model, "added",
+                0, "desc", 20);
+    }
+
+    @GetMapping(path = "/allInverts/sort")
+    public String allInvertsSortHTML(
             @RequestParam(value = "sortBy", required = false, defaultValue = "added") String sortBy,
             @RequestParam(value = "pageNo", required = false, defaultValue = "0") int pageNo,
             @RequestParam(value = "direction", required = false, defaultValue = "desc") String direction,
@@ -91,7 +96,19 @@ public class InvertebrateController {
             @RequestParam(value = "insectType", required = false) Type insectType,
             @RequestParam(value = "sex", required = false) Sex sex,
             @RequestParam(value = "lastInstar", required = false) L lastInstar,
+            @RequestParam(value = "bornAfter", required = false) String bornAfter,
+            @RequestParam(value = "bornBefore", required = false) String bornBefore,
+            @RequestParam(value = "addedAfter", required = false) String addedAfter,
+            @RequestParam(value = "addedBefore", required = false) String addedBefore,
+            @RequestParam(value = "specie", required = false) String specie,
             Model model) {
-        return invertService.allInvertsHTML(model, sortBy, pageNo, direction, pageSize, insectType, sex, lastInstar);
+        return invertService.allInvertsSort(model, sortBy, pageNo, direction, pageSize, insectType, sex,
+                lastInstar , bornAfter, bornBefore, addedAfter, addedBefore, specie);
+    }
+
+    @GetMapping(path = "/getSpecie")
+    public @ResponseBody
+    Map<Specie, String> getSpecies(@RequestParam(value = "type") String type){
+        return invertService.getSpecie(type);
     }
 }

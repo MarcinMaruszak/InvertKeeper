@@ -69,3 +69,6 @@ label{
   border-radius: 4px;
   margin: 10px;
 }
+select{
+  max-width: 200px;
+}

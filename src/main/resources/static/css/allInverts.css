@@ -5,6 +5,10 @@
   margin-top: 25px;
   text-align: center;
 }
+#content{
+  display: inline-block;
+  overflow: hidden;
+}
 .filter {
     max-width: 80px;
     margin: 2px;
@@ -20,6 +24,7 @@ label{
   border-color: rgb(100,255,102);
   background-color: rgb(50,105,22);
   margin: 7px;
+  font-size: 16px;
 }
 button{
   background-color: rgb(40,85,22);
@@ -27,3 +32,46 @@ button{
   color: white;
   border-radius: 4px;
 }
+.date_input{
+  border-radius: 4px;
+  margin: 2px;
+}
+.button_link{
+    background: none;
+  border: none;
+  padding: 0px;
+   color: white;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 16px;
+}
+.page{
+  font-size: 18px;
+}
+.filter_div{
+  margin: 5px;
+}
+#filter_wrap{
+  padding: 5px;
+  border: solid 1px;
+  margin: 10px;
+  border-radius: 8px;
+ float: left;
+  text-align: left;
+}
+#table_wrap{
+  float: right;
+}
+#specie{
+  min-width: 100px;
+}
+#no_inverts{
+  font-size: 25px;
+  margin-inline: 300px;
+}
+#reset{
+  background-color: red;
+  font-size: 15px;
+}
+
+

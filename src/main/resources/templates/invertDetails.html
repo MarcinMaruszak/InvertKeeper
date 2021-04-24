@@ -52,6 +52,10 @@
                                 th:onclick="javascript:markDead(/*[[${invert.getId()}]]*/)">
                         <i class="fas fa-skull"></i></button></span>
                 </div>
+                <div th:unless="${userId==invert.getUser().getId()}">
+                    <label for="owner">Owner: </label>
+                    <span id="owner" th:text="${invert.getUser().getUsername()"></span>
+                </div>
             </div>
             <div class="details">
                 <table id="details_table">
@@ -61,8 +65,12 @@
                         <td class="details_col" th:text="${invert.getInsectType()}"> </td>
                     </tr>
                     <tr>
-                        <th class="details_col">Specie:</th>
-                        <td class="details_col" th:text="${invert.getSpecie().getName()}"> </td>
+                        <th class="details_col">Specie(english):</th>
+                        <td class="details_col" th:text="${invert.getSpecie().getEnglishName()}"> </td>
+                    </tr>
+                    <tr>
+                        <th class="details_col">Specie(latin):</th>
+                        <td class="details_col" th:text="${invert.getSpecie().getLatinName()}"> </td>
                     </tr>
                     <tr>
                         <th class="details_col">Sex:</th>
@@ -87,7 +95,6 @@
                         <th class="details_col">Date of Last Instar:</th>
                         <td class="details_col"
                             th:text="${#temporals.format(invert.getInstars()[#lists.size(invert.getInstars())-1].getMoltDate() , 'dd-MM-yyyy')} ?: 'N/A'">
-
                         </td>
                     </tr>
                     </tbody>
