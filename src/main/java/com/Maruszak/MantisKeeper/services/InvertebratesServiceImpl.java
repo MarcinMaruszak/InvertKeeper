@@ -290,7 +290,6 @@ public class InvertebratesServiceImpl {
         return "AllInverts::table";
     }
 
-
     public Map<Specie, String> getSpecie(String type) {
         Map<Specie, String> speciesMap = new LinkedHashMap<>();
         if (type.equals("Mantis")) {
