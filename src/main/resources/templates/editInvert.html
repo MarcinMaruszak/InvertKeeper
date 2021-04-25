@@ -24,16 +24,28 @@
 </div>
 <div id="wrap" class="wrap">
     <div>
-        <p1 th:text=" ${invert.getClass().getSimpleName()} +' '+ ${invert.getName()}"></p1>
+        <p1 th:text="${invert.getInsectType()} +' '+ ${invert.getName()}"></p1>
     </div>
     <div id="content" class="content">
         <div>
-            <label for="type">Type:</label>
-            <select id="type">
-                <option th:each="type : ${T(com.Maruszak.MantisKeeper.model.Type).values()}"
-                        th:value="${type}"
-                        th:text="${type}"
-                        th:selected="${type}==${invert.getInsectType()}">
+            <label>Type:</label>
+            <span class="data" th:text="${invert.getInsectType()}"></span>
+            <input id="type" type="hidden" th:value="${invert.getInsectType()}">
+        </div>
+        <div>
+            <label>Specie:</label>
+            <select th:id="specie" th:if="${invert.getInsectType()==T(com.Maruszak.MantisKeeper.model.Type).Mantis}">
+                <option th:each="specie : ${T(com.Maruszak.MantisKeeper.model.MantisSpecie).values()}"
+                        th:value="${specie}"
+                        th:text="${specie.getFullName()}"
+                        th:selected="${specie}==${invert.getSpecie()}">
+                </option>
+            </select>
+            <select th:id="specie" th:if="${invert.getInsectType()==T(com.Maruszak.MantisKeeper.model.Type).Spider}">
+                <option th:each="specie : ${T(com.Maruszak.MantisKeeper.model.SpiderSpecie).values()}"
+                        th:value="${specie}"
+                        th:text="${specie.getFullName()}"
+                        th:selected="${specie}==${invert.getSpecie()}">
                 </option>
             </select>
         </div>
@@ -42,16 +54,6 @@
             <div1>
                 <p id="p_name"></p>
             </div1>
-        </div>
-        <div>
-            <label for="specie">Specie:</label>
-            <select id="specie">
-                <option th:each="specie : ${T(com.Maruszak.MantisKeeper.model.MantisSpecie).values()}"
-                        th:value="${specie}"
-                        th:text="${specie.getFullName()}"
-                        th:selected="${specie}==${invert.getSpecie()}">
-                </option>
-            </select>
         </div>
         <div>
             <label for="sex">Sex:</label>
