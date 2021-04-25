@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Controller
 public class UserController {
@@ -27,8 +28,9 @@ public class UserController {
     }
 
     @GetMapping(path = "/profile")
-    public String profile(Model model) {
-        return userServices.profileHTML(model);
+    public String profile(@RequestParam(value = "id" , required = false) UUID id,
+                                      Model model) {
+        return userServices.profileHTML(model , id);
     }
 
     @PostMapping(path = "/changePass")

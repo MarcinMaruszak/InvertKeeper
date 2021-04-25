@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -99,9 +100,24 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return user.get();
     }
 
-    public String profileHTML(Model model) {
-        User user = getUser();
+    public String profileHTML(Model model, UUID id) {
+        User user;
+        UUID liveUserId;
+        if (id!=null) {
+            Optional<User> userOpt = userRepository.findById(id);
+            if(userOpt.isEmpty()){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "No user found");
+            }
+            user = userOpt.get();
+
+        }else {
+            user= getUser();
+
+        }
+        liveUserId = getUser().getId();
+
         user.setInvertebratesList(invertService.findInvertsByUser(user));
+        model.addAttribute("id" ,liveUserId);
         model.addAttribute("user", user);
         return "userProfile";
     }

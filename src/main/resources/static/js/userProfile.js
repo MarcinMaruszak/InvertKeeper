@@ -29,7 +29,7 @@ function showPassFields(){
     newDiv3.children[1].placeholder = "Repeat password";
 
 
-    document.getElementById("passButton").remove();
+    document.getElementById("pass_button").remove();
 
     var par =  document.createElement("p");
     par.id = "pass_error";

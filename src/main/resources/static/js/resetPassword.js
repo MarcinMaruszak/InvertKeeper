@@ -46,10 +46,9 @@ function reset(){
                    alert("Password has been reset");
                    window.location.replace("/login")
 
-
                 } else {
-                 /*   var err = JSON.parse(xhr.responseText);
-                    console.log(xhr.responseText)*/
+                    var err = JSON.parse(xhr.responseText);
+                    console.log(xhr.responseText)
                 }
               }
            };

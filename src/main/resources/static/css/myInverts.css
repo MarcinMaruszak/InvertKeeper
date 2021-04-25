@@ -20,10 +20,13 @@
 #delete{
   color: red;
 }
-#death, #edit, #delete{
+#alive_button{
+  color: magenta;
+}
+#death, #edit, #delete, #alive_button{
    background-color: white;
 }
-#death:hover, #edit:hover, #delete:hover{
+#death:hover, #edit:hover, #delete:hover , #alive_button:hover{
    border-color: black;
 }
 p{

@@ -19,6 +19,9 @@
           <a class="link_right"
              href="javascript:{}" onclick="document.getElementById('logout_form').submit(); return false;">Log Out</a>
       </form>
+      <span th:if="${id!=user.getId()}">
+          <a class="link_right" href="/profile">Profile</a>
+      </span>
       <a class="link_right" href="/contact">Contact</a>
   </div>
   <div>
@@ -29,7 +32,8 @@
               <tbody>
                 <tr>
                     <th class="col">Email:</th>
-                    <td th:text="${user.getEmail()}"> </td>
+                    <td th:if="${id==user.getId()}"  th:text="${user.getEmail()}"></td>
+                    <td th:unless="${id==user.getId()}" th:text="private"></td>
                 </tr>
                 <tr>
                     <th class="col">Number of Invertebrates:</th>
@@ -38,11 +42,13 @@
               </tbody>
           </table>
       </div>
-        <div>
-            <input type="button" id="pass_button" class="button_as_link" value="Change Password" th:onclick="showPassFields()"/>
-        </div>
-        <div>
-            <input type="button" id="delete_account" class="button_as_link" value="Delete Account" th:onclick="deleteAcc()"/>
+        <div id="links" th:if="${id==user.getId()}">
+            <div>
+                <input type="button" id="pass_button" class="button_as_link" value="Change Password" th:onclick="showPassFields()"/>
+            </div>
+            <div>
+                <input type="button" id="delete_account" class="button_as_link" value="Delete Account" th:onclick="deleteAcc()"/>
+            </div>
         </div>
     </div>
   </div>

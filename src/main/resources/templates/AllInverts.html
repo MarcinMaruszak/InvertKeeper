@@ -191,7 +191,8 @@
                         <td><span th:text="${#temporals.format(invert.getBirth() , 'dd-MM-yyyy')} ?: 'N/A'"></span></td>
                         <td><span th:text="${invert.getSex()}"></span></td>
                         <td><span th:text="${invert.getLastInstar()}"></span></td>
-                        <td><span th:text="${invert.getUser().getUsername()}"></span></td>
+                        <td><a th:href="'/profile?id='+${invert.getUser().getId()}"
+                               th:text="${invert.getUser().getUsername()}"></a></td>
                         <td><span th:text="${#temporals.format(invert.getAdded(), 'dd-MM-yyyy')}"></span></td>
                     </tr>
                     </tbody>

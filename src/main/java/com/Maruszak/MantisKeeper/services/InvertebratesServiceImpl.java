@@ -304,4 +304,14 @@ public class InvertebratesServiceImpl {
         }
         return speciesMap;
     }
+
+    public void markAlive(UUID id) {
+        Optional<Invertebrate> invertOpt = invertRepository.findById(id);
+        if(invertOpt.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invertebrate not found");
+        }
+        Invertebrate invertebrate = invertOpt.get();
+        invertebrate.setAlive(true);
+        invertRepository.save(invertebrate);
+    }
 }

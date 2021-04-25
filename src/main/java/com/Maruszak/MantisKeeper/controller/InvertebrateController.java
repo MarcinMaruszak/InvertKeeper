@@ -81,6 +81,11 @@ public class InvertebrateController {
         invertService.saveAsDead(id, date);
     }
 
+    @PostMapping(path = "/markAlive/{id}")
+    public @ResponseBody void markAlive(@PathVariable UUID id){
+        invertService.markAlive(id);
+    }
+
     @GetMapping(path = "/allInverts")
     public String allInvertsHTML(Model model) {
         return invertService.allInvertsHTML(model, "added",

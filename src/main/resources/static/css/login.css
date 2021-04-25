@@ -43,7 +43,7 @@ a{
     max-width: 140px;
     color: white;
     border-radius: 4px;
-    margin: 10px;
+    margin: -1px;
     font-size: 14px;
 }
 #p_pass{
@@ -51,4 +51,7 @@ a{
 }
 .link{
     margin: 10px;
+}
+.input{
+  margin: 4px;
 }

@@ -56,6 +56,9 @@
                     <i class="fas fa-edit"></i></button>
                 <button id="delete" th:onclick="javascript:remove(/*[[${invert.getId()}]]*/)">
                     <i class="fas fa-trash-alt"></i></button>
+                <button id="alive_button" title="Mark as alive"
+                        th:onclick="javascript:markAlive(/*[[${invert.getId()}]]*/)">
+                    <i class="fas fa-star-of-life"></i></button>
             </td>
         </tr>
         </tbody>

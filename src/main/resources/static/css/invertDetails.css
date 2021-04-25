@@ -46,10 +46,13 @@ div{
 #delete_button{
   color: red;
 }
-#death_button, #edit_button, #delete_button{
+#alive_button{
+  color: magenta;
+}
+#death_button, #edit_button, #delete_button, #alive_button{
    background-color: white;
 }
-#death_button:hover, #edit_button:hover, #delete_button:hover{
+#death_button:hover, #edit_button:hover, #delete_button:hover, #alive_button:hover{
    border-color: black;
 }
 .main_photo{
