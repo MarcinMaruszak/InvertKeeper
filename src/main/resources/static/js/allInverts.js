@@ -102,5 +102,7 @@ function filter(url){
 }
 
 function reset(){
+    $('select').each(function() { this.selectedIndex = 0 });
+    $("input[type=date]").val("")
     $('#table').load("/allInverts/sort");
 }

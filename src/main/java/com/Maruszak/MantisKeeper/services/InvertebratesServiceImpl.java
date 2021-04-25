@@ -233,17 +233,18 @@ public class InvertebratesServiceImpl {
             if (lastInstar != null) {
                 predicateList.add(criteriaBuilder.equal(root.get("lastInstar"), lastInstar));
             }
-
-            LocalDate bornBeforeLocalDate = LocalDate.now();
-            LocalDate bornAfterLocalDate = LocalDate.MIN;
-            if (bornBefore != null) {
-                bornBeforeLocalDate = LocalDate.parse(bornBefore);
+            if(bornBefore!=null||bornAfter!=null){
+                LocalDate bornBeforeLocalDate = LocalDate.now();
+                LocalDate bornAfterLocalDate = LocalDate.MIN;
+                if (bornBefore != null) {
+                    bornBeforeLocalDate = LocalDate.parse(bornBefore);
+                }
+                if (bornAfter != null) {
+                    bornAfterLocalDate = LocalDate.parse(bornAfter);
+                }
+                predicateList.add(criteriaBuilder.between(root.get("birth"), bornAfterLocalDate,
+                        bornBeforeLocalDate));
             }
-            if (bornAfter != null) {
-                bornAfterLocalDate = LocalDate.parse(bornAfter);
-            }
-            predicateList.add(criteriaBuilder.between(root.get("birth"), bornAfterLocalDate,
-                    bornBeforeLocalDate));
 
             LocalDateTime addedBeforeLocalDate = LocalDateTime.now();
             LocalDateTime addedAfterLocalDate = LocalDateTime.MIN;

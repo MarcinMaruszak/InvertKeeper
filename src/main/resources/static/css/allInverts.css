@@ -72,6 +72,7 @@ button{
 #reset{
   background-color: red;
   font-size: 15px;
+  border-color: rgb(255,240,102);
 }
 
 
