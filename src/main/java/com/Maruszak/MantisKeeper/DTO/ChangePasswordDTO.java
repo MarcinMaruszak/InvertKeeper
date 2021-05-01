@@ -1,12 +1,9 @@
 package com.Maruszak.MantisKeeper.DTO;
 
-import javax.validation.constraints.NotNull;
-
 public class ChangePasswordDTO {
 
     private String oldPass;
 
-    @NotNull
     private String newPass;
 
     private String token;

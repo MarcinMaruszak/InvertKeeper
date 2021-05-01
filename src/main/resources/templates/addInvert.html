@@ -20,6 +20,10 @@
            href="javascript:{}" onclick="document.getElementById('logout_form').submit(); return false;">Log Out</a>
     </form>
     <a class="link_right" href="/profile">Profile</a>
+    <div class="message_wrap">
+        <a id="message_link" class="link_right" href="/message/inbox">Messages</a>
+        <div class="notification_dot" th:if="${newMessages!=null && #lists.size(newMessages)>0}" th:text="${#lists.size(newMessages)}"></div>
+    </div>
     <a class="link_right" href="/contact">Contact</a>
 </div>
 <div id="wrap" class="wrap">
@@ -27,7 +31,7 @@
         <div class="parr">
             <p1>Add Invert</p1>
         </div>
-        <div>
+        <div class="element">
             <label for="type">Type:</label>
             <select id="type">
                 <option th:each="type : ${T(com.Maruszak.MantisKeeper.model.Type).values()}"
@@ -52,13 +56,13 @@
                 });
 
         </script>
-        <div>
+        <div class="element">
             <label for="name">Name:</label><input id="name"/>
             <div1>
                 <p id="p_name"></p>
             </div1>
         </div>
-        <div>
+        <div class="element">
             <label th:fragment="specieSelect" for="specie">Specie:</label>
             <select id="specie">
                 <option th:each="specie : ${T(com.Maruszak.MantisKeeper.model.MantisSpecie).values()}"
@@ -67,8 +71,7 @@
                 </option>
             </select>
         </div>
-
-        <div>
+        <div class="element">
             <label for="sex">Sex:</label>
             <select id="sex">
                 <option th:each="sex : ${T(com.Maruszak.MantisKeeper.model.Sex).values()}"
@@ -77,16 +80,16 @@
                 </option>
             </select>
         </div>
-        <div>
+        <div class="element">
             <label for="birth">Date of birth:</label><input id="birth" type="date"/>
         </div>
-        <div>
+        <div class="element">
             <label for="acquired">Date of purchase:</label><input id="acquired" type="date"/>
             <div1>
                 <p id="p_purchaseDate"></p>
             </div1>
         </div>
-        <div>
+        <div class="element">
             <label for="l">Instar:</label>
             <select id="l">
                 <option th:each="l : ${T(com.Maruszak.MantisKeeper.model.L).values()}"
@@ -99,19 +102,19 @@
                 <p id="p_instarDate"></p>
             </div1>
         </div>
-        <div>
+        <div class="element">
             <input id="alive" type="hidden" value=true>
         </div>
-        <div>
+        <div class="element">
             <label for="avatar">Add Avatar: </label>
             <input id="avatar" type="file" accept="image/*"/>
         </div>
-        <div>
+        <div class="element">
             <label for="photos">Add Photos(max 10): </label>
             <input id="photos" type="file" accept="image/*" multiple="multiple"/>
         </div>
     </div>
-    <div>
+    <div class="element">
         <input type="button" id="addButton" value="Add" th:onclick="javascript:validation()"/>
         <input type="button" id="cancelButton" onclick="" value="Cancel"/>
         <script type="text/javascript">

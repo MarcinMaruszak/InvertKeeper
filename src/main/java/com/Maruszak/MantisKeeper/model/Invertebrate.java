@@ -61,7 +61,7 @@ public abstract class Invertebrate {
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "invertebrate")
     @ElementCollection(targetClass = Photo.class)
     private List<Photo> photos;
 

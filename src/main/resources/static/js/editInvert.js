@@ -172,7 +172,7 @@ function add(){
 
     var selectL = document.getElementById("l").cloneNode(true);
 
-    selectL.value = "UNKNOWN";
+    selectL.value = "UNK";
 
     newDiv.appendChild(selectL);
 

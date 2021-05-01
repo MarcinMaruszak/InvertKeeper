@@ -9,6 +9,7 @@
     <script src="https://kit.fontawesome.com/5788f7a270.js" crossorigin="anonymous"></script>
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
   <div class="top_nav">
@@ -22,6 +23,10 @@
       <span th:if="${id!=user.getId()}">
           <a class="link_right" href="/profile">Profile</a>
       </span>
+      <div class="message_wrap">
+          <a id="message_link" class="link_right" href="/message/inbox">Messages</a>
+          <div class="notification_dot" th:if="${newMessages!=null && #lists.size(newMessages)>0}" th:text="${#lists.size(newMessages)}"></div>
+      </div>
       <a class="link_right" href="/contact">Contact</a>
   </div>
   <div>
@@ -41,15 +46,19 @@
                 </tr>
               </tbody>
           </table>
+          <div id="message" th:if="${id!=user.getId()}">
+              <button id="new_message" th:onclick="javascript:newMessage(/*[[${user.getId()}]]*/)"><i class="far fa-envelope"></i></button>
+          </div>
+          <div id="links" th:if="${id==user.getId()}">
+              <div>
+                  <input type="button" id="pass_button" class="button_as_link" value="Change Password" th:onclick="showPassFields()"/>
+              </div>
+              <div>
+                  <input type="button" id="delete_account" class="button_as_link" value="Delete Account" th:onclick="deleteAccFields()"/>
+              </div>
+          </div>
       </div>
-        <div id="links" th:if="${id==user.getId()}">
-            <div>
-                <input type="button" id="pass_button" class="button_as_link" value="Change Password" th:onclick="showPassFields()"/>
-            </div>
-            <div>
-                <input type="button" id="delete_account" class="button_as_link" value="Delete Account" th:onclick="deleteAcc()"/>
-            </div>
-        </div>
+
     </div>
   </div>
 </body>

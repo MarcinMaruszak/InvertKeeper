@@ -22,6 +22,10 @@
             </form>
             <a class="link_right" href="/profile">Profile</a>
         </span>
+        <div class="message_wrap">
+            <a id="message_link" class="link_right" href="/message/inbox">Messages</a>
+            <div class="notification_dot" th:if="${newMessages!=null && #lists.size(newMessages)>0}" th:text="${#lists.size(newMessages)}"></div>
+        </div>
         <a class="link_right" href="/contact">Contact</a>
     </div>
     <div id="wrap">

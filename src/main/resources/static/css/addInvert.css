@@ -9,15 +9,12 @@ p1{
     font-size: 25px;
     color: white;
 }
-div{
-  margin-top: 10px;
-}
 p{
   color: black;
   font-size: 13px;
   margin-left: 60px;
 }
-input{
+input, select{
   border-radius: 4px;
 }
 .parr{
@@ -71,4 +68,7 @@ label{
 }
 select{
   max-width: 200px;
+}
+.element , .instar_input{
+    margin: 10px;
 }

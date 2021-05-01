@@ -48,6 +48,16 @@ public class User implements UserDetails {
     @ElementCollection(targetClass = Invertebrate.class)
     private List<Invertebrate> invertebratesList;
 
+    @JsonManagedReference(value = "sender")
+    @OneToMany(mappedBy = "sender")
+    @ElementCollection(targetClass = Message.class)
+    private List<Message> sentMessages;
+
+    @JsonManagedReference(value = "receiver")
+    @OneToMany(mappedBy = "receiver")
+    @ElementCollection(targetClass = Message.class)
+    private List<Message> receivedMessages;
+
     public User() {
     }
 
@@ -138,7 +148,21 @@ public class User implements UserDetails {
         return active;
     }
 
+    /*public List<Message> getSentMessages() {
+        return sentMessages;
+    }
 
+    public void setSentMessages(List<Message> sentMessages) {
+        this.sentMessages = sentMessages;
+    }
+
+    public List<Message> getReceivedMessages() {
+        return receivedMessages;
+    }
+
+    public void setReceivedMessages(List<Message> receivedMessages) {
+        this.receivedMessages = receivedMessages;
+    }*/
     @Override
     public String toString() {
         return "User{" +

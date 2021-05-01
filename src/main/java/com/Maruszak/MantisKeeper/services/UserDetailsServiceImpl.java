@@ -93,7 +93,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        Optional<User> user = userRepository.findByUsername(username);
+        Optional<User> user;
+        if(username.contains("@")){
+            user = userRepository.findByEmail(username);
+        }else {
+            user = userRepository.findByUsername(username);
+        }
         if (user.isEmpty()) {
             throw new UsernameNotFoundException(username + " not found");
         }
@@ -233,6 +238,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad token!");
         }
 
+        if(changePasswordDTO.getNewPass().length()<8){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password too short!");
+        }
+
         User user = tokenOptional.get().getUser();
 
         user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPass()));
@@ -240,8 +249,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         tokenService.deleteTokenById(tokenOptional.get().getId());
     }
     @Transactional
-    public void deleteAccount(HttpServletRequest request) {
+    public void deleteAccount(HttpServletRequest request, ChangePasswordDTO changePasswordDTO) {
+
+
         User user =getUser();
+        if(!passwordEncoder.matches(changePasswordDTO.getOldPass(), user.getPassword())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "Wrong old password!");
+        }
         List<Invertebrate> inverts = invertService.findInvertsByUser(user);
         for(Invertebrate invert : inverts){
             instarService.deleteAllByInvert(invert);
@@ -255,5 +269,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         } catch (ServletException e) {
             e.printStackTrace();
         }
+    }
+
+    public Optional<User> findUserByID(UUID id) {
+        return userRepository.findById(id);
     }
 }

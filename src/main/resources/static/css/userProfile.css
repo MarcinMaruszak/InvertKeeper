@@ -49,3 +49,24 @@ label{
 .content {
     padding: 10px;
 }
+#confirm_del{
+  max-width: 120px;
+  background-color: red;
+  color: white;
+  border-radius: 4px;
+  border-color: rgb(255,240,102);
+  margin: 7px;
+}
+#remove_div{
+  margin: 15px;
+}
+.notification_dot{
+  right:  85px !important;
+}
+#new_message{
+  font-size: 20px;
+  border-radius: 4px;
+  background-color: white;
+  color: blue;
+}
+

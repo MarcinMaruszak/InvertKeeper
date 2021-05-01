@@ -69,8 +69,8 @@ public class UserController {
 
     @DeleteMapping(path = "/deleteAccount")
     public @ResponseBody
-    void deleteAccount(HttpServletRequest request){
-        userServices.deleteAccount(request);
+    void deleteAccount(HttpServletRequest request, @RequestBody ChangePasswordDTO changePasswordDTO){
+        userServices.deleteAccount(request, changePasswordDTO);
     }
 }
 

@@ -29,10 +29,6 @@ label{
   font-weight: bold;
   margin-right: 5px
 }
-div{
-   margin-top: 5px;
-   margin-bottom: 5px;
-}
 .instars_table, .instar_col{
     margin-left: 0px;
 }
@@ -51,6 +47,7 @@ div{
 }
 #death_button, #edit_button, #delete_button, #alive_button{
    background-color: white;
+   border-radius: 4px;
 }
 #death_button:hover, #edit_button:hover, #delete_button:hover, #alive_button:hover{
    border-color: black;

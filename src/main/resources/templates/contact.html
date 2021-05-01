@@ -10,7 +10,7 @@
     <title>Contact</title>
 </head>
 <body>
-    <div class="top_nav">
+<div class="top_nav">
     <a class="link_left" href="/">Home</a>
     <a class="link_left" href="/myInverts">My Inverts</a>
     <a class="link_left" href="/allInverts">All Inverts</a>
@@ -19,24 +19,28 @@
             <a class="link_right"
                href="javascript:{}" onclick="document.getElementById('logout_form').submit(); return false;">Log Out</a>
         </form>
-            <a class="link_right" href="/profile">Profile</a>
-        </span>
+    </span>
+    <a class="link_right" href="/profile">Profile</a>
+    <div class="message_wrap">
+        <a id="message_link" class="link_right" href="/message/inbox">Messages</a>
+        <div class="notification_dot" th:if="${newMessages!=null && #lists.size(newMessages)>0}" th:text="${#lists.size(newMessages)}"></div>
     </div>
-    <div id="wrap">
-        <div>
-            <label for="type">Type of Message:</label>
-            <select name="type" id="type">
-                <option value="Other">Other</option>
-                <option value="Bug Report">Bug report</option>
-                <option value="Request">Feature Request</option>
-            </select>
-        </div>
-        <div>
-            <textarea id="message" rows="6" cols="50" placeholder="Enter message or bug information"></textarea>
-        </div>
-        <div>
-            <button id="send_button" type="button" onclick="send()">Send</button>
-        </div>
+</div>
+<div id="wrap">
+    <div>
+        <label for="type">Type of Message:</label>
+        <select name="type" id="type">
+            <option value="Other">Other</option>
+            <option value="Bug Report">Bug report</option>
+            <option value="Request">Feature Request</option>
+        </select>
     </div>
+    <div>
+        <textarea id="message" rows="6" cols="50" placeholder="Enter message or bug information"></textarea>
+    </div>
+    <div>
+        <button id="send_button" type="button" onclick="send()">Send</button>
+    </div>
+</div>
 </body>
 </html>

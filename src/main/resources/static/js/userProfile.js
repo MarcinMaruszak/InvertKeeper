@@ -118,12 +118,30 @@ function saveNewPass(){
 
 }
 
+function deleteAccFields(){
+
+    $('#delete_account').remove();
+
+    $('#wrap').append('<div id = "remove_div"><div><input id="password" type="password" required placeholder="password"/></div>'+
+    '<div><input type="button" id="confirm_del" value="Delete Account" onclick="deleteAcc()"/></div></div>')
+
+
+}
+
 function deleteAcc(){
-    if(confirm("Are you sure you want to Delete Your Account? All data will be lost")){
+     if(confirm("Are you sure you want to Delete Your Account? All data will be lost")){
+
         var token = document.querySelector('meta[name="_csrf"]').content;
         var header = document.querySelector('meta[name="_csrf_header"]').content;
+
+         let object = {
+             "oldPass" : document.getElementById("password").value
+          };
+           let json = JSON.stringify(object);
+
         let xhr = new XMLHttpRequest();
         xhr.open("DELETE", '/deleteAccount' , true);
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
         xhr.setRequestHeader(header, token);
         xhr.onload = function (e) {
             if (xhr.readyState === 4) {
@@ -136,6 +154,10 @@ function deleteAcc(){
                 }
             }
         };
-        xhr.send();
+        xhr.send(json);
     }
+}
+
+function newMessage(userId){
+    window.location.replace("/message/new?id="+userId);
 }

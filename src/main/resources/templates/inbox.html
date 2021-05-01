@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Messages</title>
+    <link th:href="@{/css/general.css}" rel="stylesheet"/>
+    <link th:href="@{/css/inbox.css}" rel="stylesheet"/>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script src="https://kit.fontawesome.com/5788f7a270.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="top_nav">
+    <a class="link_left" href="/">Home</a>
+    <a class="link_left" href="/myInverts">My Inverts</a>
+    <a class="link_left" href="/allInverts">All Inverts</a>
+    <form id="logout_form" class="link_right" th:action="@{/logout}" method="post">
+        <a class="link_right"
+           href="javascript:{}" onclick="document.getElementById('logout_form').submit(); return false;">Log Out</a>
+    </form>
+    <a class="link_right" href="/profile">Profile</a>
+    <a class="link_right" href="/message/sent">Sent</a>
+    <a class="link_right" href="/contact">Contact</a>
+</div>
+<div id="wrap" class="wrap">
+    <div class="content">
+        <div>
+            <p id="main_p">Received Messages</p>
+        </div>
+        <table id="messages_table" class="messagesTable" th:unless="${messages.empty}">
+            <thead>
+            <tr>
+                <th>Subject</th>
+                <th>From</th>
+                <th>Status</th>
+                <th>Sent</th>
+                <!--<th>Delete</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each = "message : ${messages}">
+                <td><a th:href="'/message/details/'+${message.getId()}" th:text="${message.getSubject()}"
+                        th:class="${message.isSeen() ? 'read' : 'unread'}"></a></td>
+                <td><span th:text="${message.getSender().getUsername()}"></span></td>
+                <td><span th:text="${message.isSeen() ? 'Seen' : 'New'}"></span></td>
+                <td><span th:text="${#temporals.format(message.getSentDateTime(), 'dd-MM-yyyy HH:mm')}"></span></td>
+                <!--<td><button id="remove_button" th:onclick="javascript:remove()">
+                    <i class="fas fa-trash-alt"></i></button></td>-->
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${messages.empty}">
+            <p id="info">No messages</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

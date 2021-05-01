@@ -25,6 +25,7 @@
 }
 #death, #edit, #delete, #alive_button{
    background-color: white;
+   border-radius: 4px;
 }
 #death:hover, #edit:hover, #delete:hover , #alive_button:hover{
    border-color: black;
