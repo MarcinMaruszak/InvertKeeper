@@ -48,7 +48,7 @@ table, th, td{
 .message_wrap{
     position: relative;
 }
-.notification_dot{
+.notification_dot , .notification_dot1{
    position: absolute;
     right:  155px;
    top: -2px;

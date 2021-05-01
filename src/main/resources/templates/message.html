@@ -19,7 +19,8 @@
     <a class="link_right" href="/profile">Profile</a>
     <div class="message_wrap">
         <a id="message_link" class="link_right" href="/message/inbox">Messages</a>
-        <div class="notification_dot" th:if="${newMessages!=null && #lists.size(newMessages)>1}" th:text="${#lists.size(newMessages)-1}"></div>
+        <div class="notification_dot" th:if="${newMessages!=null && #lists.size(newMessages)>1}"
+             th:text="${#lists.size(newMessages)-1}"></div>
     </div>
     <a class="link_right" href="/contact">Contact</a>
 </div>
@@ -30,6 +31,10 @@
             <tr>
                 <th>From</th>
                 <td th:text="${message.getSender().getUsername()}"></td>
+            </tr>
+            <tr>
+                <th>To</th>
+                <td th:text="${message.getReceiver().getUsername()}"></td>
             </tr>
             <tr>
                 <th>Subject</th>
@@ -44,9 +49,10 @@
             </tr>
             </tbody>
         </table>
-        <button id="replay">Replay</button>
-        <script type="text/javascript" th:inline="javascript">
-        /*<![CDATA[*/
+        <div th:if="${userId!=message.getSender().getId()}">
+            <button id="replay">Replay</button>
+            <script type="text/javascript" th:inline="javascript">
+            /*<![CDATA[*/
             document.getElementById("replay").onclick = function () {
                 var id = /*[[${message.getSender().getId()}]]*/
                 var subject = /*[[${message.getSubject()}]]*/
@@ -54,10 +60,10 @@
                     subject = 'Re:'+subject;
                 }
                 window.location.replace('/message/new?id='+id+'&subject='+subject);
-           };
-        /*]]>*/
-  </script>
-
+            };
+            /*]]>*/
+             </script>
+        </div>
     </div>
 </div>
 </body>

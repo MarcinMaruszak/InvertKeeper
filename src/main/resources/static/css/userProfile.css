@@ -60,9 +60,10 @@ label{
 #remove_div{
   margin: 15px;
 }
-.notification_dot{
+.notification_dot1{
   right:  85px !important;
 }
+
 #new_message{
   font-size: 20px;
   border-radius: 4px;

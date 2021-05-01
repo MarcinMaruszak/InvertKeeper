@@ -27,8 +27,13 @@ public class MessageServiceImpl {
 
     public String newMessage(Model model, UUID id, String subject) {
         Optional<User> receiver = userDetailsService.findUserByID(id);
+
         if (receiver.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found!");
+        }
+        User user = userDetailsService.getUser();
+        if(receiver.get().getId().equals(user.getId())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sending message to yourself not allowed!");
         }
         model.addAttribute("subject", subject);
         model.addAttribute("receiverName", receiver.get().getUsername());
@@ -37,6 +42,7 @@ public class MessageServiceImpl {
     }
 
     public void sendNewMessage(MessageDTO messageDTO) {
+
         Message message = new Message();
         message.setSubject(messageDTO.getSubject());
         message.setMessage(messageDTO.getMessage());
@@ -68,12 +74,15 @@ public class MessageServiceImpl {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't find message");
         }
         Message message = messageOpt.get();
-        if (!user.getId().equals(message.getReceiver().getId())) {
+        if (!user.getId().equals(message.getReceiver().getId())&&!user.getId().equals(message.getSender().getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not your message! Cannot read it");
         }
-        message.setSeen(true);
-        messageRepository.save(message);
+        if(user.getId().equals(message.getReceiver().getId())){
+            message.setSeen(true);
+            messageRepository.save(message);
+        }
         model.addAttribute("message", message);
+        model.addAttribute("userId" , user.getId());
         return "message";
     }
 
